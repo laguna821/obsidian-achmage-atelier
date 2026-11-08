@@ -1,0 +1,10 @@
+import fs from 'node:fs';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
+const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
+const font = fs.readFileSync(path.join(root, 'assets/fonts/PretendardVariable.woff2')).toString('base64');
+const parts = ['font','common','refinement','markdown','commands','finish','search','layered'];
+const source = parts.map(name => fs.readFileSync(path.join(root, 'src', name + '.css'), 'utf8').replace('__PRETENDARD_DATA__', 'data:font/woff2;base64,' + font)).join('\n\n');
+const notices = fs.readFileSync(path.join(root, 'THIRD-PARTY-LICENSES.txt'), 'utf8');
+fs.writeFileSync(path.join(root, 'theme.css'), '/*\n' + notices + '\n*/\n\n' + source);
+console.log('Built theme.css with bundled Pretendard Variable.');

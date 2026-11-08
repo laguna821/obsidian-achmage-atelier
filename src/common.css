@@ -1,0 +1,517 @@
+/* stylelint-disable no-descending-specificity -- Host navigation states and mobile overrides retain the validated cascade order. */
+
+/*
+Achmage Atelier · 0.4.0
+A native Obsidian theme, without community plugin dependencies.
+HIG principles are adapted to Obsidian; geometry and palettes are project choices.
+No fonts, images or scripts are loaded from the network.
+*/
+body {
+  --font-interface-theme: "Atelier Pretendard", -apple-system, blinkmacsystemfont, "Segoe UI", "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
+  --font-text-theme: "Atelier Pretendard", -apple-system, blinkmacsystemfont, "Segoe UI", "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
+  --font-monospace-theme: ui-monospace, "SFMono-Regular", consolas, monospace;
+  --font-ui-smaller: 12px;
+  --font-ui-small: 14px;
+  --font-ui-medium: 14px;
+  --font-ui-large: 15px;
+  --font-text-size: 18px;
+  --line-height-normal: 1.7;
+  --line-height-tight: 1.4;
+  --file-line-width: 720px;
+  --file-margins: 40px;
+  --inline-title-size: 2em;
+  --inline-title-weight: 650;
+  --inline-title-line-height: 1.3;
+  --inline-title-margin-bottom: 24px;
+  --h1-size: 1.75em;
+  --h2-size: 1.3em;
+  --h3-size: 1.1em;
+  --h4-size: 1em;
+  --h5-size: .94em;
+  --h6-size: .9em;
+  --h1-weight: 650;
+  --h2-weight: 650;
+  --h3-weight: 600;
+  --h4-weight: 600;
+  --heading-spacing: 2em;
+  --p-spacing: 1.15rem;
+  --radius-s: 6px;
+  --radius-m: 8px;
+  --radius-l: 12px;
+  --radius-xl: 16px;
+  --input-radius: 7px;
+  --button-radius: 7px;
+  --clickable-icon-radius: 7px;
+  --icon-size: 18px;
+  --icon-stroke: 1.7px;
+  --icon-opacity: 1;
+  --icon-opacity-hover: 1;
+  --nav-item-size: 14px;
+  --nav-item-weight: 400;
+  --nav-item-weight-hover: 400;
+  --nav-item-weight-active: 600;
+  --nav-item-padding: 7px 10px;
+  --nav-item-parent-padding: 7px 10px;
+  --nav-item-children-padding-start: 16px;
+  --nav-item-children-margin-start: 10px;
+  --nav-indentation-guide-width: 1px;
+  --nav-item-white-space: nowrap;
+  --nav-heading-weight: 600;
+  --nav-heading-weight-hover: 600;
+  --vault-profile-font-size: 14px;
+  --vault-profile-font-weight: 600;
+  --tab-font-size: 13px;
+  --tab-font-weight: 500;
+  --tab-radius: 8px;
+  --tab-radius-active: 8px 8px 0 0;
+  --tab-width: 220px;
+  --tab-max-width: 240px;
+  --tab-min-width: 72px;
+  --header-height: 44px;
+  --ribbon-width: 44px;
+  --status-bar-font-size: 12px;
+  --status-bar-border-width: 0;
+  --status-bar-radius: 8px 0 0 0;
+  --metadata-label-width: 120px;
+  --metadata-label-font-size: 14px;
+  --metadata-input-font-size: 15px;
+  --metadata-gap: 4px;
+  --metadata-padding: 16px 18px;
+  --metadata-border-radius: 10px;
+  --metadata-border-width: 1px;
+  --tag-size: .78em;
+  --tag-padding-x: .55em;
+  --tag-padding-y: .18em;
+  --tag-radius: 5px;
+  --blockquote-border-thickness: 2px;
+  --blockquote-font-style: normal;
+  --code-radius: 7px;
+  --code-size: .88em;
+  --checkbox-size: 17px;
+  --checkbox-radius: 5px;
+  --input-height: 32px;
+  --table-header-weight: 600;
+  --table-border-width: 1px;
+  --table-cell-vertical-alignment: top;
+  --embed-border-start: 2px solid var(--background-modifier-border);
+}
+
+/* Documented Apple colors transferred to CSS roles. Neutral surface mapping is House, not live AppKit. Accessible blue used for small labels. */
+.theme-light {
+  color-scheme: light;
+
+  --color-base-00: #fff;
+  --color-base-05: #fafafa;
+  --color-base-10: #f2f2f7;
+  --color-base-20: #e5e5ea;
+  --color-base-25: #d1d1d6;
+  --color-base-30: #c7c7cc;
+  --color-base-35: #aeaeb2;
+  --color-base-40: #8e8e93;
+  --color-base-50: #6c6c70;
+  --color-base-60: #636366;
+  --color-base-70: #48484a;
+  --color-base-100: #1c1c1e;
+  --background-primary: #fff;
+  --background-primary-alt: #f2f2f7;
+  --background-secondary: #f2f2f7;
+  --background-secondary-alt: #e5e5ea;
+  --background-modifier-hover: rgb(0 0 0 / 4.5%);
+  --background-modifier-active-hover: rgb(0 0 0 / 8%);
+  --background-modifier-border: #e5e5ea;
+  --background-modifier-border-hover: #c7c7cc;
+  --background-modifier-border-focus: #1e6ef4;
+  --background-modifier-form-field: #fff;
+  --background-modifier-box-shadow: rgb(0 0 0 / 6%);
+  --text-normal: #1c1c1e;
+  --atelier-content-secondary: #3a3a3c;
+  --atelier-quote-edge: #8e8e93;
+  --text-muted: #636366;
+  --text-faint: #6c6c70;
+  --text-on-accent: #fff;
+  --text-accent: #1e6ef4;
+  --text-accent-hover: #1e6ef4;
+  --text-selection: rgb(0 136 255 / 18%);
+  --interactive-normal: #fff;
+  --interactive-hover: #e5e5ea;
+  --interactive-accent: #1e6ef4;
+  --interactive-accent-hover: #1e6ef4;
+  --color-accent: #1e6ef4;
+  --color-accent-1: #08f;
+  --color-accent-2: #1e6ef4;
+  --color-accent-hsl: 218, 91%, 54%;
+  --accent-h: 218;
+  --accent-s: 91%;
+  --accent-l: 54%;
+  --atelier-system-blue: #08f;
+  --atelier-accent-soft: #e5e5ea;
+  --atelier-accent-text: #1c1c1e;
+  --atelier-frame: #f2f2f7;
+  --atelier-panel-border: #e5e5ea;
+  --atelier-shadow: 0 1px 3px rgb(0 0 0 / 3.5%);
+  --atelier-rail: #f2f2f7;
+  --atelier-rail-icon: #636366;
+  --atelier-code: #48484a;
+  --atelier-callout: 30,110,244;
+}
+
+.theme-dark {
+  color-scheme: dark;
+
+  --color-base-00: #1c1c1e;
+  --color-base-05: #242426;
+  --color-base-10: #2c2c2e;
+  --color-base-20: #3a3a3c;
+  --color-base-25: #444446;
+  --color-base-30: #48484a;
+  --color-base-35: #545456;
+  --color-base-40: #636366;
+  --color-base-50: #8e8e93;
+  --color-base-60: #aeaeb2;
+  --color-base-70: #d1d1d6;
+  --color-base-100: #f2f2f7;
+  --background-primary: #1c1c1e;
+  --background-primary-alt: #2c2c2e;
+  --background-secondary: #242426;
+  --background-secondary-alt: #2c2c2e;
+  --background-modifier-hover: rgb(255 255 255 / 5.5%);
+  --background-modifier-active-hover: rgb(255 255 255 / 9%);
+  --background-modifier-border: #3a3a3c;
+  --background-modifier-border-hover: #636366;
+  --background-modifier-border-focus: #5cb8ff;
+  --background-modifier-form-field: #2c2c2e;
+  --background-modifier-box-shadow: rgb(0 0 0 / 15%);
+  --text-normal: #e5e5ea;
+  --atelier-content-secondary: #d1d1d6;
+  --atelier-quote-edge: #8e8e93;
+  --text-muted: #aeaeb2;
+  --text-faint: #aeaeb2;
+  --text-on-accent: #fff;
+  --text-accent: #5cb8ff;
+  --text-accent-hover: #5cb8ff;
+  --text-selection: rgb(0 145 255 / 26%);
+  --interactive-normal: #3a3a3c;
+  --interactive-hover: #48484a;
+  --interactive-accent: #1e6ef4;
+  --interactive-accent-hover: #1e6ef4;
+  --color-accent: #0091ff;
+  --color-accent-1: #5cb8ff;
+  --color-accent-2: #0091ff;
+  --color-accent-hsl: 206, 100%, 50%;
+  --accent-h: 206;
+  --accent-s: 100%;
+  --accent-l: 50%;
+  --atelier-system-blue: #0091ff;
+  --atelier-accent-soft: #3a3a3c;
+  --atelier-accent-text: #f2f2f7;
+  --atelier-frame: #242426;
+  --atelier-panel-border: #3a3a3c;
+  --atelier-shadow: 0 1px 3px rgb(0 0 0 / 8%);
+  --atelier-rail: #242426;
+  --atelier-rail-icon: #aeaeb2;
+  --atelier-code: #d1d1d6;
+  --atelier-callout: 92,184,255;
+}
+
+body {
+  --h1-color: var(--text-normal);
+  --h2-color: var(--text-normal);
+  --h3-color: var(--text-normal);
+  --h4-color: var(--text-normal);
+  --h5-color: var(--text-muted);
+  --h6-color: var(--text-muted);
+  --bold-color: var(--text-normal);
+  --italic-color: var(--text-normal);
+  --link-color: var(--text-accent);
+  --link-color-hover: var(--text-accent-hover);
+  --link-external-color: var(--text-accent);
+  --link-external-color-hover: var(--text-accent-hover);
+  --link-decoration: underline;
+  --link-decoration-hover: underline;
+  --link-unresolved-color: var(--text-muted);
+  --link-unresolved-opacity: 1;
+  --link-unresolved-decoration-style: dotted;
+  --nav-item-color: var(--atelier-content-secondary);
+  --nav-item-color-hover: var(--text-normal);
+  --nav-item-color-active: var(--atelier-accent-text);
+  --nav-item-color-selected: var(--atelier-accent-text);
+  --nav-item-color-highlighted: var(--text-normal);
+  --nav-item-background-hover: var(--background-modifier-hover);
+  --nav-item-background-active: var(--atelier-accent-soft);
+  --nav-item-background-selected: var(--atelier-accent-soft);
+  --nav-heading-color: var(--text-normal);
+  --nav-heading-color-hover: var(--text-normal);
+  --nav-heading-color-collapsed: var(--atelier-content-secondary);
+  --nav-collapse-icon-color: var(--text-faint);
+  --nav-collapse-icon-color-collapsed: var(--text-faint);
+  --nav-indentation-guide-color: var(--background-modifier-border);
+  --icon-color: var(--text-muted);
+  --icon-color-hover: var(--text-normal);
+  --icon-color-active: var(--atelier-accent-text);
+  --icon-color-focused: var(--text-accent);
+  --tab-text-color: var(--atelier-content-secondary);
+  --tab-text-color-focused-active-current: var(--text-normal);
+  --tab-text-color-active: var(--text-normal);
+  --tab-text-color-focused: var(--atelier-content-secondary);
+  --tab-text-color-focused-active: var(--text-normal);
+  --tab-background-active: var(--background-primary);
+  --tab-container-background: var(--background-secondary);
+  --tab-outline-width: 0;
+  --divider-color: var(--background-modifier-border);
+  --divider-color-hover: var(--interactive-accent);
+  --divider-width: 1px;
+  --titlebar-background: var(--background-secondary);
+  --titlebar-background-focused: var(--background-secondary);
+  --titlebar-text-color-focused: var(--text-muted);
+  --vault-profile-color: var(--text-normal);
+  --vault-profile-color-hover: var(--text-normal);
+  --status-bar-background: var(--background-secondary);
+  --status-bar-text-color: var(--text-muted);
+  --metadata-label-text-color: var(--atelier-content-secondary);
+  --metadata-input-text-color: var(--text-normal);
+  --metadata-background: var(--background-primary-alt);
+  --metadata-border-color: var(--background-modifier-border);
+  --tag-color: var(--text-normal);
+  --tag-background: var(--atelier-accent-soft);
+  --tag-background-hover: var(--background-modifier-hover);
+  --tag-color-hover: var(--text-accent-hover);
+  --blockquote-border-color: var(--atelier-quote-edge);
+  --blockquote-color: var(--text-normal);
+  --code-background: var(--background-primary-alt);
+  --code-normal: var(--atelier-code);
+  --table-header-background: var(--background-primary-alt);
+  --table-border-color: var(--background-modifier-border);
+  --table-row-alt-background: transparent;
+  --text-highlight-bg: var(--atelier-accent-soft);
+  --checkbox-color: var(--interactive-accent);
+  --checkbox-marker-color: var(--text-on-accent);
+  --checklist-done-color: var(--text-muted);
+}
+
+/* Native controls remain present, labelled and operable. */
+.clickable-icon {
+  min-width: 28px;
+  min-height: 28px;
+}
+
+:where(button, .clickable-icon, input, select, textarea, a):focus-visible {
+  outline: 2px solid var(--text-accent);
+  outline-offset: 2px;
+}
+.workspace-tab-header.is-active .workspace-tab-header-inner-title { font-weight: 600; }
+
+.workspace-tab-header-inner {
+  padding-inline: 10px;
+  gap: 8px;
+}
+.workspace-tab-header-container { padding-inline: 8px; }
+.mod-left-split .workspace-tab-header-container, .mod-right-split .workspace-tab-header-container { padding-inline: 12px; }
+.workspace-ribbon:is(.mod-left, .mod-primary) { border-right: 0; }
+.side-dock-ribbon-action { margin-block: 3px; }
+.nav-header { padding: 12px 12px 8px; }
+
+.nav-buttons-container {
+  gap: 4px;
+  justify-content: flex-start;
+}
+.nav-files-container { padding: 4px 14px 20px; }
+
+.nav-folder-title, .nav-file-title {
+  border-radius: 7px;
+  margin-block: 2px;
+  min-height: 34px;
+}
+.nav-folder-title-content { font-weight: 550; }
+.nav-folder.mod-root > .nav-folder-children > .nav-folder { margin-top: 12px; }
+
+.nav-folder.mod-root > .nav-folder-children > .nav-folder > .nav-folder-title .nav-folder-title-content {
+  font-weight: 600;
+  color: var(--text-normal);
+}
+
+/* Small monochrome folder glyph from Lucide's ISC-licensed folder icon.
+   Pure decoration; disclosure remains Obsidian's original control. */
+.nav-folder-title-content::before {
+  content: "";
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  margin-inline-end: 8px;
+  vertical-align: -3px;
+  background: currentcolor;
+  opacity: .85;
+  /* stylelint-disable-next-line property-no-vendor-prefix -- Keep the fallback for older embedded WebKit views. */
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.7' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M20 20H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h3.9a2 2 0 0 1 1.69.9l.81 1.2a2 2 0 0 0 1.67.9H20a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2Z'/%3E%3C/svg%3E") center/contain no-repeat;
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.7' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M20 20H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h3.9a2 2 0 0 1 1.69.9l.81 1.2a2 2 0 0 0 1.67.9H20a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2Z'/%3E%3C/svg%3E") center/contain no-repeat;
+}
+.nav-folder-title-content[contenteditable="true"]::before { display: none; }
+.nav-file-title.is-active { box-shadow: inset 3px 0 0 var(--interactive-accent); }
+
+.nav-file-title.is-selected {
+  outline: 1px solid var(--background-modifier-border-focus);
+  outline-offset: -1px;
+}
+.nav-file-title.is-being-dragged, .nav-folder-title.is-being-dragged { opacity: .65; }
+.nav-folder.is-being-dragged-over > .nav-folder-title { outline: 2px solid var(--text-accent); }
+
+.tree-item-self.has-focus, .nav-file-title:focus-visible, .nav-folder-title:focus-visible {
+  outline: 2px solid var(--text-accent);
+  outline-offset: -2px;
+  box-shadow: none;
+}
+.nav-file-title.is-active:not(.has-focus) { box-shadow: inset 3px 0 0 var(--interactive-accent); }
+.nav-folder-title[data-path]:not([data-path*="/"]) { margin-top: 10px; }
+
+.nav-folder-title[data-path]:not([data-path*="/"]) .nav-folder-title-content {
+  color: var(--text-normal);
+  font-weight: 600;
+}
+
+.nav-file-title-content[contenteditable="true"], .nav-folder-title-content[contenteditable="true"] {
+  min-width: 0;
+  background: var(--background-primary);
+  color: var(--text-normal);
+  box-shadow: 0 0 0 2px var(--text-accent);
+  border-radius: 3px;
+}
+
+.workspace-sidedock-vault-profile {
+  border-top: 1px solid var(--background-modifier-border);
+  padding: 12px;
+}
+.workspace-leaf-content[data-type="outline"] .view-content { padding: 18px 12px; }
+.outline .tree-item-self { padding-block: 6px; }
+
+.view-header {
+  padding-inline: 20px;
+  border-bottom: 1px solid var(--background-modifier-border);
+}
+
+.view-header-title {
+  font-size: 13px;
+  font-weight: 500;
+}
+.inline-title { letter-spacing: -.015em; }
+.markdown-rendered h2, .markdown-rendered h3 { letter-spacing: -.01em; }
+
+.markdown-rendered p, .markdown-rendered li {
+  word-break: keep-all;
+  overflow-wrap: break-word;
+}
+
+.markdown-rendered a {
+  text-underline-offset: 3px;
+  text-decoration-thickness: 1px;
+}
+
+.markdown-rendered blockquote {
+  padding: 4px 0 4px 20px;
+  margin-inline: 0;
+}
+.markdown-rendered blockquote p { margin-block: 4px; }
+.metadata-container { margin-bottom: 28px; }
+.metadata-properties-heading { margin-bottom: 10px; }
+
+.metadata-properties-heading .metadata-properties-title {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-muted);
+}
+.metadata-add-button { font-size: 13px; }
+.metadata-property { border-radius: 4px; }
+.metadata-property-key { align-items: center; }
+
+.callout {
+  --callout-color: var(--atelier-callout);
+  --callout-padding: 16px 20px;
+  --callout-radius: 10px;
+  --callout-border-width: 1px;
+  --callout-border-opacity: .15;
+  --callout-title-weight: 600;
+}
+.markdown-rendered th, .markdown-rendered td { padding: 12px 16px; }
+.markdown-rendered hr { margin-block: 32px; }
+
+.prompt, .modal {
+  border: 1px solid var(--background-modifier-border);
+  border-radius: 14px;
+}
+
+.menu {
+  padding: 6px;
+  border-radius: 10px;
+}
+
+.menu-item {
+  padding: 7px 10px;
+  border-radius: 6px;
+}
+
+.suggestion-item.is-selected {
+  background: var(--atelier-accent-soft);
+  color: var(--atelier-accent-text);
+}
+.setting-item { padding-block: 18px; }
+.setting-item-name { font-weight: 550; }
+
+/* Optional Notebook Navigator adapter: semantic public variables only.
+   The theme does not require the plugin; individual folder overrides remain user-owned. */
+.theme-light, .theme-dark {
+  --nn-theme-foreground: var(--text-normal);
+  --nn-theme-foreground-muted: var(--text-muted);
+  --nn-theme-foreground-faded: var(--text-faint);
+  --nn-theme-foreground-faint: var(--background-modifier-border);
+  --nn-theme-nav-bg: var(--background-secondary);
+  --nn-theme-list-bg: var(--background-primary);
+  --nn-theme-mobile-bg: var(--background-primary);
+  --nn-theme-nav-separator-color: var(--background-modifier-border);
+  --nn-theme-navitem-name-color: var(--atelier-content-secondary);
+  --nn-theme-navitem-icon-color: var(--text-muted);
+  --nn-theme-navitem-chevron-color: var(--text-faint);
+  --nn-theme-navitem-hover-bg: var(--background-modifier-hover);
+  --nn-theme-navitem-selected-bg: var(--atelier-accent-soft);
+  --nn-theme-navitem-selected-name-color: var(--atelier-accent-text);
+  --nn-theme-navitem-selected-icon-color: var(--atelier-accent-text);
+  --nn-theme-navitem-selected-chevron-color: var(--atelier-accent-text);
+  --nn-theme-navitem-selected-inactive-bg: var(--background-modifier-hover);
+  --nn-theme-navitem-selected-inactive-name-color: var(--text-normal);
+  --nn-theme-navitem-count-color: var(--text-muted);
+  --nn-theme-navitem-count-bg: transparent;
+  --nn-theme-navitem-border-radius: 7px;
+  --nn-theme-file-name-color: var(--text-normal);
+  --nn-theme-file-preview-color: var(--text-muted);
+  --nn-theme-file-date-color: var(--text-faint);
+  --nn-theme-file-selected-bg: var(--atelier-accent-soft);
+  --nn-theme-file-selected-name-color: var(--atelier-accent-text);
+  --nn-theme-file-selected-preview-color: var(--atelier-accent-text);
+  --nn-theme-file-selected-date-color: var(--atelier-accent-text);
+  --nn-theme-file-selected-inactive-bg: var(--background-modifier-hover);
+  --nn-theme-file-border-radius: 7px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .workspace-tab-header, .nav-file-title, .nav-folder-title, .clickable-icon { transition: none; }
+}
+
+@media (width <= 900px) {
+  body { --file-margins: 24px; }
+}
+
+body.is-mobile {
+  --font-ui-medium: 17px;
+  --font-ui-small: 15px;
+  --nav-item-size: 17px;
+  --nav-item-padding: 10px 12px;
+  --nav-item-parent-padding: 10px 12px;
+  --file-margins: 20px;
+  --inline-title-size: 1.65em;
+  --input-height: 44px;
+}
+
+.is-mobile .clickable-icon {
+  min-width: 44px;
+  min-height: 44px;
+}
+.is-mobile .nav-file-title, .is-mobile .nav-folder-title { min-height: 44px; }
+
+/* stylelint-enable no-descending-specificity */

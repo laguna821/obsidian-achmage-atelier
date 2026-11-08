@@ -1,0 +1,48 @@
+/* stylelint-disable no-descending-specificity -- Desktop panel variants precede the intentional narrow-window override. */
+
+/* B: Layered library. Same typography and content; subtle pane separation. */
+body {
+  --atelier-variant: layered;
+  --tab-container-background: var(--atelier-frame);
+  --titlebar-background: var(--atelier-frame);
+  --titlebar-background-focused: var(--atelier-frame);
+}
+body:not(.is-mobile) .workspace { background: var(--atelier-frame); }
+
+body:not(.is-mobile) .workspace-split.mod-root {
+  padding: 8px 16px 16px 10px;
+  gap: 8px;
+}
+
+body:not(.is-mobile) .workspace-split.mod-root > .workspace-tabs > .workspace-tab-container {
+  border: 1px solid var(--atelier-panel-border);
+  border-radius: 12px;
+  box-shadow: var(--atelier-shadow);
+}
+
+body:not(.is-mobile) .mod-left-split {
+  margin: 0 4px 10px 0;
+  border-right: 0;
+}
+
+body:not(.is-mobile) .mod-left-split > .workspace-tabs > .workspace-tab-container {
+  border: 1px solid var(--atelier-panel-border);
+  border-radius: 12px;
+  background: var(--background-secondary);
+}
+
+body:not(.is-mobile) .mod-right-split {
+  margin: 0 10px 10px 0;
+  border-left: 0;
+}
+
+body:not(.is-mobile) .mod-right-split > .workspace-tabs > .workspace-tab-container {
+  border: 1px solid var(--atelier-panel-border);
+  border-radius: 12px;
+  background: var(--background-secondary);
+}
+body:not(.is-mobile) .workspace-ribbon:is(.mod-left, .mod-primary) { background: var(--atelier-rail); }
+body:not(.is-mobile) .workspace-sidedock-vault-profile { background: var(--atelier-frame); }
+body:not(.is-mobile) .workspace-tabs > .workspace-tab-container { overflow: hidden; }
+
+/* stylelint-enable no-descending-specificity */

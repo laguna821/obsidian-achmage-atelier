@@ -1,0 +1,32 @@
+name: Validate theme
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: npm
+      - run: npm ci --ignore-scripts
+      - run: npm run build
+      - run: git diff --exit-code -- theme.css
+      - run: npm run check
+      - name: Obsidian community scanner (strict)
+        uses: obsidianmd/obsidian-workflows@8167caed39664214d82c86fdfa32e06d8d55f61d
+        with:
+          type: theme
+          mode: pr
+          scanner-lint: true
+          strict: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

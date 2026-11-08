@@ -1,0 +1,8 @@
+/* Unmodified Pretendard Variable 1.3.9. OFL is included in the theme header. */
+@font-face {
+ font-family: "Atelier Pretendard";
+ font-style: normal;
+ font-weight: 45 920;
+ font-display: swap;
+ src: url("__PRETENDARD_DATA__") format("woff2");
+}

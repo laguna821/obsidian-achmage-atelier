@@ -1,0 +1,202 @@
+/* stylelint-disable selector-not-notation -- Separate exclusions preserve specificity against Obsidian controls. */
+/* stylelint-disable no-descending-specificity -- These refinements deliberately follow the base host selectors. */
+
+/* Revision 07 — quiet Apple neutral surfaces and native explorer hierarchy.
+   Based on the user's visual rejection of the first, overly subtle draft. */
+body {
+  --nav-item-size: 15px;
+  --nav-item-padding: 9px 12px;
+  --nav-item-parent-padding: 9px 12px;
+  --nav-item-children-padding-start: 12px;
+  --nav-item-children-margin-start: 8px;
+  --nav-indentation-guide-color: transparent;
+  --font-ui-medium: 15px;
+  --header-height: 48px;
+  --ribbon-width: 48px;
+  --inline-title-size: 2em;
+  --inline-title-weight: 700;
+  --metadata-padding: 12px 16px;
+  --metadata-gap: 0;
+  --vault-profile-font-size: 15px;
+  --vault-profile-font-weight: 650;
+  --tab-font-size: 14px;
+}
+
+.workspace-leaf-content[data-type="file-explorer"] {
+  --nav-item-background-active: var(--interactive-accent);
+  --nav-item-color-active: var(--text-on-accent);
+}
+.nav-files-container { padding: 4px 12px 24px; }
+
+.nav-folder-title, .nav-file-title {
+  border-radius: 8px;
+  min-height: 38px;
+}
+
+.nav-folder-title[data-path]:not([data-path*="/"]) {
+  margin-top: 16px;
+  margin-bottom: 6px;
+}
+
+.nav-folder-title[data-path]:not([data-path*="/"]) .nav-folder-title-content {
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: 0;
+}
+
+.nav-folder-title-content::before {
+  margin-inline-end: 9px;
+  width: 17px;
+  height: 17px;
+}
+.nav-folder-title-content { letter-spacing: -.01em; }
+.nav-file-title-content { font-size: var(--nav-item-size); }
+
+.nav-file-title.is-active,
+.nav-file-title.is-active:hover,
+.nav-file-title.is-active.is-selected {
+  --nav-item-background-hover: var(--interactive-accent);
+  --nav-item-color-hover: var(--text-on-accent);
+
+  background: var(--interactive-accent);
+  color: var(--text-on-accent);
+  font-weight: 600;
+  box-shadow: none;
+}
+.nav-file-title.is-active:not(.has-focus) { box-shadow: none; }
+
+.nav-file-title.is-active.has-focus {
+  outline: 2px solid var(--background-primary);
+  outline-offset: -4px;
+  box-shadow: 0 0 0 1px var(--interactive-accent);
+}
+.nav-file-title:hover:not(.is-active) { background: var(--background-modifier-hover); }
+
+.workspace-sidedock-vault-profile {
+  min-height: 66px;
+  padding: 16px 18px;
+}
+.nav-header { padding: 16px 16px 10px; }
+.workspace-tab-header-inner { padding-inline: 14px; }
+.workspace-tab-header.is-active .workspace-tab-header-inner-title { font-weight: 650; }
+.view-header { padding-inline: 24px; }
+.markdown-reading-view > .markdown-preview-view { padding-top: 48px; }
+.inline-title { margin-bottom: 24px; }
+
+.metadata-properties-heading {
+  font-size: 14px;
+  color: var(--text-normal);
+  min-height: 32px;
+  margin-bottom: 4px;
+}
+
+.metadata-properties-heading .metadata-properties-title {
+  font-size: 14px;
+  font-weight: 650;
+  letter-spacing: 0;
+  color: var(--text-normal);
+}
+.metadata-container { margin-bottom: 28px; }
+
+.metadata-property {
+  min-height: 36px;
+  padding-block: 4px;
+  border-radius: 0;
+}
+.metadata-property + .metadata-property { border-top: 1px solid var(--background-modifier-border); }
+.metadata-property-key-input { font-weight: 500; }
+.metadata-property-value { line-height: 1.5; }
+
+.metadata-property:focus-within {
+  background: var(--background-primary);
+  border-radius: 4px;
+}
+
+.metadata-add-button {
+  min-height: 32px;
+  margin-top: 8px;
+  font-size: 14px;
+  color: var(--code-function);
+}
+
+.metadata-properties-heading:focus-visible,
+.metadata-property:focus-visible,
+.metadata-add-button:focus-visible {
+  outline: 2px solid var(--text-accent);
+  outline-offset: -2px;
+  box-shadow: none;
+}
+
+/* Only navigation controls grow; inline chips and property warnings retain native geometry. */
+:is(.nav-header, .view-header, .workspace-ribbon, .workspace-sidedock-vault-profile) .clickable-icon {
+  min-width: 32px;
+  min-height: 32px;
+}
+.view-actions, .view-header-nav-buttons { gap: 4px; }
+
+.clickable-icon:not([aria-disabled="true"]):not(.is-disabled):active {
+  background-color: var(--background-modifier-active-hover);
+}
+.clickable-icon[aria-disabled="true"] { opacity: .4; }
+.workspace-tab-header:not(.is-active):hover .workspace-tab-header-inner-title { color: var(--text-normal); }
+.workspace-tab-header.is-active .workspace-tab-header-inner-icon { color: var(--text-accent); }
+
+.workspace-leaf-content[data-type="outline"] .tree-item-self {
+  color: var(--atelier-content-secondary);
+  font-size: var(--nav-item-size);
+  line-height: 1.45;
+  min-height: 36px;
+  padding-block: 8px;
+}
+
+.workspace-leaf-content[data-type="outline"] .tree-item-self.is-active {
+  color: var(--text-normal);
+  font-weight: 600;
+  background: var(--background-modifier-hover);
+}
+
+.search-result-file-title {
+  color: var(--text-normal);
+  font-size: 15px;
+}
+
+.search-result-file-match {
+  color: var(--atelier-content-secondary);
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.search-result-file-matched-text {
+  color: var(--text-normal);
+  background: var(--text-highlight-bg);
+}
+.backlink-pane .tree-item-self, .tag-pane-tag { color: var(--atelier-content-secondary); }
+
+.menu-item, .suggestion-item {
+  font-size: 14px;
+  min-height: 32px;
+}
+.setting-item-description, .search-empty-state { line-height: 1.5; }
+.markdown-rendered table { font-variant-numeric: tabular-nums; }
+
+body:not(.is-mobile) .workspace-ribbon:is(.mod-left, .mod-primary) {
+  background: var(--atelier-rail);
+
+  --icon-color: var(--atelier-rail-icon);
+  --icon-color-hover: var(--text-normal);
+  --icon-color-active: var(--text-accent);
+  --icon-color-focused: var(--text-accent);
+
+  padding-top: 12px;
+}
+
+body:not(.is-mobile) .workspace-ribbon:is(.mod-left, .mod-primary) .sidebar-toggle-button {
+  color: var(--atelier-rail-icon);
+  background: var(--atelier-rail);
+}
+body:not(.is-mobile) .workspace-ribbon:is(.mod-left, .mod-primary) .side-dock-ribbon-action { margin-block: 6px; }
+body.is-mobile { --inline-title-size: 1.7em; }
+
+/* stylelint-enable no-descending-specificity */
+
+/* stylelint-enable selector-not-notation */

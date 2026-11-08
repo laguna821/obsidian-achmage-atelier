@@ -1,0 +1,6 @@
+/* Optional: native Obsidian Settings > Appearance > CSS snippets.
+   No Style Settings or other plugin required. Turn off to restore frosted surfaces. */
+body {
+  --atelier-material-fill: var(--atelier-material-opaque);
+  --atelier-material-filter: none;
+}

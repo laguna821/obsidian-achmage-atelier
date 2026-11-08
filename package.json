@@ -1,0 +1,20 @@
+{
+  "name": "obsidian-achmage-atelier",
+  "version": "0.4.0",
+  "private": true,
+  "description": "A minimal Obsidian theme inspired by Apple’s Human Interface Guidelines, with refined light and dark modes.",
+  "license": "MIT",
+  "engines": {
+    "node": ">=22.12.0"
+  },
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "lint": "stylelint \"theme.css\" \"src/*.css\" \"snippets/*.css\"",
+    "verify": "node scripts/verify.mjs",
+    "check": "npm run lint && npm run verify"
+  },
+  "devDependencies": {
+    "stylelint": "17.0.0",
+    "stylelint-config-obsidianmd": "0.1.0"
+  }
+}

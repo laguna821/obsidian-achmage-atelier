@@ -1,0 +1,309 @@
+/* stylelint-disable selector-not-notation -- Separate exclusions preserve specificity against Obsidian controls. */
+/* stylelint-disable no-descending-specificity -- Focus, disabled and active states retain the validated host-control cascade. */
+
+/* Atelier 0.4 — controls, focus and materials.
+   Existing neutral palette/Pretendard preserved. Native Obsidian DOM and behavior.
+   Motion 120/220ms + easing from HIG Kit [House], not Apple platform constants.
+   Material alpha/blur are project experiments verified over extreme backdrops. */
+body {
+  --atelier-finish-revision: 1;
+  --atelier-duration-control: 120ms;
+  --atelier-duration-surface: 220ms;
+  --atelier-ease: cubic-bezier(.2, .8, .2, 1);
+  --atelier-material-filter: none;
+  --atelier-material-fill: var(--background-primary);
+  --atelier-material-opaque: var(--background-primary);
+  --atelier-control-radius: 7px;
+  --atelier-field-radius: 8px;
+  --atelier-overlay-radius: 14px;
+  --input-radius: var(--atelier-field-radius);
+  --button-radius: var(--atelier-control-radius);
+  --toggle-thumb-radius: 50%;
+  --toggle-thumb-color: #fff;
+  --atelier-control-shadow: none;
+  --atelier-accent-hover-fill: color-mix(in srgb, var(--interactive-accent) 88%, #000);
+  --atelier-accent-pressed-fill: color-mix(in srgb, var(--interactive-accent) 76%, #000);
+  --atelier-danger-hover-fill: color-mix(in srgb, var(--text-error) 92%, #000);
+}
+
+.theme-light {
+  --atelier-glass-tint: rgb(255 255 255 / 92%);
+  --atelier-glass-edge: rgb(255 255 255 / 80%);
+  --atelier-control-fill: #fff;
+  --atelier-control-hover: #f2f2f7;
+  --atelier-control-pressed: #e5e5ea;
+  --atelier-control-edge: #d1d1d6;
+  --atelier-on-danger: #fff;
+  --atelier-warning-ink: #a64500;
+  --atelier-surface-shadow: 0 8px 28px rgb(0 0 0 / 12%), 0 1px 3px rgb(0 0 0 / 8%);
+  --atelier-surface-outline: rgb(0 0 0 / 12%);
+  --atelier-toggle-edge: rgb(0 0 0 / 16%);
+  --atelier-thumb-shadow: 0 1px 3px rgb(0 0 0 / 16%);
+  --atelier-selected-muted: #e5e5ea;
+}
+
+.theme-dark {
+  --atelier-glass-tint: rgb(36 36 38 / 92%);
+  --atelier-glass-edge: rgb(255 255 255 / 13%);
+  --atelier-control-fill: #3a3a3c;
+  --atelier-control-hover: #48484a;
+  --atelier-control-pressed: #2c2c2e;
+  --atelier-control-edge: #545456;
+  --atelier-on-danger: #1c1c1e;
+  --atelier-warning-ink: #ff9230;
+  --atelier-surface-shadow: 0 8px 28px rgb(0 0 0 / 50%), 0 1px 3px rgb(0 0 0 / 40%);
+  --atelier-surface-outline: rgb(0 0 0 / 40%);
+  --atelier-toggle-edge: rgb(255 255 255 / 18%);
+  --atelier-thumb-shadow: 0 1px 3px rgb(0 0 0 / 30%);
+  --atelier-selected-muted: #3a3a3c;
+}
+
+/* Opaque baseline works without backdrop-filter. No transparency inside documents. */
+@supports (backdrop-filter: blur(1px)) {
+  body {
+  --atelier-material-fill: var(--atelier-glass-tint);
+  --atelier-material-filter: blur(16px) saturate(110%);
+}
+}
+
+.prompt, .menu, .suggestion-container {
+  background: var(--atelier-material-fill);
+  backdrop-filter: var(--atelier-material-filter);
+  /* stylelint-disable-next-line property-no-vendor-prefix -- Keep the fallback for older embedded WebKit views. */
+  -webkit-backdrop-filter: var(--atelier-material-filter);
+  border: 1px solid var(--atelier-glass-edge);
+  box-shadow: 0 0 0 1px var(--atelier-surface-outline), var(--atelier-surface-shadow);
+}
+
+.prompt {
+  border-radius: var(--atelier-overlay-radius);
+  overflow: hidden;
+}
+
+.prompt .prompt-input-container {
+  padding: 12px 12px 4px;
+  border: 0;
+  background: transparent;
+}
+
+body:not(.is-mobile) .prompt input.prompt-input {
+  width: 100%;
+  height: 48px;
+  padding: 12px 40px 12px 16px;
+  border: 1px solid var(--atelier-control-edge);
+  border-radius: var(--atelier-field-radius);
+  background: var(--background-primary);
+  box-shadow: none;
+}
+
+body:not(.is-mobile) .prompt input.prompt-input:is(:focus, :focus-visible) {
+  border-color: var(--text-accent);
+  outline: 2px solid var(--text-accent);
+  outline-offset: 0;
+  box-shadow: none;
+}
+
+body:not(.is-mobile) .prompt .search-input-clear-button {
+  top: 20px;
+  bottom: auto;
+  margin-block: 0;
+  inset-inline-end: 20px;
+}
+.prompt-results { padding: 8px; }
+.prompt-instructions { background: transparent; }
+
+.prompt .suggestion-item:not(.is-selected):hover,
+.suggestion-container .suggestion-item:not(.is-selected):hover {
+  background: var(--background-modifier-hover);
+}
+.prompt .suggestion-hotkey { transition: none; }
+
+/* Native form controls keep their semantics; only their visual states are shared. */
+:is(.setting-item-control, .modal-button-container) > button,
+.vertical-tab-content button:not(.clickable-icon),
+select.dropdown {
+  min-height: var(--input-height);
+  border: 1px solid var(--atelier-control-edge);
+  border-radius: var(--atelier-control-radius);
+  background-color: var(--atelier-control-fill);
+  color: var(--text-normal);
+  font-weight: 500;
+  box-shadow: var(--atelier-control-shadow);
+  transition: background-color var(--atelier-duration-control) var(--atelier-ease),
+              border-color var(--atelier-duration-control) var(--atelier-ease);
+}
+
+:is(.setting-item-control, .modal-button-container) > button:not(:disabled):not(.mod-cta):not(.mod-warning):hover,
+.vertical-tab-content button:not(.clickable-icon):not(:disabled):not(.mod-cta):not(.mod-warning):hover,
+select.dropdown:not(:disabled):hover { background-color: var(--atelier-control-hover); }
+
+:is(.setting-item-control, .modal-button-container) > button:not(:disabled):not(.mod-cta):not(.mod-warning):active,
+.vertical-tab-content button:not(.clickable-icon):not(:disabled):not(.mod-cta):not(.mod-warning):active {
+  background-color: var(--atelier-control-pressed);
+  border-color: var(--background-modifier-border-hover);
+  transition-duration: 0s;
+}
+
+:is(.setting-item-control, .modal-button-container, .vertical-tab-content) button.mod-cta {
+  background-color: var(--interactive-accent);
+  color: var(--text-on-accent);
+  border-color: transparent;
+}
+
+:is(.setting-item-control, .modal-button-container, .vertical-tab-content) button.mod-cta:not(:disabled):hover {
+  background-color: var(--atelier-accent-hover-fill);
+}
+
+:is(.setting-item-control, .modal-button-container, .vertical-tab-content) button.mod-cta:not(:disabled):active {
+  background-color: var(--atelier-accent-pressed-fill);
+  transition-duration: 0s;
+}
+
+:is(.setting-item-control, .modal-button-container, .vertical-tab-content) button.mod-warning {
+  background-color: var(--text-error);
+  color: var(--atelier-on-danger);
+  border-color: transparent;
+}
+
+:is(.setting-item-control, .modal-button-container, .vertical-tab-content) button:disabled {
+  opacity: .45;
+  transition: none;
+}
+
+:is(.setting-item-control, .modal-button-container, .vertical-tab-content) button.mod-warning:not(:disabled):hover {
+  background-color: var(--atelier-danger-hover-fill);
+}
+
+:is(.setting-item-control, .search-input-container) input:not([type="checkbox"]):not([type="range"]),
+.setting-item-control textarea {
+  border-color: var(--atelier-control-edge);
+  border-radius: var(--atelier-field-radius);
+  box-shadow: none;
+}
+
+:is(.setting-item-control, .search-input-container) input:not([type="checkbox"]):not([type="range"]):focus,
+.setting-item-control textarea:focus {
+  border-color: var(--text-accent);
+  outline: 2px solid var(--text-accent);
+  outline-offset: 0;
+  box-shadow: none;
+}
+
+:is(.setting-item-control, .modal-button-container, .vertical-tab-content) button:focus-visible,
+select.dropdown:focus-visible, .checkbox-container:focus-visible,
+.clickable-icon:focus-visible, .vertical-tab-nav-item:focus-visible {
+  outline: 2px solid var(--text-accent);
+  outline-offset: 2px;
+
+  /* Focus appears immediately; outline is never part of a transition. */
+}
+
+.checkbox-container {
+  box-shadow: inset 0 0 0 1px var(--atelier-toggle-edge);
+  transition: background-color var(--atelier-duration-control) var(--atelier-ease);
+}
+
+.checkbox-container::after {
+  box-shadow: var(--atelier-thumb-shadow);
+  transition: transform var(--atelier-duration-surface) var(--atelier-ease);
+}
+.checkbox-container:not(.is-disabled):active { filter: brightness(.94); }
+
+.clickable-icon {
+  border-radius: var(--atelier-control-radius);
+  transition: background-color var(--atelier-duration-control) var(--atelier-ease),
+              color var(--atelier-duration-control) var(--atelier-ease);
+}
+.clickable-icon:not([aria-disabled="true"]):not(.is-disabled):active { transition-duration: 0s; }
+
+.clickable-icon:is([aria-disabled="true"], .is-disabled) {
+  opacity: .4;
+  transition: none;
+}
+
+:is(.nav-header, .view-header, .workspace-ribbon, .workspace-sidedock-vault-profile, .vertical-tab-header, .setting-item-control) .svg-icon {
+  stroke-width: var(--icon-stroke);
+}
+
+.vertical-tab-nav-item-icon {
+  --icon-size: 18px;
+  --icon-stroke: 1.7px;
+}
+
+body:not(.is-mobile) .vertical-tab-nav-item {
+  min-height: 36px;
+  padding: 8px 12px;
+  border-radius: 8px;
+  gap: 8px;
+  font-size: 14px;
+  font-weight: 400;
+  color: var(--atelier-content-secondary);
+}
+
+body:not(.is-mobile) .vertical-tab-nav-item.is-active {
+  color: var(--text-normal);
+  background: var(--atelier-selected-muted);
+  font-weight: 600;
+}
+.vertical-tab-nav-item.is-active .vertical-tab-nav-item-icon { color: var(--text-accent); }
+
+.vertical-tab-header-group-title {
+  color: var(--text-muted);
+  font-weight: 600;
+}
+.setting-item-name { color: var(--text-normal); }
+.setting-item-description { color: var(--text-muted); }
+.setting-item-description .mod-warning { color: var(--atelier-warning-ink); }
+
+body:not(.is-mobile) .vertical-tab-header {
+  background: var(--background-secondary);
+  border-inline-end: 1px solid var(--background-modifier-border);
+}
+.vertical-tab-content-container { background: var(--background-primary); }
+.setting-items { border: 1px solid var(--background-modifier-border); }
+.menu { border-radius: 10px; }
+
+.tooltip {
+  border: 1px solid var(--background-modifier-border-hover);
+  box-shadow: var(--atelier-surface-shadow);
+}
+.markdown-rendered button.copy-code-button { border-radius: var(--atelier-control-radius); }
+
+/* A brief reveal, not an input delay. No exit animation: host owns removal. */
+@keyframes atelier-surface-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+.prompt { animation: atelier-surface-in var(--atelier-duration-control) var(--atelier-ease); }
+
+/* Same opaque option used by the comparison and optional standalone snippet. */
+body[data-atelier-material="opaque"] {
+  --atelier-material-fill: var(--atelier-material-opaque);
+  --atelier-material-filter: none;
+}
+
+@media (prefers-reduced-transparency: reduce), (prefers-contrast: more), (forced-colors: active) {
+  body.theme-light, body.theme-dark {
+  --atelier-material-fill: var(--atelier-material-opaque);
+  --atelier-material-filter: none;
+  --atelier-glass-edge: var(--background-modifier-border-hover);
+}
+}
+
+@media (prefers-reduced-motion: reduce) {
+  body {
+  --atelier-duration-control: 0s;
+  --atelier-duration-surface: 0s;
+}
+  .prompt { animation: none; }
+
+  .clickable-icon, .checkbox-container, .checkbox-container::after,
+  :is(.setting-item-control, .modal-button-container) > button,
+  .vertical-tab-content button, select.dropdown {
+    transition: none;
+  }
+}
+
+/* stylelint-enable no-descending-specificity */
+
+/* stylelint-enable selector-not-notation */
