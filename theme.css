@@ -154,22 +154,30 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
 /* stylelint-disable no-descending-specificity -- Host navigation states and mobile overrides retain the validated cascade order. */
 
 /*
-Achmage Atelier · 0.4.0
+Achmage Atelier · 0.5.0
 A native Obsidian theme, without community plugin dependencies.
 HIG principles are adapted to Obsidian; geometry and palettes are project choices.
 No fonts, images or scripts are loaded from the network.
 */
-body {
-  --font-interface-theme: "Atelier Pretendard", -apple-system, blinkmacsystemfont, "Segoe UI", "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
-  --font-text-theme: "Atelier Pretendard", -apple-system, blinkmacsystemfont, "Segoe UI", "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
-  --font-monospace-theme: ui-monospace, "SFMono-Regular", consolas, monospace;
+body:where(:not(.is-mobile)) {
   --font-ui-smaller: 12px;
   --font-ui-small: 14px;
   --font-ui-medium: 14px;
   --font-ui-large: 15px;
+  --line-height-tight: 1.4;
+  --nav-item-size: 14px;
+  --nav-item-padding: 7px 10px;
+  --nav-item-parent-padding: 7px 10px;
+  --nav-item-children-padding-start: 16px;
+  --nav-item-children-margin-start: 10px;
+}
+
+body {
+  --font-interface-theme: "Atelier Pretendard", -apple-system, blinkmacsystemfont, "Segoe UI", "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
+  --font-text-theme: "Atelier Pretendard", -apple-system, blinkmacsystemfont, "Segoe UI", "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
+  --font-monospace-theme: ui-monospace, "SFMono-Regular", consolas, monospace;
   --font-text-size: 18px;
   --line-height-normal: 1.7;
-  --line-height-tight: 1.4;
   --file-line-width: 720px;
   --file-margins: 40px;
   --inline-title-size: 2em;
@@ -199,14 +207,9 @@ body {
   --icon-stroke: 1.7px;
   --icon-opacity: 1;
   --icon-opacity-hover: 1;
-  --nav-item-size: 14px;
   --nav-item-weight: 400;
   --nav-item-weight-hover: 400;
   --nav-item-weight-active: 600;
-  --nav-item-padding: 7px 10px;
-  --nav-item-parent-padding: 7px 10px;
-  --nav-item-children-padding-start: 16px;
-  --nav-item-children-margin-start: 10px;
   --nav-indentation-guide-width: 1px;
   --nav-item-white-space: nowrap;
   --nav-heading-weight: 600;
@@ -467,15 +470,15 @@ body {
   gap: 4px;
   justify-content: flex-start;
 }
-.nav-files-container { padding: 4px 14px 20px; }
+body:not(.is-mobile) .nav-files-container { padding: 4px 14px 20px; }
 
 .nav-folder-title, .nav-file-title {
   border-radius: 7px;
-  margin-block: 2px;
-  min-height: 34px;
+  margin-block: 0;
 }
+body:not(.is-mobile) :is(.nav-folder-title, .nav-file-title) { min-height: 34px; }
 .nav-folder-title-content { font-weight: 550; }
-.nav-folder.mod-root > .nav-folder-children > .nav-folder { margin-top: 12px; }
+.nav-folder.mod-root > .nav-folder-children > .nav-folder { margin-top: 0; }
 
 .nav-folder.mod-root > .nav-folder-children > .nav-folder > .nav-folder-title .nav-folder-title-content {
   font-weight: 600;
@@ -491,8 +494,8 @@ body {
   height: 16px;
   margin-inline-end: 8px;
   vertical-align: -3px;
-  background: currentcolor;
-  opacity: .85;
+  background: var(--text-accent);
+  opacity: 1;
   /* stylelint-disable-next-line property-no-vendor-prefix -- Keep the fallback for older embedded WebKit views. */
   -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.7' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M20 20H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h3.9a2 2 0 0 1 1.69.9l.81 1.2a2 2 0 0 0 1.67.9H20a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2Z'/%3E%3C/svg%3E") center/contain no-repeat;
   mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.7' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M20 20H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h3.9a2 2 0 0 1 1.69.9l.81 1.2a2 2 0 0 0 1.67.9H20a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2Z'/%3E%3C/svg%3E") center/contain no-repeat;
@@ -513,7 +516,6 @@ body {
   box-shadow: none;
 }
 .nav-file-title.is-active:not(.has-focus) { box-shadow: inset 3px 0 0 var(--interactive-accent); }
-.nav-folder-title[data-path]:not([data-path*="/"]) { margin-top: 10px; }
 
 .nav-folder-title[data-path]:not([data-path*="/"]) .nav-folder-title-content {
   color: var(--text-normal);
@@ -619,7 +621,7 @@ body {
   --nn-theme-mobile-bg: var(--background-primary);
   --nn-theme-nav-separator-color: var(--background-modifier-border);
   --nn-theme-navitem-name-color: var(--atelier-content-secondary);
-  --nn-theme-navitem-icon-color: var(--text-muted);
+  --nn-theme-navitem-icon-color: var(--text-accent);
   --nn-theme-navitem-chevron-color: var(--text-faint);
   --nn-theme-navitem-hover-bg: var(--background-modifier-hover);
   --nn-theme-navitem-selected-bg: var(--atelier-accent-soft);
@@ -651,11 +653,6 @@ body {
 }
 
 body.is-mobile {
-  --font-ui-medium: 17px;
-  --font-ui-small: 15px;
-  --nav-item-size: 17px;
-  --nav-item-padding: 10px 12px;
-  --nav-item-parent-padding: 10px 12px;
   --file-margins: 20px;
   --inline-title-size: 1.65em;
   --input-height: 44px;
@@ -665,7 +662,6 @@ body.is-mobile {
   min-width: 44px;
   min-height: 44px;
 }
-.is-mobile .nav-file-title, .is-mobile .nav-folder-title { min-height: 44px; }
 
 /* stylelint-enable no-descending-specificity */
 
@@ -675,14 +671,17 @@ body.is-mobile {
 
 /* Revision 07 — quiet Apple neutral surfaces and native explorer hierarchy.
    Based on the user's visual rejection of the first, overly subtle draft. */
-body {
+body:where(:not(.is-mobile)) {
   --nav-item-size: 15px;
-  --nav-item-padding: 9px 12px;
-  --nav-item-parent-padding: 9px 12px;
+  --nav-item-padding: 5px 12px;
+  --nav-item-parent-padding: 5px 12px;
   --nav-item-children-padding-start: 12px;
   --nav-item-children-margin-start: 8px;
-  --nav-indentation-guide-color: transparent;
   --font-ui-medium: 15px;
+}
+
+body {
+  --nav-indentation-guide-color: transparent;
   --header-height: 48px;
   --ribbon-width: 48px;
   --inline-title-size: 2em;
@@ -698,16 +697,15 @@ body {
   --nav-item-background-active: var(--interactive-accent);
   --nav-item-color-active: var(--text-on-accent);
 }
-.nav-files-container { padding: 4px 12px 24px; }
+body:not(.is-mobile) .nav-files-container { padding: 4px 12px 24px; }
 
 .nav-folder-title, .nav-file-title {
   border-radius: 8px;
-  min-height: 38px;
 }
+body:not(.is-mobile) :is(.nav-folder-title, .nav-file-title) { min-height: 32px; }
 
 .nav-folder-title[data-path]:not([data-path*="/"]) {
-  margin-top: 16px;
-  margin-bottom: 6px;
+  margin-block: 0;
 }
 
 .nav-folder-title[data-path]:not([data-path*="/"]) .nav-folder-title-content {
@@ -1017,10 +1015,14 @@ body {
 }
 .cm-s-obsidian .cm-url { color: var(--text-muted); }
 
-.markdown-source-view.mod-cm6 .cm-active.cm-line {
+body:is(.is-mobile, .is-focused) .markdown-source-view.mod-cm6 .cm-editor.cm-focused .cm-content:focus-within .cm-active.cm-line {
   background: var(--background-modifier-hover);
+
+  /* Heading/list spacing belongs outside the active text highlight. */
+  background-clip: content-box;
   border-radius: 4px;
 }
+
 .markdown-source-view.mod-cm6 .cm-gutters { color: var(--text-faint); }
 .markdown-source-view.mod-cm6 .cm-content { caret-color: var(--text-accent); }
 /* stylelint-disable-next-line selector-class-pattern -- CodeMirror owns this class name. */
@@ -1311,7 +1313,7 @@ body {
   overflow: hidden;
 }
 
-.prompt .prompt-input-container {
+body:not(.is-mobile) .prompt .prompt-input-container {
   padding: 12px 12px 4px;
   border: 0;
   background: transparent;
@@ -1674,6 +1676,138 @@ body[data-atelier-material="opaque"] {
 .mod-left-split .workspace-tab-header[data-type="search"].is-active {
   background: var(--background-modifier-hover);
 }
+
+
+/* Mobile geometry follows Obsidian's drawer, sheet and keyboard layout.
+   File navigation inherits native row density, font scale and indentation. */
+/* stylelint-disable no-descending-specificity -- Mobile overrides intentionally follow shared desktop refinements. */
+body.is-mobile {
+  --input-height: max(44px, calc(var(--font-ui-medium) * 1.5 + 16px));
+  --icon-size: var(--icon-m);
+  --metadata-label-font-size: var(--font-ui-small);
+  --metadata-input-font-size: var(--font-ui-medium);
+}
+
+/* Row spacing never depends on whether the host has materialized children. */
+.is-mobile .nav-folder.mod-root > .nav-folder-children > .nav-folder {
+  margin-top: 0;
+}
+
+.is-mobile .nav-folder-title,
+.is-mobile .nav-file-title,
+.is-mobile .nav-folder-title[data-path]:not([data-path*="/"]) {
+  margin-block: 0;
+}
+
+.is-mobile .nav-folder-title-content,
+.is-mobile .nav-folder-title[data-path]:not([data-path*="/"]) .nav-folder-title-content {
+  font-size: var(--nav-item-size);
+}
+
+.is-mobile .nav-folder-title-content::before {
+  width: 1em;
+  height: 1em;
+  vertical-align: -.15em;
+}
+
+body.is-mobile :is(.nav-header, .view-header, .workspace-ribbon, .workspace-sidedock-vault-profile, .setting-item-control) .clickable-icon {
+  min-width: 44px;
+  min-height: 44px;
+}
+
+.is-mobile .nav-header { padding: 8px 12px; }
+
+.is-mobile .workspace-sidedock-vault-profile {
+  min-height: 56px;
+  padding: 8px 12px;
+}
+
+.is-mobile .workspace-leaf-content[data-type="outline"] .tree-item-self,
+.is-mobile .backlink-pane .tree-item-self,
+.is-mobile .tag-pane-tag,
+.is-mobile .menu-item,
+.is-mobile .suggestion-item {
+  min-height: 44px;
+  font-size: var(--font-ui-medium);
+}
+
+.is-mobile .markdown-reading-view > .markdown-preview-view { padding-top: 24px; }
+.is-mobile .inline-title { margin-bottom: 16px; }
+.is-mobile .markdown-rendered pre { padding: 16px; }
+.is-mobile .markdown-rendered th, .is-mobile .markdown-rendered td { padding: 8px 12px; }
+
+.is-mobile .metadata-properties-heading,
+.is-mobile .metadata-add-button {
+  min-height: 44px;
+  font-size: var(--font-ui-small);
+}
+
+.is-mobile .metadata-properties-heading .metadata-properties-title { font-size: var(--font-ui-small); }
+
+.is-mobile .metadata-property {
+  min-height: 44px;
+  padding-block: 6px;
+}
+
+.is-mobile .setting-item { padding-block: 12px; }
+
+/* Keep the native phone input at the bottom. The host owns safe areas and IME. */
+body.is-mobile .prompt {
+  border: 0;
+  box-shadow: var(--shadow-s);
+}
+
+body.is-mobile .prompt .prompt-input-container {
+  padding: 0;
+  border: 0;
+}
+
+body.is-mobile .prompt input.prompt-input {
+  font-size: var(--font-ui-medium);
+  min-height: var(--input-height);
+  box-shadow: none;
+}
+
+body.is-mobile .prompt .search-input-clear-button {
+  width: 44px;
+  height: 44px;
+  top: 0;
+  bottom: 0;
+  margin-block: auto;
+  inset-inline-end: 4px;
+}
+
+body.is-mobile .prompt .suggestion-item,
+body.is-mobile .prompt .suggestion-title {
+  font-size: var(--font-ui-medium);
+}
+
+.is-mobile .prompt .suggestion-note,
+.is-mobile .prompt .suggestion-description { font-size: var(--font-ui-small); }
+
+.is-mobile .prompt .suggestion-item { white-space: normal; }
+
+.is-mobile .workspace-leaf-content[data-type="search"] {
+  --search-result-file-title-size: var(--font-ui-medium);
+}
+
+.is-mobile .workspace-leaf-content[data-type="search"] input[type="search"],
+.is-mobile .workspace-leaf-content[data-type="search"] .search-results-info .dropdown,
+.is-mobile .workspace-leaf-content[data-type="search"] .search-result-file-title,
+.is-mobile .workspace-leaf-content[data-type="search"] .search-result-file-match {
+  min-height: 44px;
+}
+
+.is-mobile .workspace-leaf-content[data-type="search"] .search-result-file-title { font-size: var(--font-ui-medium); }
+
+.is-mobile .workspace-leaf-content[data-type="search"] .search-result-file-match,
+.is-mobile .workspace-leaf-content[data-type="search"] .search-empty-state,
+.is-mobile .workspace-leaf-content[data-type="search"] .search-results-info,
+.is-mobile .workspace-leaf-content[data-type="search"] .search-results-info .dropdown {
+  font-size: var(--font-ui-small);
+}
+
+/* stylelint-enable no-descending-specificity */
 
 
 /* stylelint-disable no-descending-specificity -- Desktop panel variants precede the intentional narrow-window override. */

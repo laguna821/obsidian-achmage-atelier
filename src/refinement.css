@@ -3,14 +3,17 @@
 
 /* Revision 07 — quiet Apple neutral surfaces and native explorer hierarchy.
    Based on the user's visual rejection of the first, overly subtle draft. */
-body {
+body:where(:not(.is-mobile)) {
   --nav-item-size: 15px;
-  --nav-item-padding: 9px 12px;
-  --nav-item-parent-padding: 9px 12px;
+  --nav-item-padding: 5px 12px;
+  --nav-item-parent-padding: 5px 12px;
   --nav-item-children-padding-start: 12px;
   --nav-item-children-margin-start: 8px;
-  --nav-indentation-guide-color: transparent;
   --font-ui-medium: 15px;
+}
+
+body {
+  --nav-indentation-guide-color: transparent;
   --header-height: 48px;
   --ribbon-width: 48px;
   --inline-title-size: 2em;
@@ -26,16 +29,15 @@ body {
   --nav-item-background-active: var(--interactive-accent);
   --nav-item-color-active: var(--text-on-accent);
 }
-.nav-files-container { padding: 4px 12px 24px; }
+body:not(.is-mobile) .nav-files-container { padding: 4px 12px 24px; }
 
 .nav-folder-title, .nav-file-title {
   border-radius: 8px;
-  min-height: 38px;
 }
+body:not(.is-mobile) :is(.nav-folder-title, .nav-file-title) { min-height: 32px; }
 
 .nav-folder-title[data-path]:not([data-path*="/"]) {
-  margin-top: 16px;
-  margin-bottom: 6px;
+  margin-block: 0;
 }
 
 .nav-folder-title[data-path]:not([data-path*="/"]) .nav-folder-title-content {

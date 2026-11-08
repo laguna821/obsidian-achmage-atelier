@@ -12,6 +12,7 @@ A minimal Obsidian theme inspired by Apple’s Human Interface Guidelines, with 
 - Embedded **Pretendard Variable** for Korean and Latin text. No font installation or network connection required.
 - Considered typography for headings, quotes, properties, links, code, tables and tasks.
 - Consistent search results, command palettes, menus, settings and keyboard focus.
+- Compact mobile navigation, scalable UI text and focus-aware current-line highlighting.
 - Restrained translucent palettes and menus, with an optional opaque-surface snippet.
 - Optional **Notebook Navigator** styling. Minimal, Minimal Theme Settings and Style Settings are not required.
 
@@ -53,12 +54,25 @@ All screenshots show actual Obsidian windows with synthetic sample notes.
 
 </details>
 
+<details>
+<summary>Mobile layout preview (Windows emulation, 0.5.0)</summary>
+
+These are Obsidian's mobile emulation on Windows, not screenshots from an iPhone.
+
+| Navigation | Command palette |
+| --- | --- |
+| ![Light mobile navigation](screenshots/mobile-navigation-light.png) | ![Light mobile palette](screenshots/mobile-palette-light.png) |
+| ![Dark mobile navigation](screenshots/mobile-navigation-dark.png) | ![Dark mobile palette](screenshots/mobile-palette-dark.png) |
+
+</details>
+
 ## Compatibility
 
 - Minimum app version declared: **Obsidian 1.14.5**.
 - Visually and interactively tested on **Windows, Obsidian 1.15.0**.
 - Notebook Navigator styling checked with **3.5.0**.
-- macOS, Linux and mobile device validation is still pending.
+- Mobile layouts additionally checked using Obsidian's Windows mobile emulation; this is not an iOS or Android device test.
+- macOS, Linux and real mobile device validation is still pending.
 
 The theme styles Obsidian's existing controls. Translucent surfaces are CSS effects; the separate settings window uses opaque internal surfaces.
 

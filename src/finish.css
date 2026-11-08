@@ -80,7 +80,7 @@ body {
   overflow: hidden;
 }
 
-.prompt .prompt-input-container {
+body:not(.is-mobile) .prompt .prompt-input-container {
   padding: 12px 12px 4px;
   border: 0;
   background: transparent;

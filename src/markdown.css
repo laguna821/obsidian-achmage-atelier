@@ -141,10 +141,14 @@ body {
 }
 .cm-s-obsidian .cm-url { color: var(--text-muted); }
 
-.markdown-source-view.mod-cm6 .cm-active.cm-line {
+body:is(.is-mobile, .is-focused) .markdown-source-view.mod-cm6 .cm-editor.cm-focused .cm-content:focus-within .cm-active.cm-line {
   background: var(--background-modifier-hover);
+
+  /* Heading/list spacing belongs outside the active text highlight. */
+  background-clip: content-box;
   border-radius: 4px;
 }
+
 .markdown-source-view.mod-cm6 .cm-gutters { color: var(--text-faint); }
 .markdown-source-view.mod-cm6 .cm-content { caret-color: var(--text-accent); }
 /* stylelint-disable-next-line selector-class-pattern -- CodeMirror owns this class name. */

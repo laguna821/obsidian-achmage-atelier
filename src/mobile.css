@@ -1,0 +1,130 @@
+/* Mobile geometry follows Obsidian's drawer, sheet and keyboard layout.
+   File navigation inherits native row density, font scale and indentation. */
+/* stylelint-disable no-descending-specificity -- Mobile overrides intentionally follow shared desktop refinements. */
+body.is-mobile {
+  --input-height: max(44px, calc(var(--font-ui-medium) * 1.5 + 16px));
+  --icon-size: var(--icon-m);
+  --metadata-label-font-size: var(--font-ui-small);
+  --metadata-input-font-size: var(--font-ui-medium);
+}
+
+/* Row spacing never depends on whether the host has materialized children. */
+.is-mobile .nav-folder.mod-root > .nav-folder-children > .nav-folder {
+  margin-top: 0;
+}
+
+.is-mobile .nav-folder-title,
+.is-mobile .nav-file-title,
+.is-mobile .nav-folder-title[data-path]:not([data-path*="/"]) {
+  margin-block: 0;
+}
+
+.is-mobile .nav-folder-title-content,
+.is-mobile .nav-folder-title[data-path]:not([data-path*="/"]) .nav-folder-title-content {
+  font-size: var(--nav-item-size);
+}
+
+.is-mobile .nav-folder-title-content::before {
+  width: 1em;
+  height: 1em;
+  vertical-align: -.15em;
+}
+
+body.is-mobile :is(.nav-header, .view-header, .workspace-ribbon, .workspace-sidedock-vault-profile, .setting-item-control) .clickable-icon {
+  min-width: 44px;
+  min-height: 44px;
+}
+
+.is-mobile .nav-header { padding: 8px 12px; }
+
+.is-mobile .workspace-sidedock-vault-profile {
+  min-height: 56px;
+  padding: 8px 12px;
+}
+
+.is-mobile .workspace-leaf-content[data-type="outline"] .tree-item-self,
+.is-mobile .backlink-pane .tree-item-self,
+.is-mobile .tag-pane-tag,
+.is-mobile .menu-item,
+.is-mobile .suggestion-item {
+  min-height: 44px;
+  font-size: var(--font-ui-medium);
+}
+
+.is-mobile .markdown-reading-view > .markdown-preview-view { padding-top: 24px; }
+.is-mobile .inline-title { margin-bottom: 16px; }
+.is-mobile .markdown-rendered pre { padding: 16px; }
+.is-mobile .markdown-rendered th, .is-mobile .markdown-rendered td { padding: 8px 12px; }
+
+.is-mobile .metadata-properties-heading,
+.is-mobile .metadata-add-button {
+  min-height: 44px;
+  font-size: var(--font-ui-small);
+}
+
+.is-mobile .metadata-properties-heading .metadata-properties-title { font-size: var(--font-ui-small); }
+
+.is-mobile .metadata-property {
+  min-height: 44px;
+  padding-block: 6px;
+}
+
+.is-mobile .setting-item { padding-block: 12px; }
+
+/* Keep the native phone input at the bottom. The host owns safe areas and IME. */
+body.is-mobile .prompt {
+  border: 0;
+  box-shadow: var(--shadow-s);
+}
+
+body.is-mobile .prompt .prompt-input-container {
+  padding: 0;
+  border: 0;
+}
+
+body.is-mobile .prompt input.prompt-input {
+  font-size: var(--font-ui-medium);
+  min-height: var(--input-height);
+  box-shadow: none;
+}
+
+body.is-mobile .prompt .search-input-clear-button {
+  width: 44px;
+  height: 44px;
+  top: 0;
+  bottom: 0;
+  margin-block: auto;
+  inset-inline-end: 4px;
+}
+
+body.is-mobile .prompt .suggestion-item,
+body.is-mobile .prompt .suggestion-title {
+  font-size: var(--font-ui-medium);
+}
+
+.is-mobile .prompt .suggestion-note,
+.is-mobile .prompt .suggestion-description { font-size: var(--font-ui-small); }
+
+.is-mobile .prompt .suggestion-item { white-space: normal; }
+
+.is-mobile .workspace-leaf-content[data-type="search"] {
+  --search-result-file-title-size: var(--font-ui-medium);
+}
+
+.is-mobile .workspace-leaf-content[data-type="search"] input[type="search"],
+.is-mobile .workspace-leaf-content[data-type="search"] .search-results-info .dropdown,
+.is-mobile .workspace-leaf-content[data-type="search"] .search-result-file-title,
+.is-mobile .workspace-leaf-content[data-type="search"] .search-result-file-match {
+  min-height: 44px;
+}
+
+.is-mobile .workspace-leaf-content[data-type="search"] .search-result-file-title { font-size: var(--font-ui-medium); }
+
+.is-mobile .workspace-leaf-content[data-type="search"] .search-result-file-match,
+.is-mobile .workspace-leaf-content[data-type="search"] .search-empty-state,
+.is-mobile .workspace-leaf-content[data-type="search"] .search-results-info,
+.is-mobile .workspace-leaf-content[data-type="search"] .search-results-info .dropdown {
+  font-size: var(--font-ui-small);
+}
+
+/* stylelint-enable no-descending-specificity */

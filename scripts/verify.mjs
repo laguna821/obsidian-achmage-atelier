@@ -20,7 +20,7 @@ assert.equal(sha(font), provenance.sha256);
 assert.equal(font.length, provenance.bytes);
 assert.equal(provenance.modified, false);
 
-const parts = ['font','common','refinement','markdown','commands','finish','search','layered'];
+const parts = ['font','common','refinement','markdown','commands','finish','search','mobile','layered'];
 const source = parts.map(name => read('src/' + name + '.css').replace('__PRETENDARD_DATA__', 'data:font/woff2;base64,' + font.toString('base64'))).join('\n\n');
 const theme = read('theme.css');
 assert.equal(theme, '/*\n' + read('THIRD-PARTY-LICENSES.txt') + '\n*/\n\n' + source, 'Run npm run build to update theme.css');

@@ -4,7 +4,7 @@ The GitHub workflow **Validate theme** runs a reproducible build, the official `
 
 The scanner uses `obsidianmd/obsidian-workflows` 1.2.3, pinned to commit `8167caed39664214d82c86fdfa32e06d8d55f61d`, with `scanner-lint: true` and `strict: true`. Its scanner rules ignore CSS disable comments. The comments in our source apply only to additional formatting conventions in the general Stylelint configuration.
 
-Local preflight for 0.4.0 reports no blocking errors. Two browser-support warnings remain:
+Local preflight for 0.5.0 reports no blocking errors. Two browser-support warnings remain:
 
 - **Text decoration:** the compatibility database marks the text-decoration feature family as partially supported. The theme's underline spacing and thickness were checked in the tested Windows app.
 - **Print fragmentation:** `break-inside: avoid` belongs to a partially supported feature family. It is a print-only preference for keeping code blocks and quotations together; pagination may vary across engines.
