@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.5.1 — 2026-11-08
+
+- Remove the extra mobile Properties container background and border so Obsidian's native inner card is the only grouped surface.
+- Vertically center the mobile Properties heading and disclosure indicator without changing the tap target.
+- Preserve desktop Properties styling, metadata values and native mobile navigation density.
+
+Checked in Obsidian 1.15.0 Windows mobile emulation: light/dark, reading/editing, 375px and 430px widths, larger text and collapse/expand behavior. The affected iPhone's intermittent indentation cleared after a clean reinstall of the prerelease theme setup. Its root cause is unconfirmed; no speculative indentation override is added.
+
 ## 0.5.0 — 2026-11-08
 
 - Show the current-line background only while the editor has input focus; hide it when the desktop window loses focus.

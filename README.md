@@ -68,6 +68,12 @@ These are Obsidian's mobile emulation on Windows, not screenshots from an iPhone
 
 ## Compatibility
 
+Mobile Properties in 0.5.1 (Obsidian Windows mobile emulation):
+
+| Light | Dark |
+| --- | --- |
+| ![Mobile Properties in light mode](screenshots/mobile-properties-light.png) | ![Mobile Properties in dark mode](screenshots/mobile-properties-dark.png) |
+
 - Minimum app version declared: **Obsidian 1.14.5**.
 - Visually and interactively tested on **Windows, Obsidian 1.15.0**.
 - Notebook Navigator styling checked with **3.5.0**.

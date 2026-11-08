@@ -56,6 +56,19 @@ body.is-mobile :is(.nav-header, .view-header, .workspace-ribbon, .workspace-side
 .is-mobile .markdown-rendered pre { padding: 16px; }
 .is-mobile .markdown-rendered th, .is-mobile .markdown-rendered td { padding: 8px 12px; }
 
+/* On phones the host paints metadata-content as the grouped card, including
+   its native horizontal inset. Do not paint a second card behind its heading. */
+.is-mobile .metadata-container {
+  --metadata-background: transparent;
+  --metadata-border-width: 0;
+  --metadata-padding: 0;
+}
+
+.is-mobile .metadata-properties-heading {
+  display: inline-flex;
+  align-items: center;
+}
+
 .is-mobile .metadata-properties-heading,
 .is-mobile .metadata-add-button {
   min-height: 44px;

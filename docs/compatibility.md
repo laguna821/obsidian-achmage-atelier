@@ -28,6 +28,14 @@ The 0.5.0 check set passed 39 native behavior/geometry checks and two explicit i
 
 The automated harness could not establish native OS window deactivation reliably. The inactive host class was tested directly; OS focus-event delivery is not claimed as verified. The smaller viewport is a layout stress check, not a simulated iOS keyboard.
 
+## 0.5.1 follow-up
+
+Obsidian 1.15.0 draws mobile Properties inside its own wider, rounded content surface. The theme previously painted the outer container as a second card. This release removes that outer decoration on mobile and centers the section heading. Desktop card styling is unchanged.
+
+44 scoped checks passed in the Windows app: light/dark, reading/editing, 375px and 430px mobile widths, 26px preferred text, collapsing/reopening Properties, desktop card preservation and unchanged synthetic note bytes. Sample properties include long text, empty lists, colon-bearing keys and a long source URL.
+
+181 root folders were also inspected before any toggles and after scrolling, with deeper folders retaining their indentation. The reported iPhone initialization issue did not reproduce. On the affected iPhone running Obsidian 1.15.0, alignment returned to normal after a default-theme/app-restart cycle and after reinstalling both BRAT and the theme. This confirms recovery on that device; it does not establish a BRAT defect, the underlying cause or a universal fix.
+
 ## Not yet verified
 
 - macOS, Linux, iOS and Android on real devices.
