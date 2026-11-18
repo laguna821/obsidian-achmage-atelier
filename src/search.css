@@ -1,3 +1,21 @@
+/* Search results, wherever Obsidian lists them. */
+.search-result-file-title {
+  color: var(--text-normal);
+  font-size: 15px;
+}
+
+.search-result-file-match {
+  color: var(--atelier-content-secondary);
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.search-result-file-matched-text {
+  color: var(--text-normal);
+  background: var(--text-highlight-bg);
+}
+.search-empty-state { line-height: 1.5; }
+
 /* Global Search: file heading → matching passage → highlighted term.
    Keep native grouping, collapse, sort and result navigation. */
 .workspace-leaf-content[data-type="search"] {
@@ -58,7 +76,7 @@
   font-weight: 600;
   line-height: 1.4;
   color: var(--text-normal);
-  border-radius: 7px;
+  border-radius: var(--atelier-row-radius);
 }
 
 .workspace-leaf-content[data-type="search"] .search-result-file-title .tree-item-inner {
@@ -75,14 +93,15 @@
   min-width: 22px;
   line-height: 22px;
   padding: 0 6px;
-  border-radius: 5px;
+  border-radius: var(--radius-s);
   text-align: center;
 }
 
+/* Each file's matches are one small card on the content surface. */
 .workspace-leaf-content[data-type="search"] .search-result-file-matches {
   background: var(--background-primary);
   border: 1px solid var(--background-modifier-border);
-  border-radius: 8px;
+  border-radius: var(--radius-m);
   box-shadow: none;
   overflow: hidden;
 }
@@ -116,7 +135,7 @@
   color: var(--text-normal);
   background: var(--text-highlight-bg);
   font-weight: 600;
-  border-radius: 2px;
+  border-radius: var(--atelier-radius-xs);
   box-decoration-break: clone;
   /* stylelint-disable-next-line property-no-vendor-prefix -- Keep the fallback for older embedded WebKit views. */
   -webkit-box-decoration-break: clone;

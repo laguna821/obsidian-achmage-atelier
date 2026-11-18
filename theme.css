@@ -151,62 +151,111 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
 }
 
 
-/* stylelint-disable no-descending-specificity -- Host navigation states and mobile overrides retain the validated cascade order. */
-
 /*
-Achmage Atelier · 0.5.0
+Achmage Atelier · 0.6.0
 A native Obsidian theme, without community plugin dependencies.
-HIG principles are adapted to Obsidian; geometry and palettes are project choices.
+
+Tokens: every decision is made once, here. Component files read these values
+and do not redefine them. HIG principles are adapted to Obsidian. Documented
+Apple colors are transferred to CSS roles; surface mapping, geometry, motion
+and material values are project choices [House], not platform constants.
 No fonts, images or scripts are loaded from the network.
 */
+
+/* ── Desktop density ─────────────────────────────────────────────────────── */
 body:where(:not(.is-mobile)) {
   --font-ui-smaller: 12px;
   --font-ui-small: 14px;
-  --font-ui-medium: 14px;
+  --font-ui-medium: 15px;
   --font-ui-large: 15px;
   --line-height-tight: 1.4;
-  --nav-item-size: 14px;
-  --nav-item-padding: 7px 10px;
-  --nav-item-parent-padding: 7px 10px;
-  --nav-item-children-padding-start: 16px;
-  --nav-item-children-margin-start: 10px;
+  --nav-item-size: 15px;
+  --nav-item-padding: 5px 12px;
+  --nav-item-parent-padding: 5px 12px;
+  --nav-item-children-padding-start: 12px;
+  --nav-item-children-margin-start: 8px;
+  --prompt-width: 640px;
+  --prompt-max-width: calc(100vw - 48px);
+  --prompt-max-height: min(640px, calc(100vh - 96px));
+  --prompt-input-height: 56px;
+  --prompt-background: var(--background-primary);
 }
 
+/* ── Type, geometry and motion ───────────────────────────────────────────── */
 body {
   --font-interface-theme: "Atelier Pretendard", -apple-system, blinkmacsystemfont, "Segoe UI", "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
   --font-text-theme: "Atelier Pretendard", -apple-system, blinkmacsystemfont, "Segoe UI", "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
   --font-monospace-theme: ui-monospace, "SFMono-Regular", consolas, monospace;
-  --font-text-size: 18px;
   --line-height-normal: 1.7;
   --file-line-width: 720px;
   --file-margins: 40px;
+
+  /* Heading steps follow the ratios of the macOS text styles in the HIG
+     (Large Title 26 · Title 1 22 · Title 2 17 · Title 3 15 over Body 13). */
   --inline-title-size: 2em;
-  --inline-title-weight: 650;
+  --inline-title-weight: 700;
   --inline-title-line-height: 1.3;
   --inline-title-margin-bottom: 24px;
-  --h1-size: 1.75em;
-  --h2-size: 1.3em;
-  --h3-size: 1.1em;
+  --h1-size: 1.69em;
+  --h2-size: 1.31em;
+  --h3-size: 1.15em;
   --h4-size: 1em;
   --h5-size: .94em;
-  --h6-size: .9em;
+  --h6-size: .88em;
   --h1-weight: 650;
   --h2-weight: 650;
   --h3-weight: 600;
   --h4-weight: 600;
+  --bold-weight: 650;
   --heading-spacing: 2em;
   --p-spacing: 1.15rem;
+  --list-spacing: .35em;
+
+  /* One radius scale: 4 · 6 · 8 · 12 · 16. Nested shapes stay concentric:
+     inner radius = outer radius − padding (menu 12 − 6 = 6, palette 16 − 8 = 8). */
+  --atelier-radius-xs: 4px;
   --radius-s: 6px;
   --radius-m: 8px;
   --radius-l: 12px;
   --radius-xl: 16px;
-  --input-radius: 7px;
-  --button-radius: 7px;
-  --clickable-icon-radius: 7px;
+  --atelier-control-radius: var(--radius-m);
+  --atelier-field-radius: var(--radius-m);
+  --atelier-row-radius: var(--radius-m);
+  --atelier-card-radius: var(--radius-l);
+  --atelier-panel-radius: var(--radius-l);
+  --atelier-overlay-radius: var(--radius-xl);
+  --input-radius: var(--atelier-field-radius);
+  --button-radius: var(--atelier-control-radius);
+  --clickable-icon-radius: var(--atelier-control-radius);
+  --tab-radius: var(--radius-m);
+  --tag-radius: var(--radius-s);
+  --checkbox-radius: var(--atelier-radius-xs);
+  --code-radius: var(--atelier-card-radius);
+  --metadata-border-radius: var(--atelier-card-radius);
+  --hotkey-radius: var(--atelier-radius-xs);
+  --toggle-thumb-radius: 50%;
+
+  /* Motion 120/220 ms and easing are House values. */
+  --atelier-duration-control: 120ms;
+  --atelier-duration-surface: 220ms;
+  --atelier-ease: cubic-bezier(.2, .8, .2, 1);
+
+  /* Chrome geometry */
   --icon-size: 18px;
   --icon-stroke: 1.7px;
   --icon-opacity: 1;
   --icon-opacity-hover: 1;
+  --header-height: 48px;
+  --ribbon-width: 48px;
+  --input-height: 32px;
+  --divider-width: 1px;
+  --atelier-frame-gutter: 8px;
+
+  /* The status bar is fixed to the window corner. The content card and the
+     right sidebar stop above it instead of running underneath. */
+  --atelier-status-clearance: 30px;
+
+  /* Navigation */
   --nav-item-weight: 400;
   --nav-item-weight-hover: 400;
   --nav-item-weight-active: 600;
@@ -214,48 +263,99 @@ body {
   --nav-item-white-space: nowrap;
   --nav-heading-weight: 600;
   --nav-heading-weight-hover: 600;
-  --vault-profile-font-size: 14px;
-  --vault-profile-font-weight: 600;
-  --tab-font-size: 13px;
+  --atelier-folder-weight: 500;
+  --vault-profile-font-size: 15px;
+  --vault-profile-font-weight: 650;
+
+  /* Tabs: the active tab is a raised capsule on the frame, not a tab joined
+     to the card. Obsidian's own inner-tab variables draw it. */
+  --tab-font-size: 14px;
   --tab-font-weight: 500;
-  --tab-radius: 8px;
-  --tab-radius-active: 8px 8px 0 0;
   --tab-width: 220px;
   --tab-max-width: 240px;
   --tab-min-width: 72px;
-  --header-height: 44px;
-  --ribbon-width: 44px;
+  --tab-outline-width: 0;
+  --tab-background-active: transparent;
+  --tab-inner-background-active: var(--atelier-surface-content);
+
+  /* Status bar */
   --status-bar-font-size: 12px;
   --status-bar-border-width: 0;
-  --status-bar-radius: 8px 0 0 0;
+  --status-bar-radius: 0;
+
+  /* Properties: the grouped card is the list, the heading sits above it. */
   --metadata-label-width: 120px;
   --metadata-label-font-size: 14px;
   --metadata-input-font-size: 15px;
-  --metadata-gap: 4px;
-  --metadata-padding: 16px 18px;
-  --metadata-border-radius: 10px;
-  --metadata-border-width: 1px;
+  --metadata-gap: 0;
+  --metadata-padding: 0;
+  --metadata-border-width: 0;
+  --atelier-separator-inset: 22px;
+
+  /* Markdown furniture */
   --tag-size: .78em;
   --tag-padding-x: .55em;
   --tag-padding-y: .18em;
-  --tag-radius: 5px;
   --blockquote-border-thickness: 2px;
   --blockquote-font-style: normal;
-  --code-radius: 7px;
-  --code-size: .88em;
+  --code-size: .85em;
+  --code-border-width: 1px;
   --checkbox-size: 17px;
-  --checkbox-radius: 5px;
-  --input-height: 32px;
   --table-header-weight: 600;
   --table-border-width: 1px;
   --table-cell-vertical-alignment: top;
-  --embed-border-start: 2px solid var(--background-modifier-border);
+  --hr-thickness: 1px;
+  --link-decoration: underline;
+  --link-decoration-hover: underline;
+  --link-unresolved-opacity: 1;
+  --link-unresolved-decoration-style: dotted;
+
+  /* Command palette */
+  --hotkey-font: var(--font-interface);
+  --hotkey-font-size: 12px;
+
+  /* Materials. Overlays stay thick: the palette, menus and suggestions are
+     text-heavy, and a thinner tint let secondary text fall under 4.5:1 over
+     extreme backdrops. The opaque fallback works without backdrop-filter. */
+  --atelier-material-opaque: var(--background-primary);
+  --atelier-material-fill: var(--background-primary);
+  --atelier-material-filter: none;
+  --toggle-thumb-color: #fff;
+  --atelier-accent-hover-fill: color-mix(in srgb, var(--interactive-accent) 88%, #000);
+  --atelier-accent-pressed-fill: color-mix(in srgb, var(--interactive-accent) 76%, #000);
+  --atelier-danger-hover-fill: color-mix(in srgb, var(--text-error) 92%, #000);
 }
 
-/* Documented Apple colors transferred to CSS roles. Neutral surface mapping is House, not live AppKit. Accessible blue used for small labels. */
+@supports (backdrop-filter: blur(1px)) {
+  body {
+    --atelier-material-fill: var(--atelier-glass-tint);
+    --atelier-material-filter: blur(24px) saturate(180%);
+  }
+}
+
+/* ── Light ───────────────────────────────────────────────────────────────── */
 .theme-light {
   color-scheme: light;
 
+  /* Accent. The default is the documented accessible blue #1e6ef4. Because
+     every accent role derives from these three numbers, the accent chosen in
+     Settings → Appearance replaces it everywhere. */
+  --accent-h: 217.6;
+  --accent-s: 90.7%;
+  --accent-l: 53.7%;
+  --color-accent-hsl: var(--accent-h), var(--accent-s), var(--accent-l);
+  --color-accent: hsl(var(--accent-h) var(--accent-s) var(--accent-l));
+  --interactive-accent: var(--color-accent);
+  --interactive-accent-hover: var(--color-accent);
+
+  /* Text in the accent is capped in lightness so a pale accent stays legible. */
+  --text-accent: hsl(var(--accent-h) var(--accent-s) min(var(--accent-l), 54%));
+  --text-accent-hover: var(--text-accent);
+  --text-on-accent: #fff;
+  --text-selection: hsl(var(--accent-h) var(--accent-s) var(--accent-l) / 20%);
+  --background-modifier-border-focus: var(--text-accent);
+
+  /* Neutral ramp */
   --color-base-00: #fff;
   --color-base-05: #fafafa;
   --color-base-10: #f2f2f7;
@@ -268,52 +368,94 @@ body {
   --color-base-60: #636366;
   --color-base-70: #48484a;
   --color-base-100: #1c1c1e;
-  --background-primary: #fff;
-  --background-primary-alt: #f2f2f7;
-  --background-secondary: #f2f2f7;
+
+  /* Surfaces, back to front: frame → content → grouped card → overlay. */
+  --atelier-surface-frame: #f2f2f7;
+  --atelier-surface-content: #fff;
+  --atelier-surface-card: #f2f2f7;
+  --atelier-card-edge: 0 0 0 1px rgb(0 0 0 / 6%), 0 1px 2px rgb(0 0 0 / 4%), 0 6px 20px rgb(0 0 0 / 5%);
+  --atelier-tab-edge: 0 0 0 1px rgb(0 0 0 / 6%), 0 1px 2px rgb(0 0 0 / 6%);
+  --background-primary: var(--atelier-surface-content);
+  --background-primary-alt: var(--atelier-surface-card);
+  --background-secondary: var(--atelier-surface-frame);
   --background-secondary-alt: #e5e5ea;
-  --background-modifier-hover: rgb(0 0 0 / 4.5%);
-  --background-modifier-active-hover: rgb(0 0 0 / 8%);
-  --background-modifier-border: #e5e5ea;
-  --background-modifier-border-hover: #c7c7cc;
-  --background-modifier-border-focus: #1e6ef4;
   --background-modifier-form-field: #fff;
   --background-modifier-box-shadow: rgb(0 0 0 / 6%);
-  --text-normal: #1c1c1e;
-  --atelier-content-secondary: #3a3a3c;
-  --atelier-quote-edge: #8e8e93;
-  --text-muted: #636366;
-  --text-faint: #6c6c70;
-  --text-on-accent: #fff;
-  --text-accent: #1e6ef4;
-  --text-accent-hover: #1e6ef4;
-  --text-selection: rgb(0 136 255 / 18%);
+
+  /* Separators and fills */
+  --background-modifier-border: #e5e5ea;
+  --background-modifier-border-hover: #c7c7cc;
+  --background-modifier-hover: rgb(0 0 0 / 4.5%);
+  --background-modifier-active-hover: rgb(0 0 0 / 8%);
+  --atelier-fill-selected: rgb(0 0 0 / 10%);
+  --atelier-on-selected: #1c1c1e;
+  --atelier-control-fill: rgb(118 118 128 / 12%);
+  --atelier-control-hover: rgb(118 118 128 / 18%);
+  --atelier-control-pressed: rgb(118 118 128 / 24%);
+  --atelier-control-edge: #d1d1d6;
   --interactive-normal: #fff;
   --interactive-hover: #e5e5ea;
-  --interactive-accent: #1e6ef4;
-  --interactive-accent-hover: #1e6ef4;
-  --color-accent: #1e6ef4;
-  --color-accent-1: #08f;
-  --color-accent-2: #1e6ef4;
-  --color-accent-hsl: 218, 91%, 54%;
-  --accent-h: 218;
-  --accent-s: 91%;
-  --accent-l: 54%;
-  --atelier-system-blue: #08f;
-  --atelier-accent-soft: #e5e5ea;
-  --atelier-accent-text: #1c1c1e;
-  --atelier-frame: #f2f2f7;
-  --atelier-panel-border: #e5e5ea;
-  --atelier-shadow: 0 1px 3px rgb(0 0 0 / 3.5%);
-  --atelier-rail: #f2f2f7;
-  --atelier-rail-icon: #636366;
+
+  /* Labels: primary, secondary, muted. Text never drops below 4.5:1.
+     The tertiary step is for glyphs only (disclosure chevrons) and holds 3:1. */
+  --text-normal: #1c1c1e;
+  --atelier-content-secondary: #3a3a3c;
+  --text-muted: #636366;
+  --text-faint: #6c6c70;
+  --atelier-glyph-tertiary: #86868b;
+  --atelier-quote-edge: #8e8e93;
+
+  /* Markdown and code */
+  --atelier-heading: #1c1c1e;
+  --atelier-syntax-marker: #636366;
+  --atelier-highlight: #fff0b3;
   --atelier-code: #48484a;
   --atelier-callout: 30,110,244;
+  --code-comment: #636366;
+  --code-keyword: #564ade;
+  --code-function: #005bc1;
+  --code-string: #006d28;
+  --code-value: #875900;
+  --code-operator: #48484a;
+  --code-punctuation: #636366;
+  --code-property: #005bc1;
+  --code-tag: #564ade;
+  --code-important: #c41228;
+  --atelier-warning: #875900;
+  --atelier-success: #006d28;
+  --atelier-danger: #c41228;
+  --atelier-warning-ink: #a64500;
+  --atelier-on-danger: #fff;
+
+  /* Overlay material */
+  --atelier-glass-tint: rgb(255 255 255 / 92%);
+  --atelier-glass-edge: rgb(255 255 255 / 80%);
+  --atelier-surface-shadow: 0 8px 28px rgb(0 0 0 / 12%), 0 1px 3px rgb(0 0 0 / 8%);
+  --atelier-surface-outline: rgb(0 0 0 / 12%);
+  --atelier-toggle-edge: rgb(0 0 0 / 16%);
+  --atelier-thumb-shadow: 0 1px 3px rgb(0 0 0 / 16%);
 }
 
+/* ── Dark ────────────────────────────────────────────────────────────────── */
 .theme-dark {
   color-scheme: dark;
 
+  /* The same accent as light. Fills use it directly; text in the accent is
+     lifted, which yields the documented #5cb8ff for the default blue. */
+  --accent-h: 217.6;
+  --accent-s: 90.7%;
+  --accent-l: 53.7%;
+  --color-accent-hsl: var(--accent-h), var(--accent-s), var(--accent-l);
+  --color-accent: hsl(var(--accent-h) var(--accent-s) var(--accent-l));
+  --interactive-accent: var(--color-accent);
+  --interactive-accent-hover: var(--color-accent);
+  --text-accent: hsl(calc(var(--accent-h) - 11.5) min(calc(var(--accent-s) * 1.103), 100%) clamp(60%, calc(var(--accent-l) * 1.267), 88%));
+  --text-accent-hover: var(--text-accent);
+  --text-on-accent: #fff;
+  --text-selection: hsl(var(--accent-h) var(--accent-s) var(--accent-l) / 30%);
+  --background-modifier-border-focus: var(--text-accent);
+
+  /* Neutral ramp */
   --color-base-00: #1c1c1e;
   --color-base-05: #242426;
   --color-base-10: #2c2c2e;
@@ -326,173 +468,382 @@ body {
   --color-base-60: #aeaeb2;
   --color-base-70: #d1d1d6;
   --color-base-100: #f2f2f7;
-  --background-primary: #1c1c1e;
-  --background-primary-alt: #2c2c2e;
-  --background-secondary: #242426;
-  --background-secondary-alt: #2c2c2e;
-  --background-modifier-hover: rgb(255 255 255 / 5.5%);
-  --background-modifier-active-hover: rgb(255 255 255 / 9%);
-  --background-modifier-border: #3a3a3c;
-  --background-modifier-border-hover: #636366;
-  --background-modifier-border-focus: #5cb8ff;
+
+  /* Surfaces, back to front. In dark, nearer surfaces are lighter: the frame
+     is the dimmest plane and each step toward the reader is brighter. */
+  --atelier-surface-frame: #111113;
+  --atelier-surface-content: #1c1c1e;
+  --atelier-surface-card: #2c2c2e;
+  --atelier-card-edge: 0 0 0 1px rgb(255 255 255 / 8%);
+  --atelier-tab-edge: 0 0 0 1px rgb(255 255 255 / 8%);
+  --background-primary: var(--atelier-surface-content);
+  --background-primary-alt: var(--atelier-surface-card);
+  --background-secondary: var(--atelier-surface-frame);
+  --background-secondary-alt: #1c1c1e;
   --background-modifier-form-field: #2c2c2e;
   --background-modifier-box-shadow: rgb(0 0 0 / 15%);
-  --text-normal: #e5e5ea;
-  --atelier-content-secondary: #d1d1d6;
-  --atelier-quote-edge: #8e8e93;
-  --text-muted: #aeaeb2;
-  --text-faint: #aeaeb2;
-  --text-on-accent: #fff;
-  --text-accent: #5cb8ff;
-  --text-accent-hover: #5cb8ff;
-  --text-selection: rgb(0 145 255 / 26%);
+
+  /* Separators and fills */
+  --background-modifier-border: #3a3a3c;
+  --background-modifier-border-hover: #636366;
+  --background-modifier-hover: rgb(255 255 255 / 5.5%);
+  --background-modifier-active-hover: rgb(255 255 255 / 9%);
+  --atelier-fill-selected: rgb(255 255 255 / 12%);
+  --atelier-on-selected: #f2f2f7;
+  --atelier-control-fill: rgb(118 118 128 / 24%);
+  --atelier-control-hover: rgb(118 118 128 / 32%);
+  --atelier-control-pressed: rgb(118 118 128 / 40%);
+  --atelier-control-edge: #545456;
   --interactive-normal: #3a3a3c;
   --interactive-hover: #48484a;
-  --interactive-accent: #1e6ef4;
-  --interactive-accent-hover: #1e6ef4;
-  --color-accent: #0091ff;
-  --color-accent-1: #5cb8ff;
-  --color-accent-2: #0091ff;
-  --color-accent-hsl: 206, 100%, 50%;
-  --accent-h: 206;
-  --accent-s: 100%;
-  --accent-l: 50%;
-  --atelier-system-blue: #0091ff;
-  --atelier-accent-soft: #3a3a3c;
-  --atelier-accent-text: #f2f2f7;
-  --atelier-frame: #242426;
-  --atelier-panel-border: #3a3a3c;
-  --atelier-shadow: 0 1px 3px rgb(0 0 0 / 8%);
-  --atelier-rail: #242426;
-  --atelier-rail-icon: #aeaeb2;
+
+  /* Labels */
+  --text-normal: #e5e5ea;
+  --atelier-content-secondary: #d1d1d6;
+  --text-muted: #aeaeb2;
+  --text-faint: #aeaeb2;
+  --atelier-glyph-tertiary: #7c7c80;
+  --atelier-quote-edge: #8e8e93;
+
+  /* Markdown and code */
+  --atelier-heading: #f2f2f7;
+  --atelier-syntax-marker: #aeaeb2;
+  --atelier-highlight: #4a400e;
   --atelier-code: #d1d1d6;
   --atelier-callout: 92,184,255;
+  --code-comment: #aeaeb2;
+  --code-keyword: #a7aaff;
+  --code-function: #5cb8ff;
+  --code-string: #4ad968;
+  --code-value: #fedf43;
+  --code-operator: #d1d1d6;
+  --code-punctuation: #aeaeb2;
+  --code-property: #5cb8ff;
+  --code-tag: #a7aaff;
+  --code-important: #ff6165;
+  --atelier-warning: #fedf43;
+  --atelier-success: #4ad968;
+  --atelier-danger: #ff6165;
+  --atelier-warning-ink: #ff9230;
+  --atelier-on-danger: #1c1c1e;
+
+  /* Overlay material */
+  --atelier-glass-tint: rgb(36 36 38 / 92%);
+  --atelier-glass-edge: rgb(255 255 255 / 13%);
+  --atelier-surface-shadow: 0 8px 28px rgb(0 0 0 / 50%), 0 1px 3px rgb(0 0 0 / 40%);
+  --atelier-surface-outline: rgb(0 0 0 / 40%);
+  --atelier-toggle-edge: rgb(255 255 255 / 18%);
+  --atelier-thumb-shadow: 0 1px 3px rgb(0 0 0 / 30%);
 }
 
+/* ── Roles: Obsidian variables mapped to the tokens above ────────────────── */
 body {
-  --h1-color: var(--text-normal);
-  --h2-color: var(--text-normal);
-  --h3-color: var(--text-normal);
+  /* Text */
+  --text-error: var(--atelier-danger);
+  --h1-color: var(--atelier-heading);
+  --h2-color: var(--atelier-heading);
+  --h3-color: var(--atelier-heading);
   --h4-color: var(--text-normal);
   --h5-color: var(--text-muted);
   --h6-color: var(--text-muted);
-  --bold-color: var(--text-normal);
+  --bold-color: var(--atelier-heading);
   --italic-color: var(--text-normal);
   --link-color: var(--text-accent);
   --link-color-hover: var(--text-accent-hover);
   --link-external-color: var(--text-accent);
   --link-external-color-hover: var(--text-accent-hover);
-  --link-decoration: underline;
-  --link-decoration-hover: underline;
   --link-unresolved-color: var(--text-muted);
-  --link-unresolved-opacity: 1;
-  --link-unresolved-decoration-style: dotted;
-  --nav-item-color: var(--atelier-content-secondary);
-  --nav-item-color-hover: var(--text-normal);
-  --nav-item-color-active: var(--atelier-accent-text);
-  --nav-item-color-selected: var(--atelier-accent-text);
-  --nav-item-color-highlighted: var(--text-normal);
-  --nav-item-background-hover: var(--background-modifier-hover);
-  --nav-item-background-active: var(--atelier-accent-soft);
-  --nav-item-background-selected: var(--atelier-accent-soft);
-  --nav-heading-color: var(--text-normal);
-  --nav-heading-color-hover: var(--text-normal);
-  --nav-heading-color-collapsed: var(--atelier-content-secondary);
-  --nav-collapse-icon-color: var(--text-faint);
-  --nav-collapse-icon-color-collapsed: var(--text-faint);
-  --nav-indentation-guide-color: var(--background-modifier-border);
-  --icon-color: var(--text-muted);
-  --icon-color-hover: var(--text-normal);
-  --icon-color-active: var(--atelier-accent-text);
-  --icon-color-focused: var(--text-accent);
-  --tab-text-color: var(--atelier-content-secondary);
-  --tab-text-color-focused-active-current: var(--text-normal);
-  --tab-text-color-active: var(--text-normal);
-  --tab-text-color-focused: var(--atelier-content-secondary);
-  --tab-text-color-focused-active: var(--text-normal);
-  --tab-background-active: var(--background-primary);
-  --tab-container-background: var(--background-secondary);
-  --tab-outline-width: 0;
-  --divider-color: var(--background-modifier-border);
-  --divider-color-hover: var(--interactive-accent);
-  --divider-width: 1px;
-  --titlebar-background: var(--background-secondary);
-  --titlebar-background-focused: var(--background-secondary);
-  --titlebar-text-color-focused: var(--text-muted);
-  --vault-profile-color: var(--text-normal);
-  --vault-profile-color-hover: var(--text-normal);
-  --status-bar-background: var(--background-secondary);
-  --status-bar-text-color: var(--text-muted);
-  --metadata-label-text-color: var(--atelier-content-secondary);
-  --metadata-input-text-color: var(--text-normal);
-  --metadata-background: var(--background-primary-alt);
-  --metadata-border-color: var(--background-modifier-border);
-  --tag-color: var(--text-normal);
-  --tag-background: var(--atelier-accent-soft);
-  --tag-background-hover: var(--background-modifier-hover);
-  --tag-color-hover: var(--text-accent-hover);
+  --text-highlight-bg: var(--atelier-highlight);
+  --list-marker-color: var(--text-muted);
+  --list-marker-color-hover: var(--text-accent);
+  --hr-color: var(--background-modifier-border);
   --blockquote-border-color: var(--atelier-quote-edge);
   --blockquote-color: var(--text-normal);
   --code-background: var(--background-primary-alt);
-  --code-normal: var(--atelier-code);
+  --code-normal: var(--text-normal);
+  --code-border-color: var(--background-modifier-border);
   --table-header-background: var(--background-primary-alt);
   --table-border-color: var(--background-modifier-border);
   --table-row-alt-background: transparent;
-  --text-highlight-bg: var(--atelier-accent-soft);
+  --embed-border-start: 2px solid var(--background-modifier-border);
   --checkbox-color: var(--interactive-accent);
   --checkbox-marker-color: var(--text-on-accent);
   --checklist-done-color: var(--text-muted);
+  --tag-color: var(--text-normal);
+  --tag-color-hover: var(--text-accent-hover);
+  --tag-background: var(--atelier-fill-selected);
+  --tag-background-hover: var(--background-modifier-hover);
+
+  /* Properties */
+  --metadata-label-text-color: var(--atelier-content-secondary);
+  --metadata-input-text-color: var(--text-normal);
+  --metadata-background: transparent;
+  --metadata-border-color: transparent;
+
+  /* Chrome */
+  --divider-color: var(--background-modifier-border);
+  --divider-color-hover: var(--interactive-accent);
+  --titlebar-background: var(--atelier-surface-frame);
+  --titlebar-background-focused: var(--atelier-surface-frame);
+  --titlebar-text-color-focused: var(--text-muted);
+  --tab-container-background: var(--atelier-surface-frame);
+  --tab-text-color: var(--atelier-content-secondary);
+  --tab-text-color-active: var(--text-normal);
+  --tab-text-color-focused: var(--atelier-content-secondary);
+  --tab-text-color-focused-active: var(--text-normal);
+  --tab-text-color-focused-active-current: var(--text-normal);
+  --status-bar-background: transparent;
+  --status-bar-text-color: var(--text-muted);
+  --vault-profile-color: var(--text-normal);
+  --vault-profile-color-hover: var(--text-normal);
+  --icon-color: var(--text-muted);
+  --icon-color-hover: var(--text-normal);
+  --icon-color-active: var(--atelier-on-selected);
+  --icon-color-focused: var(--text-accent);
+
+  /* Navigation. Selection has two strengths, as in the HIG's selected and
+     unemphasized-selected content colors: a quiet fill marks where you are,
+     the accent fill marks the row that holds keyboard focus. */
+  --nav-item-color: var(--atelier-content-secondary);
+  --nav-item-color-hover: var(--text-normal);
+  --nav-item-color-active: var(--atelier-on-selected);
+  --nav-item-color-selected: var(--atelier-on-selected);
+  --nav-item-color-highlighted: var(--text-normal);
+  --nav-item-background-hover: var(--background-modifier-hover);
+  --nav-item-background-active: var(--atelier-fill-selected);
+  --nav-item-background-selected: var(--atelier-fill-selected);
+  --nav-heading-color: var(--text-normal);
+  --nav-heading-color-hover: var(--text-normal);
+  --nav-heading-color-collapsed: var(--atelier-content-secondary);
+  --nav-collapse-icon-color: var(--atelier-glyph-tertiary);
+  --nav-collapse-icon-color-collapsed: var(--atelier-glyph-tertiary);
+  --nav-indentation-guide-color: transparent;
 }
 
-/* Native controls remain present, labelled and operable. */
-.clickable-icon {
-  min-width: 28px;
-  min-height: 28px;
+/* ── System preferences ──────────────────────────────────────────────────── */
+@media (prefers-contrast: more) {
+  .theme-light {
+    --background-modifier-border: #8e8e93;
+    --text-muted: #48484a;
+    --text-faint: #48484a;
+    --atelier-glyph-tertiary: #48484a;
+    --atelier-card-edge: 0 0 0 1px #8e8e93;
+    --atelier-tab-edge: 0 0 0 1px #8e8e93;
+  }
+
+  .theme-dark {
+    --background-modifier-border: #8e8e93;
+    --text-muted: #d1d1d6;
+    --text-faint: #d1d1d6;
+    --atelier-glyph-tertiary: #d1d1d6;
+    --atelier-card-edge: 0 0 0 1px #8e8e93;
+    --atelier-tab-edge: 0 0 0 1px #8e8e93;
+  }
 }
 
-:where(button, .clickable-icon, input, select, textarea, a):focus-visible {
-  outline: 2px solid var(--text-accent);
-  outline-offset: 2px;
+@media (prefers-reduced-transparency: reduce), (prefers-contrast: more), (forced-colors: active) {
+  body.theme-light, body.theme-dark {
+    --atelier-material-fill: var(--atelier-material-opaque);
+    --atelier-material-filter: none;
+    --atelier-glass-edge: var(--background-modifier-border-hover);
+  }
 }
-.workspace-tab-header.is-active .workspace-tab-header-inner-title { font-weight: 600; }
 
-.workspace-tab-header-inner {
-  padding-inline: 10px;
-  gap: 8px;
+@media (prefers-reduced-motion: reduce) {
+  body {
+    --atelier-duration-control: 0s;
+    --atelier-duration-surface: 0s;
+  }
 }
-.workspace-tab-header-container { padding-inline: 8px; }
-.mod-left-split .workspace-tab-header-container, .mod-right-split .workspace-tab-header-container { padding-inline: 12px; }
+
+/* Same opaque option used by the optional standalone snippet. */
+body[data-atelier-material="opaque"] {
+  --atelier-material-fill: var(--atelier-material-opaque);
+  --atelier-material-filter: none;
+}
+
+@media (width <= 900px) {
+  body { --file-margins: 24px; }
+}
+
+/* Pop-out windows have no status bar, so their card keeps the plain gutter. */
+.is-popout-window { --atelier-status-clearance: 16px; }
+
+/* A phone has no frame. The drawer and sheets slide over the note, so in dark
+   the secondary surface stays above the content surface, not beneath it. */
+.is-mobile.theme-dark {
+  --atelier-surface-frame: #242426;
+  --background-secondary-alt: #2c2c2e;
+}
+
+body.is-mobile {
+  --file-margins: 20px;
+  --inline-title-size: 1.7em;
+  --input-height: max(44px, calc(var(--font-ui-medium) * 1.5 + 16px));
+  --icon-size: var(--icon-m);
+  --metadata-label-font-size: var(--font-ui-small);
+  --metadata-input-font-size: var(--font-ui-medium);
+  --atelier-separator-inset: 24px;
+}
+
+
+/* Workspace: one raised surface. The content card floats on the frame;
+   sidebars, ribbon, tab strip and status bar lie flat on it. */
+body:not(.is-mobile) .workspace { background: var(--atelier-surface-frame); }
+
+body:not(.is-mobile) .workspace-split.mod-root {
+  background-color: var(--atelier-surface-frame);
+  padding: var(--atelier-frame-gutter) 16px var(--atelier-status-clearance) 10px;
+  gap: var(--atelier-frame-gutter);
+}
+body:not(.is-mobile) .workspace-split.mod-root .workspace-split { gap: var(--atelier-frame-gutter); }
+body:not(.is-mobile) .workspace-tabs > .workspace-tab-container { overflow: hidden; }
+
+/* Sidebars carry no box of their own. */
+body:not(.is-mobile) .mod-left-split {
+  margin: 0 4px 10px 0;
+  border-right: 0;
+}
+
+body:not(.is-mobile) .mod-right-split {
+  margin: 0 10px var(--atelier-status-clearance) 0;
+  border-left: 0;
+}
+
+/* The radius is invisible on the frame; it rounds panes that bring their own
+   surface, such as a plugin's list column. */
+body:not(.is-mobile) :is(.mod-left-split, .mod-right-split) > .workspace-tabs > .workspace-tab-container {
+  background: var(--atelier-surface-frame);
+  border-radius: var(--atelier-panel-radius);
+}
+
+/* The content card. Split panes are each a card of their own. */
+body:not(.is-mobile) .workspace-split.mod-root .workspace-tabs > .workspace-tab-container {
+  background-color: var(--background-primary);
+  border-radius: var(--atelier-panel-radius);
+  box-shadow: var(--atelier-card-edge);
+}
+
+/* The card edge already separates content from the sidebars and from other
+   panes, so column dividers stay clear until the resize handle is hovered. */
+body:not(.is-mobile) :is(.mod-left-split, .mod-right-split) > .workspace-leaf-resize-handle,
+body:not(.is-mobile) .workspace-split.mod-root .workspace-leaf-resize-handle {
+  --divider-color: transparent;
+}
+
+/* Ribbon */
 .workspace-ribbon:is(.mod-left, .mod-primary) { border-right: 0; }
 .side-dock-ribbon-action { margin-block: 3px; }
-.nav-header { padding: 12px 12px 8px; }
+
+body:not(.is-mobile) .workspace-ribbon:is(.mod-left, .mod-primary) {
+  --icon-color: var(--text-muted);
+  --icon-color-hover: var(--text-normal);
+  --icon-color-active: var(--text-accent);
+  --icon-color-focused: var(--text-accent);
+
+  background: var(--atelier-surface-frame);
+  padding-top: 12px;
+}
+
+body:not(.is-mobile) .workspace-ribbon:is(.mod-left, .mod-primary) .sidebar-toggle-button {
+  color: var(--text-muted);
+  background: var(--atelier-surface-frame);
+}
+body:not(.is-mobile) .workspace-ribbon:is(.mod-left, .mod-primary) .side-dock-ribbon-action { margin-block: 6px; }
+
+/* Tab strip. The active tab is a capsule drawn by Obsidian's inner tab. */
+.workspace-tab-header-container { padding-inline: 8px; }
+.mod-left-split .workspace-tab-header-container, .mod-right-split .workspace-tab-header-container { padding-inline: 12px; }
+
+.workspace-tab-header-inner {
+  padding-inline: 14px;
+  gap: 8px;
+}
+.workspace-tab-header.is-active .workspace-tab-header-inner-title { font-weight: 650; }
+.workspace-tab-header.is-active .workspace-tab-header-inner-icon { color: var(--text-accent); }
+.workspace-tab-header:not(.is-active):hover .workspace-tab-header-inner-title { color: var(--text-normal); }
+
+body:not(.is-mobile) .mod-root .workspace-tab-header { padding-block: 6px 7px; }
+
+body:not(.is-mobile) .mod-root .workspace-tab-header.is-active .workspace-tab-header-inner {
+  box-shadow: var(--atelier-tab-edge);
+}
+
+/* View header. No rule under the header: on phones Obsidian floats its
+   header buttons over the note, and on desktop the card needs no inner bar.
+   Scrolled text fades out beneath the header instead. */
+body:not(.is-mobile) .view-header { padding-inline: 24px; }
+
+.view-header-title {
+  font-size: 13px;
+  font-weight: 500;
+}
+.view-actions, .view-header-nav-buttons { gap: 4px; }
+
+body:not(.is-mobile) .workspace-leaf-content[data-type="markdown"] .view-header::before {
+  content: "";
+  position: absolute;
+  inset-inline: 0 12px;
+  top: 100%;
+  height: 12px;
+  background: linear-gradient(var(--background-primary), transparent);
+  pointer-events: none;
+}
+
+/* Vault profile */
+.workspace-sidedock-vault-profile {
+  min-height: 66px;
+  padding: 16px 18px;
+  border-top: 1px solid var(--background-modifier-border);
+}
+body:not(.is-mobile) .workspace-sidedock-vault-profile { background: var(--atelier-surface-frame); }
+
+@media (prefers-reduced-motion: reduce) {
+  .workspace-tab-header { transition: none; }
+}
+
+
+/* stylelint-disable no-descending-specificity -- Host navigation states retain the validated cascade order. */
+
+/* Navigation: file explorer, outline and other trees.
+   Native Obsidian DOM and behavior; disclosure remains Obsidian's own control. */
+.nav-header { padding: 16px 16px 10px; }
 
 .nav-buttons-container {
   gap: 4px;
   justify-content: flex-start;
 }
-body:not(.is-mobile) .nav-files-container { padding: 4px 14px 20px; }
+body:not(.is-mobile) .nav-files-container { padding: 4px 12px 24px; }
 
 .nav-folder-title, .nav-file-title {
-  border-radius: 7px;
+  border-radius: var(--atelier-row-radius);
   margin-block: 0;
 }
-body:not(.is-mobile) :is(.nav-folder-title, .nav-file-title) { min-height: 34px; }
-.nav-folder-title-content { font-weight: 550; }
+body:not(.is-mobile) :is(.nav-folder-title, .nav-file-title) { min-height: 32px; }
 .nav-folder.mod-root > .nav-folder-children > .nav-folder { margin-top: 0; }
+.nav-file-title-content { font-size: var(--nav-item-size); }
 
-.nav-folder.mod-root > .nav-folder-children > .nav-folder > .nav-folder-title .nav-folder-title-content {
-  font-weight: 600;
+/* Folders are one step heavier than files. Top-level folders take the
+   primary label color; weight alone no longer marks every root row. */
+.nav-folder-title-content {
+  font-weight: var(--atelier-folder-weight);
+  letter-spacing: -.01em;
+}
+
+.nav-folder-title[data-path]:not([data-path*="/"]) .nav-folder-title-content {
   color: var(--text-normal);
+  font-size: var(--nav-item-size);
+  letter-spacing: 0;
 }
 
 /* Small monochrome folder glyph from Lucide's ISC-licensed folder icon.
-   Pure decoration; disclosure remains Obsidian's original control. */
+   Pure decoration. Sidebar icons take the accent, as in the HIG. */
 .nav-folder-title-content::before {
   content: "";
   display: inline-block;
-  width: 16px;
-  height: 16px;
-  margin-inline-end: 8px;
+  width: 17px;
+  height: 17px;
+  margin-inline-end: 9px;
   vertical-align: -3px;
   background: var(--text-accent);
   opacity: 1;
@@ -501,7 +852,16 @@ body:not(.is-mobile) :is(.nav-folder-title, .nav-file-title) { min-height: 34px;
   mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.7' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M20 20H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h3.9a2 2 0 0 1 1.69.9l.81 1.2a2 2 0 0 0 1.67.9H20a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2Z'/%3E%3C/svg%3E") center/contain no-repeat;
 }
 .nav-folder-title-content[contenteditable="true"]::before { display: none; }
-.nav-file-title.is-active { box-shadow: inset 3px 0 0 var(--interactive-accent); }
+
+/* Selection. The open file and the current heading carry the quiet fill set
+   in tokens. The accent fill appears only on the row inside the pane that
+   holds keyboard focus, and only while the window itself is focused. */
+.is-focused .workspace-leaf.mod-active .tree-item-self.is-active {
+  --nav-item-background-active: var(--interactive-accent);
+  --nav-item-color-active: var(--text-on-accent);
+  --nav-collapse-icon-color: var(--text-on-accent);
+  --nav-collapse-icon-color-collapsed: var(--text-on-accent);
+}
 
 .nav-file-title.is-selected {
   outline: 1px solid var(--background-modifier-border-focus);
@@ -510,16 +870,21 @@ body:not(.is-mobile) :is(.nav-folder-title, .nav-file-title) { min-height: 34px;
 .nav-file-title.is-being-dragged, .nav-folder-title.is-being-dragged { opacity: .65; }
 .nav-folder.is-being-dragged-over > .nav-folder-title { outline: 2px solid var(--text-accent); }
 
-.tree-item-self.has-focus, .nav-file-title:focus-visible, .nav-folder-title:focus-visible {
+/* Keyboard focus, shown where Obsidian shows it: in the active pane.
+   One ring, not Obsidian's shadow plus an outline. */
+body:not(.is-phone) .workspace-leaf.mod-active .tree-item-self.has-focus,
+body:not(.is-phone) .workspace-leaf.mod-active .tree-item-self.has-focus:focus-within,
+.nav-file-title:focus-visible,
+.nav-folder-title:focus-visible {
   outline: 2px solid var(--text-accent);
   outline-offset: -2px;
   box-shadow: none;
 }
-.nav-file-title.is-active:not(.has-focus) { box-shadow: inset 3px 0 0 var(--interactive-accent); }
 
-.nav-folder-title[data-path]:not([data-path*="/"]) .nav-folder-title-content {
-  color: var(--text-normal);
-  font-weight: 600;
+/* On the accent fill the ring turns to the on-accent color and moves inside. */
+body.is-focused:not(.is-phone) .workspace-leaf.mod-active .tree-item-self.is-active.has-focus {
+  outline-color: var(--text-on-accent);
+  outline-offset: -4px;
 }
 
 .nav-file-title-content[contenteditable="true"], .nav-folder-title-content[contenteditable="true"] {
@@ -527,87 +892,25 @@ body:not(.is-mobile) :is(.nav-folder-title, .nav-file-title) { min-height: 34px;
   background: var(--background-primary);
   color: var(--text-normal);
   box-shadow: 0 0 0 2px var(--text-accent);
-  border-radius: 3px;
+  border-radius: var(--atelier-radius-xs);
 }
 
-.workspace-sidedock-vault-profile {
-  border-top: 1px solid var(--background-modifier-border);
-  padding: 12px;
-}
+/* Outline and other panes */
 .workspace-leaf-content[data-type="outline"] .view-content { padding: 18px 12px; }
-.outline .tree-item-self { padding-block: 6px; }
 
-.view-header {
-  padding-inline: 20px;
-  border-bottom: 1px solid var(--background-modifier-border);
+.workspace-leaf-content[data-type="outline"] .tree-item-self {
+  color: var(--atelier-content-secondary);
+  font-size: var(--nav-item-size);
+  line-height: 1.45;
+  min-height: 36px;
+  padding-block: 8px;
 }
 
-.view-header-title {
-  font-size: 13px;
-  font-weight: 500;
-}
-.inline-title { letter-spacing: -.015em; }
-.markdown-rendered h2, .markdown-rendered h3 { letter-spacing: -.01em; }
-
-.markdown-rendered p, .markdown-rendered li {
-  word-break: keep-all;
-  overflow-wrap: break-word;
-}
-
-.markdown-rendered a {
-  text-underline-offset: 3px;
-  text-decoration-thickness: 1px;
-}
-
-.markdown-rendered blockquote {
-  padding: 4px 0 4px 20px;
-  margin-inline: 0;
-}
-.markdown-rendered blockquote p { margin-block: 4px; }
-.metadata-container { margin-bottom: 28px; }
-.metadata-properties-heading { margin-bottom: 10px; }
-
-.metadata-properties-heading .metadata-properties-title {
-  font-size: 13px;
+.workspace-leaf-content[data-type="outline"] .tree-item-self.is-active {
+  color: var(--nav-item-color-active);
   font-weight: 600;
-  color: var(--text-muted);
 }
-.metadata-add-button { font-size: 13px; }
-.metadata-property { border-radius: 4px; }
-.metadata-property-key { align-items: center; }
-
-.callout {
-  --callout-color: var(--atelier-callout);
-  --callout-padding: 16px 20px;
-  --callout-radius: 10px;
-  --callout-border-width: 1px;
-  --callout-border-opacity: .15;
-  --callout-title-weight: 600;
-}
-.markdown-rendered th, .markdown-rendered td { padding: 12px 16px; }
-.markdown-rendered hr { margin-block: 32px; }
-
-.prompt, .modal {
-  border: 1px solid var(--background-modifier-border);
-  border-radius: 14px;
-}
-
-.menu {
-  padding: 6px;
-  border-radius: 10px;
-}
-
-.menu-item {
-  padding: 7px 10px;
-  border-radius: 6px;
-}
-
-.suggestion-item.is-selected {
-  background: var(--atelier-accent-soft);
-  color: var(--atelier-accent-text);
-}
-.setting-item { padding-block: 18px; }
-.setting-item-name { font-weight: 550; }
+.backlink-pane .tree-item-self, .tag-pane-tag { color: var(--atelier-content-secondary); }
 
 /* Optional Notebook Navigator adapter: semantic public variables only.
    The theme does not require the plugin; individual folder overrides remain user-owned. */
@@ -622,171 +925,171 @@ body:not(.is-mobile) :is(.nav-folder-title, .nav-file-title) { min-height: 34px;
   --nn-theme-nav-separator-color: var(--background-modifier-border);
   --nn-theme-navitem-name-color: var(--atelier-content-secondary);
   --nn-theme-navitem-icon-color: var(--text-accent);
-  --nn-theme-navitem-chevron-color: var(--text-faint);
+  --nn-theme-navitem-chevron-color: var(--atelier-glyph-tertiary);
   --nn-theme-navitem-hover-bg: var(--background-modifier-hover);
-  --nn-theme-navitem-selected-bg: var(--atelier-accent-soft);
-  --nn-theme-navitem-selected-name-color: var(--atelier-accent-text);
-  --nn-theme-navitem-selected-icon-color: var(--atelier-accent-text);
-  --nn-theme-navitem-selected-chevron-color: var(--atelier-accent-text);
+  --nn-theme-navitem-selected-bg: var(--atelier-fill-selected);
+  --nn-theme-navitem-selected-name-color: var(--atelier-on-selected);
+  --nn-theme-navitem-selected-icon-color: var(--atelier-on-selected);
+  --nn-theme-navitem-selected-chevron-color: var(--atelier-on-selected);
   --nn-theme-navitem-selected-inactive-bg: var(--background-modifier-hover);
   --nn-theme-navitem-selected-inactive-name-color: var(--text-normal);
   --nn-theme-navitem-count-color: var(--text-muted);
   --nn-theme-navitem-count-bg: transparent;
-  --nn-theme-navitem-border-radius: 7px;
+  --nn-theme-navitem-border-radius: var(--atelier-row-radius);
   --nn-theme-file-name-color: var(--text-normal);
   --nn-theme-file-preview-color: var(--text-muted);
   --nn-theme-file-date-color: var(--text-faint);
-  --nn-theme-file-selected-bg: var(--atelier-accent-soft);
-  --nn-theme-file-selected-name-color: var(--atelier-accent-text);
-  --nn-theme-file-selected-preview-color: var(--atelier-accent-text);
-  --nn-theme-file-selected-date-color: var(--atelier-accent-text);
+  --nn-theme-file-selected-bg: var(--atelier-fill-selected);
+  --nn-theme-file-selected-name-color: var(--atelier-on-selected);
+  --nn-theme-file-selected-preview-color: var(--atelier-on-selected);
+  --nn-theme-file-selected-date-color: var(--atelier-on-selected);
   --nn-theme-file-selected-inactive-bg: var(--background-modifier-hover);
-  --nn-theme-file-border-radius: 7px;
+  --nn-theme-file-border-radius: var(--atelier-row-radius);
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .workspace-tab-header, .nav-file-title, .nav-folder-title, .clickable-icon { transition: none; }
-}
-
-@media (width <= 900px) {
-  body { --file-margins: 24px; }
-}
-
-body.is-mobile {
-  --file-margins: 20px;
-  --inline-title-size: 1.65em;
-  --input-height: 44px;
-}
-
-.is-mobile .clickable-icon {
-  min-width: 44px;
-  min-height: 44px;
+  .nav-file-title, .nav-folder-title { transition: none; }
 }
 
 /* stylelint-enable no-descending-specificity */
 
 
-/* stylelint-disable selector-not-notation -- Separate exclusions preserve specificity against Obsidian controls. */
-/* stylelint-disable no-descending-specificity -- These refinements deliberately follow the base host selectors. */
+/* stylelint-disable no-descending-specificity -- Property rows and their focus states retain the validated cascade order. */
 
-/* Revision 07 — quiet Apple neutral surfaces and native explorer hierarchy.
-   Based on the user's visual rejection of the first, overly subtle draft. */
-body:where(:not(.is-mobile)) {
-  --nav-item-size: 15px;
-  --nav-item-padding: 5px 12px;
-  --nav-item-parent-padding: 5px 12px;
-  --nav-item-children-padding-start: 12px;
-  --nav-item-children-margin-start: 8px;
-  --font-ui-medium: 15px;
-}
-
-body {
-  --nav-indentation-guide-color: transparent;
-  --header-height: 48px;
-  --ribbon-width: 48px;
-  --inline-title-size: 2em;
-  --inline-title-weight: 700;
-  --metadata-padding: 12px 16px;
-  --metadata-gap: 0;
-  --vault-profile-font-size: 15px;
-  --vault-profile-font-weight: 650;
-  --tab-font-size: 14px;
-}
-
-.workspace-leaf-content[data-type="file-explorer"] {
-  --nav-item-background-active: var(--interactive-accent);
-  --nav-item-color-active: var(--text-on-accent);
-}
-body:not(.is-mobile) .nav-files-container { padding: 4px 12px 24px; }
-
-.nav-folder-title, .nav-file-title {
-  border-radius: 8px;
-}
-body:not(.is-mobile) :is(.nav-folder-title, .nav-file-title) { min-height: 32px; }
-
-.nav-folder-title[data-path]:not([data-path*="/"]) {
-  margin-block: 0;
-}
-
-.nav-folder-title[data-path]:not([data-path*="/"]) .nav-folder-title-content {
-  font-size: 15px;
-  font-weight: 600;
-  letter-spacing: 0;
-}
-
-.nav-folder-title-content::before {
-  margin-inline-end: 9px;
-  width: 17px;
-  height: 17px;
-}
-.nav-folder-title-content { letter-spacing: -.01em; }
-.nav-file-title-content { font-size: var(--nav-item-size); }
-
-.nav-file-title.is-active,
-.nav-file-title.is-active:hover,
-.nav-file-title.is-active.is-selected {
-  --nav-item-background-hover: var(--interactive-accent);
-  --nav-item-color-hover: var(--text-on-accent);
-
-  background: var(--interactive-accent);
-  color: var(--text-on-accent);
-  font-weight: 600;
-  box-shadow: none;
-}
-.nav-file-title.is-active:not(.has-focus) { box-shadow: none; }
-
-.nav-file-title.is-active.has-focus {
-  outline: 2px solid var(--background-primary);
-  outline-offset: -4px;
-  box-shadow: 0 0 0 1px var(--interactive-accent);
-}
-.nav-file-title:hover:not(.is-active) { background: var(--background-modifier-hover); }
-
-.workspace-sidedock-vault-profile {
-  min-height: 66px;
-  padding: 16px 18px;
-}
-.nav-header { padding: 16px 16px 10px; }
-.workspace-tab-header-inner { padding-inline: 14px; }
-.workspace-tab-header.is-active .workspace-tab-header-inner-title { font-weight: 650; }
-.view-header { padding-inline: 24px; }
+/* Markdown is a primary surface: reading view, Live Preview and Source. */
 .markdown-reading-view > .markdown-preview-view { padding-top: 48px; }
-.inline-title { margin-bottom: 24px; }
+
+.inline-title {
+  color: var(--atelier-heading);
+  letter-spacing: -.022em;
+  margin-bottom: 24px;
+}
+.markdown-rendered h2, .markdown-rendered h3 { letter-spacing: -.01em; }
+
+.markdown-rendered h2 {
+  padding-bottom: 0;
+  border-bottom: 0;
+}
+.markdown-rendered h3 { margin-top: 1.6em; }
+
+.markdown-rendered p, .markdown-rendered li {
+  word-break: keep-all;
+  overflow-wrap: break-word;
+}
+
+.markdown-rendered a {
+  text-underline-offset: 3px;
+  text-decoration-thickness: 1px;
+}
+
+.markdown-rendered blockquote {
+  color: var(--blockquote-color);
+  background: transparent;
+  border-radius: 0;
+  padding: 8px 20px;
+  margin-inline: 0;
+}
+.markdown-rendered blockquote p { margin-block: 4px; }
+.cm-s-obsidian .cm-quote:not(.cm-formatting) { color: var(--blockquote-color); }
+.markdown-rendered hr { margin-block: 32px; }
+
+/* Code */
+.markdown-rendered pre {
+  padding: 20px 24px;
+  border: 0;
+  line-height: 1.6;
+}
+
+.markdown-rendered :not(pre) > code,
+.cm-s-obsidian span.cm-inline-code {
+  color: var(--atelier-code);
+  background: var(--code-background);
+  border: 1px solid var(--background-modifier-border);
+  border-radius: var(--atelier-radius-xs);
+  padding: .1em .3em;
+}
+
+.markdown-rendered pre > code {
+  border: 0;
+  padding: 0;
+  background: transparent;
+}
+.markdown-rendered button.copy-code-button { border-radius: var(--atelier-control-radius); }
+
+/* Highlights and tables */
+.markdown-rendered mark {
+  color: var(--text-normal);
+  padding: .08em .16em;
+  border-radius: var(--atelier-radius-xs);
+}
+
+.markdown-rendered table {
+  font-size: .9em;
+  font-variant-numeric: tabular-nums;
+}
+.markdown-rendered th, .markdown-rendered td { padding: 12px 16px; }
+.markdown-rendered thead > tr > th { color: var(--atelier-heading); }
+.markdown-rendered tbody > tr:nth-child(even) > td { background: var(--background-primary-alt); }
+
+/* Properties: a grouped list. The heading sits above the card as a quiet
+   section label, the card is a fill without an outline, and separators start
+   at the label text rather than under the icon. */
+.metadata-container { margin-bottom: 28px; }
 
 .metadata-properties-heading {
-  font-size: 14px;
-  color: var(--text-normal);
-  min-height: 32px;
+  min-height: 28px;
   margin-bottom: 4px;
+  margin-inline-start: 12px;
+  font-size: 13px;
+  color: var(--text-muted);
 }
 
 .metadata-properties-heading .metadata-properties-title {
-  font-size: 14px;
-  font-weight: 650;
+  font-size: 13px;
+  font-weight: 600;
   letter-spacing: 0;
-  color: var(--text-normal);
+  color: var(--text-muted);
 }
-.metadata-container { margin-bottom: 28px; }
+
+body:not(.is-mobile) .metadata-content {
+  background: var(--background-primary-alt);
+  border-radius: var(--atelier-card-radius);
+  padding: 4px 16px;
+}
+
+/* In a sidebar the card sits on the frame, so it takes the content surface. */
+body:not(.is-mobile) :is(.mod-left-split, .mod-right-split) .metadata-content { background: var(--background-primary); }
 
 .metadata-property {
   min-height: 36px;
   padding-block: 4px;
   border-radius: 0;
 }
-.metadata-property + .metadata-property { border-top: 1px solid var(--background-modifier-border); }
+
+.metadata-property + .metadata-property {
+  background-image: linear-gradient(var(--background-modifier-border), var(--background-modifier-border));
+  background-size: calc(100% - var(--atelier-separator-inset)) 1px;
+  background-position: 100% 0;
+  background-repeat: no-repeat;
+}
+.mod-rtl .metadata-property + .metadata-property { background-position: 0 0; }
+
+/* Obsidian adds its own row dividers in sidebars. One separator per row is enough. */
+.workspace > .workspace-split:not(.mod-root) .metadata-container { --metadata-divider-width: 0; }
+.metadata-property-key { align-items: center; }
 .metadata-property-key-input { font-weight: 500; }
 .metadata-property-value { line-height: 1.5; }
 
 .metadata-property:focus-within {
   background: var(--background-primary);
-  border-radius: 4px;
+  border-radius: var(--atelier-radius-xs);
 }
 
 .metadata-add-button {
   min-height: 32px;
-  margin-top: 8px;
+  margin-top: 4px;
   font-size: 14px;
-  color: var(--code-function);
+  color: var(--text-accent);
 }
 
 .metadata-properties-heading:focus-visible,
@@ -797,197 +1100,32 @@ body:not(.is-mobile) :is(.nav-folder-title, .nav-file-title) { min-height: 32px;
   box-shadow: none;
 }
 
-/* Only navigation controls grow; inline chips and property warnings retain native geometry. */
-:is(.nav-header, .view-header, .workspace-ribbon, .workspace-sidedock-vault-profile) .clickable-icon {
-  min-width: 32px;
-  min-height: 32px;
-}
-.view-actions, .view-header-nav-buttons { gap: 4px; }
+/* Callouts */
+.callout {
+  --callout-color: var(--atelier-callout);
+  --callout-padding: 16px 20px;
+  --callout-radius: var(--atelier-card-radius);
+  --callout-border-width: 1px;
+  --callout-border-opacity: .15;
+  --callout-title-weight: 600;
+  --atelier-callout-tone: var(--text-normal);
 
-.clickable-icon:not([aria-disabled="true"]):not(.is-disabled):active {
-  background-color: var(--background-modifier-active-hover);
-}
-.clickable-icon[aria-disabled="true"] { opacity: .4; }
-.workspace-tab-header:not(.is-active):hover .workspace-tab-header-inner-title { color: var(--text-normal); }
-.workspace-tab-header.is-active .workspace-tab-header-inner-icon { color: var(--text-accent); }
-
-.workspace-leaf-content[data-type="outline"] .tree-item-self {
-  color: var(--atelier-content-secondary);
-  font-size: var(--nav-item-size);
-  line-height: 1.45;
-  min-height: 36px;
-  padding-block: 8px;
-}
-
-.workspace-leaf-content[data-type="outline"] .tree-item-self.is-active {
-  color: var(--text-normal);
-  font-weight: 600;
-  background: var(--background-modifier-hover);
-}
-
-.search-result-file-title {
-  color: var(--text-normal);
-  font-size: 15px;
-}
-
-.search-result-file-match {
-  color: var(--atelier-content-secondary);
-  font-size: 14px;
-  line-height: 1.6;
-}
-
-.search-result-file-matched-text {
-  color: var(--text-normal);
-  background: var(--text-highlight-bg);
-}
-.backlink-pane .tree-item-self, .tag-pane-tag { color: var(--atelier-content-secondary); }
-
-.menu-item, .suggestion-item {
-  font-size: 14px;
-  min-height: 32px;
-}
-.setting-item-description, .search-empty-state { line-height: 1.5; }
-.markdown-rendered table { font-variant-numeric: tabular-nums; }
-
-body:not(.is-mobile) .workspace-ribbon:is(.mod-left, .mod-primary) {
-  background: var(--atelier-rail);
-
-  --icon-color: var(--atelier-rail-icon);
-  --icon-color-hover: var(--text-normal);
-  --icon-color-active: var(--text-accent);
-  --icon-color-focused: var(--text-accent);
-
-  padding-top: 12px;
-}
-
-body:not(.is-mobile) .workspace-ribbon:is(.mod-left, .mod-primary) .sidebar-toggle-button {
-  color: var(--atelier-rail-icon);
-  background: var(--atelier-rail);
-}
-body:not(.is-mobile) .workspace-ribbon:is(.mod-left, .mod-primary) .side-dock-ribbon-action { margin-block: 6px; }
-body.is-mobile { --inline-title-size: 1.7em; }
-
-/* stylelint-enable no-descending-specificity */
-
-/* stylelint-enable selector-not-notation */
-
-
-/* Markdown is a primary surface: reading view, Live Preview and Source. */
-.theme-light {
-  --atelier-heading-1: #1c1c1e;
-  --atelier-heading-2: #1c1c1e;
-  --atelier-heading-3: #1c1c1e;
-  --atelier-syntax-marker: #636366;
-  --atelier-highlight: #fff0b3;
-  --atelier-code-bg: #f2f2f7;
-  --code-comment: #636366;
-  --code-keyword: #564ade;
-  --code-function: #005bc1;
-  --code-string: #006d28;
-  --code-value: #875900;
-  --code-operator: #48484a;
-  --code-punctuation: #636366;
-  --code-property: #005bc1;
-  --code-tag: #564ade;
-  --code-important: #c41228;
-}
-
-.theme-dark {
-  --atelier-heading-1: #f2f2f7;
-  --atelier-heading-2: #f2f2f7;
-  --atelier-heading-3: #f2f2f7;
-  --atelier-syntax-marker: #aeaeb2;
-  --atelier-highlight: #4a400e;
-  --atelier-code-bg: #2c2c2e;
-  --code-comment: #aeaeb2;
-  --code-keyword: #a7aaff;
-  --code-function: #5cb8ff;
-  --code-string: #4ad968;
-  --code-value: #fedf43;
-  --code-operator: #d1d1d6;
-  --code-punctuation: #aeaeb2;
-  --code-property: #5cb8ff;
-  --code-tag: #a7aaff;
-  --code-important: #ff6165;
-}
-
-body {
-  --atelier-revision: 7;
-  --text-error: var(--atelier-danger);
-  --h1-color: var(--atelier-heading-1);
-  --h2-color: var(--atelier-heading-2);
-  --h3-color: var(--atelier-heading-3);
-  --h4-color: var(--text-normal);
-  --h5-color: var(--text-muted);
-  --h6-color: var(--text-muted);
-  --h1-size: 1.85em;
-  --h2-size: 1.4em;
-  --h3-size: 1.15em;
-  --h4-size: 1em;
-  --h5-size: .94em;
-  --h6-size: .88em;
-  --bold-weight: 650;
-  --bold-color: var(--atelier-heading-1);
-  --italic-color: var(--text-normal);
-  --text-highlight-bg: var(--atelier-highlight);
-  --code-background: var(--atelier-code-bg);
-  --code-normal: var(--text-normal);
-  --code-size: .85em;
-  --code-border-width: 1px;
-  --code-border-color: var(--background-modifier-border);
-  --code-radius: 10px;
-  --list-marker-color: var(--text-muted);
-  --list-marker-color-hover: var(--text-accent);
-  --list-spacing: .35em;
-  --hr-color: var(--background-modifier-border);
-  --hr-thickness: 1px;
-}
-.inline-title { color: var(--atelier-heading-1); }
-
-.markdown-rendered h2 {
-  padding-bottom: 0;
-  border-bottom: 0;
-}
-.markdown-rendered h3 { margin-top: 1.6em; }
-
-.markdown-rendered pre {
-  padding: 20px 24px;
+  background: color-mix(in srgb, var(--atelier-callout-tone) 6%, var(--background-primary));
   border: 0;
-  line-height: 1.6;
+  border-inline-start: 2px solid var(--atelier-callout-tone);
+}
+.callout[data-callout="warning"], .callout[data-callout="caution"] { --atelier-callout-tone: var(--atelier-warning); }
+.callout[data-callout="success"], .callout[data-callout="tip"] { --atelier-callout-tone: var(--atelier-success); }
+.callout[data-callout="danger"], .callout[data-callout="error"] { --atelier-callout-tone: var(--atelier-danger); }
+.callout .callout-title, .callout .callout-icon { color: var(--atelier-callout-tone); }
+.callout-title { font-size: .94em; }
+
+.callout-content {
+  font-size: .94em;
+  line-height: 1.65;
 }
 
-.markdown-rendered :not(pre) > code,
-.cm-s-obsidian span.cm-inline-code {
-  color: var(--atelier-code);
-  background: var(--atelier-code-bg);
-  border: 1px solid var(--background-modifier-border);
-  border-radius: 4px;
-  padding: .1em .3em;
-}
-
-.markdown-rendered pre > code {
-  border: 0;
-  padding: 0;
-  background: transparent;
-}
-
-.markdown-rendered mark {
-  color: var(--text-normal);
-  padding: .08em .16em;
-  border-radius: 3px;
-}
-
-.markdown-rendered blockquote {
-  color: var(--blockquote-color);
-  background: transparent;
-  border-radius: 0;
-  padding: 8px 20px;
-}
-.cm-s-obsidian .cm-quote:not(.cm-formatting) { color: var(--blockquote-color); }
-.markdown-rendered table { font-size: .9em; }
-.markdown-rendered thead > tr > th { color: var(--atelier-heading-2); }
-.markdown-rendered tbody > tr:nth-child(even) > td { background: var(--background-primary-alt); }
-
+/* Editor */
 .cm-s-obsidian .cm-formatting,
 .cm-s-obsidian .cm-formatting-list,
 .cm-s-obsidian .cm-formatting-header,
@@ -1005,7 +1143,7 @@ body {
 .cm-s-obsidian .cm-highlight {
   background: var(--atelier-highlight);
   color: var(--text-normal);
-  border-radius: 3px;
+  border-radius: var(--atelier-radius-xs);
 }
 
 .cm-s-obsidian .cm-hmd-internal-link,
@@ -1020,213 +1158,24 @@ body:is(.is-mobile, .is-focused) .markdown-source-view.mod-cm6 .cm-editor.cm-foc
 
   /* Heading/list spacing belongs outside the active text highlight. */
   background-clip: content-box;
-  border-radius: 4px;
+  border-radius: var(--atelier-radius-xs);
 }
 
 .markdown-source-view.mod-cm6 .cm-gutters { color: var(--text-faint); }
 .markdown-source-view.mod-cm6 .cm-content { caret-color: var(--text-accent); }
 /* stylelint-disable-next-line selector-class-pattern -- CodeMirror owns this class name. */
 .markdown-source-view.mod-cm6 .cm-selectionBackground { background-color: var(--text-selection); }
-.callout-title { font-size: .94em; }
-
-.callout-content {
-  font-size: .94em;
-  line-height: 1.65;
-}
-
-.theme-light {
-  --atelier-warning: #875900;
-  --atelier-success: #006d28;
-  --atelier-danger: #c41228;
-}
-
-.theme-dark {
-  --atelier-warning: #fedf43;
-  --atelier-success: #4ad968;
-  --atelier-danger: #ff6165;
-}
-
-.callout {
-  --atelier-callout-tone: var(--text-normal);
-
-  background: color-mix(in srgb, var(--atelier-callout-tone) 6%, var(--background-primary));
-  border: 0;
-  border-inline-start: 2px solid var(--atelier-callout-tone);
-}
-.callout[data-callout="warning"], .callout[data-callout="caution"] { --atelier-callout-tone: var(--atelier-warning); }
-.callout[data-callout="success"], .callout[data-callout="tip"] { --atelier-callout-tone: var(--atelier-success); }
-.callout[data-callout="danger"], .callout[data-callout="error"] { --atelier-callout-tone: var(--atelier-danger); }
-.callout .callout-title, .callout .callout-icon { color: var(--atelier-callout-tone); }
 
 @media print {
   .markdown-rendered {
-  color: #20242c;
+    color: #20242c;
 
-  --text-normal: #20242c;
-  --text-muted: #505965;
-  --background-primary: #fff;
-}
+    --text-normal: #20242c;
+    --text-muted: #505965;
+    --background-primary: #fff;
+  }
   .markdown-rendered pre, .markdown-rendered blockquote { break-inside: avoid; }
 }
-
-@media (prefers-contrast: more) {
- .theme-light {
-  --background-modifier-border: #8e8e93;
-  --text-muted: #48484a;
-  --text-faint: #48484a;
-  --atelier-panel-border: #8e8e93;
-}
-
- .theme-dark {
-  --background-modifier-border: #8e8e93;
-  --text-muted: #d1d1d6;
-  --text-faint: #d1d1d6;
-  --atelier-panel-border: #8e8e93;
-}
-}
-
-
-/* stylelint-disable no-descending-specificity -- Selected palette states follow the base hotkey styling. */
-
-/* Native command palette, quick switcher and suggestion menus share one vocabulary.
-   This styles Obsidian's existing DOM; matching, ranking, shortcuts and commands stay native. */
-body {
-  --atelier-prompt-revision: 1;
-  --hotkey-font: var(--font-interface);
-  --hotkey-font-size: 12px;
-  --hotkey-radius: 4px;
-}
-
-body:not(.is-mobile) {
-  --prompt-width: 640px;
-  --prompt-max-width: calc(100vw - 48px);
-  --prompt-max-height: min(640px, calc(100vh - 96px));
-  --prompt-input-height: 56px;
-  --prompt-background: var(--background-primary);
-}
-.prompt { border-color: var(--background-modifier-border-hover); }
-
-body:not(.is-mobile) input.prompt-input {
-  height: var(--prompt-input-height);
-  padding: 16px 48px 16px 24px;
-  font-size: 18px;
-  font-weight: 400;
-  line-height: 1.4;
-  color: var(--text-normal);
-  caret-color: var(--text-accent);
-  border-bottom: 1px solid var(--background-modifier-border);
-}
-
-body:not(.is-mobile) input.prompt-input:focus,
-body:not(.is-mobile) input.prompt-input:focus-visible {
-  outline: none;
-  box-shadow: inset 0 -2px var(--text-accent);
-  border-bottom-color: transparent;
-}
-
-.prompt-input::placeholder {
-  color: var(--text-muted);
-  opacity: 1;
-}
-
-body:not(.is-mobile) .prompt-input-container .search-input-clear-button {
-  width: 32px;
-  height: 32px;
-  inset-inline-end: 12px;
-}
-.prompt-results { padding: 8px; }
-
-.prompt .suggestion-item {
-  min-height: 40px;
-  padding: 8px 12px;
-  border-radius: 6px;
-  font-size: 15px;
-  line-height: 1.4;
-  gap: 12px;
-}
-.prompt .suggestion-title { font-size: 15px; }
-.prompt .suggestion-content { min-width: 0; }
-.prompt .suggestion-prefix { color: var(--atelier-content-secondary); }
-
-.prompt .suggestion-note,
-.prompt .suggestion-description {
-  color: var(--text-muted);
-  font-size: 13px;
-  line-height: 1.45;
-  margin-top: 4px;
-}
-
-.prompt .suggestion-item.mod-complex .suggestion-aux {
-  gap: 6px;
-  flex-wrap: wrap;
-  justify-content: flex-end;
-  max-width: 45%;
-}
-
-.prompt .suggestion-item.mod-complex .suggestion-hotkey {
-  font-family: var(--font-interface);
-  font-size: 12px;
-  line-height: 1.5;
-  padding: 2px 6px;
-  border: 1px solid var(--background-modifier-border);
-  border-radius: 4px;
-  background: var(--background-secondary);
-  color: var(--atelier-content-secondary);
-  box-shadow: none;
-  white-space: nowrap;
-}
-.prompt .suggestion-item.mod-complex .suggestion-hotkey:not(:last-child) { margin-inline-start: 0; }
-
-.prompt .suggestion-item.is-selected,
-.suggestion-container .suggestion-item.is-selected {
-  --text-normal: var(--text-on-accent);
-  --text-muted: var(--text-on-accent);
-  --text-faint: var(--text-on-accent);
-  --atelier-content-secondary: var(--text-on-accent);
-
-  background: var(--interactive-accent);
-  color: var(--text-on-accent);
-}
-
-.prompt .suggestion-item.is-selected .suggestion-hotkey {
-  color: var(--text-on-accent);
-  background: rgb(0 0 0 / 16%);
-  border-color: rgb(255 255 255 / 30%);
-}
-
-.prompt .suggestion-highlight {
-  color: inherit;
-  font-weight: 650;
-}
-
-.prompt-instructions {
-  background: var(--background-secondary);
-  color: var(--text-muted);
-  border-top: 1px solid var(--background-modifier-border);
-  padding: 12px 16px;
-  line-height: 1.5;
-}
-.prompt-instruction-command { color: var(--atelier-content-secondary); }
-
-.prompt .suggestion-empty {
-  padding: 24px 16px;
-  color: var(--text-muted);
-  font-size: 15px;
-  line-height: 1.5;
-}
-
-.suggestion-container {
-  background: var(--background-primary);
-  border: 1px solid var(--background-modifier-border-hover);
-  border-radius: 8px;
-}
-.suggestion-container .suggestion-item { line-height: 1.5; }
-
-body.is-mobile .prompt .suggestion-item {
-  min-height: 44px;
-  font-size: 17px;
-}
-body.is-mobile .prompt .suggestion-title { font-size: 17px; }
 
 /* stylelint-enable no-descending-specificity */
 
@@ -1234,134 +1183,63 @@ body.is-mobile .prompt .suggestion-title { font-size: 17px; }
 /* stylelint-disable selector-not-notation -- Separate exclusions preserve specificity against Obsidian controls. */
 /* stylelint-disable no-descending-specificity -- Focus, disabled and active states retain the validated host-control cascade. */
 
-/* Atelier 0.4 — controls, focus and materials.
-   Existing neutral palette/Pretendard preserved. Native Obsidian DOM and behavior.
-   Motion 120/220ms + easing from HIG Kit [House], not Apple platform constants.
-   Material alpha/blur are project experiments verified over extreme backdrops. */
-body {
-  --atelier-finish-revision: 1;
-  --atelier-duration-control: 120ms;
-  --atelier-duration-surface: 220ms;
-  --atelier-ease: cubic-bezier(.2, .8, .2, 1);
-  --atelier-material-filter: none;
-  --atelier-material-fill: var(--background-primary);
-  --atelier-material-opaque: var(--background-primary);
-  --atelier-control-radius: 7px;
-  --atelier-field-radius: 8px;
-  --atelier-overlay-radius: 14px;
-  --input-radius: var(--atelier-field-radius);
-  --button-radius: var(--atelier-control-radius);
-  --toggle-thumb-radius: 50%;
-  --toggle-thumb-color: #fff;
-  --atelier-control-shadow: none;
-  --atelier-accent-hover-fill: color-mix(in srgb, var(--interactive-accent) 88%, #000);
-  --atelier-accent-pressed-fill: color-mix(in srgb, var(--interactive-accent) 76%, #000);
-  --atelier-danger-hover-fill: color-mix(in srgb, var(--text-error) 92%, #000);
-}
+/* Controls: buttons, fields, toggles, icons and Settings.
+   Native Obsidian DOM and behavior; only visual states are shared. */
 
-.theme-light {
-  --atelier-glass-tint: rgb(255 255 255 / 92%);
-  --atelier-glass-edge: rgb(255 255 255 / 80%);
-  --atelier-control-fill: #fff;
-  --atelier-control-hover: #f2f2f7;
-  --atelier-control-pressed: #e5e5ea;
-  --atelier-control-edge: #d1d1d6;
-  --atelier-on-danger: #fff;
-  --atelier-warning-ink: #a64500;
-  --atelier-surface-shadow: 0 8px 28px rgb(0 0 0 / 12%), 0 1px 3px rgb(0 0 0 / 8%);
-  --atelier-surface-outline: rgb(0 0 0 / 12%);
-  --atelier-toggle-edge: rgb(0 0 0 / 16%);
-  --atelier-thumb-shadow: 0 1px 3px rgb(0 0 0 / 16%);
-  --atelier-selected-muted: #e5e5ea;
-}
-
-.theme-dark {
-  --atelier-glass-tint: rgb(36 36 38 / 92%);
-  --atelier-glass-edge: rgb(255 255 255 / 13%);
-  --atelier-control-fill: #3a3a3c;
-  --atelier-control-hover: #48484a;
-  --atelier-control-pressed: #2c2c2e;
-  --atelier-control-edge: #545456;
-  --atelier-on-danger: #1c1c1e;
-  --atelier-warning-ink: #ff9230;
-  --atelier-surface-shadow: 0 8px 28px rgb(0 0 0 / 50%), 0 1px 3px rgb(0 0 0 / 40%);
-  --atelier-surface-outline: rgb(0 0 0 / 40%);
-  --atelier-toggle-edge: rgb(255 255 255 / 18%);
-  --atelier-thumb-shadow: 0 1px 3px rgb(0 0 0 / 30%);
-  --atelier-selected-muted: #3a3a3c;
-}
-
-/* Opaque baseline works without backdrop-filter. No transparency inside documents. */
-@supports (backdrop-filter: blur(1px)) {
-  body {
-  --atelier-material-fill: var(--atelier-glass-tint);
-  --atelier-material-filter: blur(16px) saturate(110%);
-}
-}
-
-.prompt, .menu, .suggestion-container {
-  background: var(--atelier-material-fill);
-  backdrop-filter: var(--atelier-material-filter);
-  /* stylelint-disable-next-line property-no-vendor-prefix -- Keep the fallback for older embedded WebKit views. */
-  -webkit-backdrop-filter: var(--atelier-material-filter);
-  border: 1px solid var(--atelier-glass-edge);
-  box-shadow: 0 0 0 1px var(--atelier-surface-outline), var(--atelier-surface-shadow);
-}
-
-.prompt {
-  border-radius: var(--atelier-overlay-radius);
-  overflow: hidden;
-}
-
-body:not(.is-mobile) .prompt .prompt-input-container {
-  padding: 12px 12px 4px;
-  border: 0;
-  background: transparent;
-}
-
-body:not(.is-mobile) .prompt input.prompt-input {
-  width: 100%;
-  height: 48px;
-  padding: 12px 40px 12px 16px;
-  border: 1px solid var(--atelier-control-edge);
-  border-radius: var(--atelier-field-radius);
-  background: var(--background-primary);
-  box-shadow: none;
-}
-
-body:not(.is-mobile) .prompt input.prompt-input:is(:focus, :focus-visible) {
-  border-color: var(--text-accent);
+/* Focus appears immediately; an outline is never part of a transition. */
+:where(button, .clickable-icon, input, select, textarea, a):focus-visible {
   outline: 2px solid var(--text-accent);
-  outline-offset: 0;
-  box-shadow: none;
+  outline-offset: 2px;
 }
 
-body:not(.is-mobile) .prompt .search-input-clear-button {
-  top: 20px;
-  bottom: auto;
-  margin-block: 0;
-  inset-inline-end: 20px;
+:is(.setting-item-control, .modal-button-container, .vertical-tab-content) button:focus-visible,
+select.dropdown:focus-visible, .checkbox-container:focus-visible,
+.clickable-icon:focus-visible, .vertical-tab-nav-item:focus-visible {
+  outline: 2px solid var(--text-accent);
+  outline-offset: 2px;
 }
-.prompt-results { padding: 8px; }
-.prompt-instructions { background: transparent; }
 
-.prompt .suggestion-item:not(.is-selected):hover,
-.suggestion-container .suggestion-item:not(.is-selected):hover {
-  background: var(--background-modifier-hover);
+/* Icon buttons */
+.clickable-icon {
+  min-width: 28px;
+  min-height: 28px;
+  border-radius: var(--atelier-control-radius);
+  transition: background-color var(--atelier-duration-control) var(--atelier-ease),
+              color var(--atelier-duration-control) var(--atelier-ease);
 }
-.prompt .suggestion-hotkey { transition: none; }
 
-/* Native form controls keep their semantics; only their visual states are shared. */
+/* Only navigation controls grow; inline chips and property warnings retain native geometry. */
+body:not(.is-mobile) :is(.nav-header, .view-header, .workspace-ribbon, .workspace-sidedock-vault-profile) .clickable-icon {
+  min-width: 32px;
+  min-height: 32px;
+}
+
+.clickable-icon:not([aria-disabled="true"]):not(.is-disabled):active {
+  background-color: var(--background-modifier-active-hover);
+  transition-duration: 0s;
+}
+
+.clickable-icon:is([aria-disabled="true"], .is-disabled) {
+  opacity: .4;
+  transition: none;
+}
+
+:is(.nav-header, .view-header, .workspace-ribbon, .workspace-sidedock-vault-profile, .vertical-tab-header, .setting-item-control) .svg-icon {
+  stroke-width: var(--icon-stroke);
+}
+
+/* Push buttons and pop-up buttons are quiet fills without an outline.
+   The transparent border keeps their geometry and returns under Increase Contrast. */
 :is(.setting-item-control, .modal-button-container) > button,
 .vertical-tab-content button:not(.clickable-icon),
 select.dropdown {
   min-height: var(--input-height);
-  border: 1px solid var(--atelier-control-edge);
+  border: 1px solid transparent;
   border-radius: var(--atelier-control-radius);
   background-color: var(--atelier-control-fill);
   color: var(--text-normal);
   font-weight: 500;
-  box-shadow: var(--atelier-control-shadow);
+  box-shadow: none;
   transition: background-color var(--atelier-duration-control) var(--atelier-ease),
               border-color var(--atelier-duration-control) var(--atelier-ease);
 }
@@ -1373,7 +1251,6 @@ select.dropdown:not(:disabled):hover { background-color: var(--atelier-control-h
 :is(.setting-item-control, .modal-button-container) > button:not(:disabled):not(.mod-cta):not(.mod-warning):active,
 .vertical-tab-content button:not(.clickable-icon):not(:disabled):not(.mod-cta):not(.mod-warning):active {
   background-color: var(--atelier-control-pressed);
-  border-color: var(--background-modifier-border-hover);
   transition-duration: 0s;
 }
 
@@ -1407,6 +1284,7 @@ select.dropdown:not(:disabled):hover { background-color: var(--atelier-control-h
   background-color: var(--atelier-danger-hover-fill);
 }
 
+/* Text fields keep an edge: a field is somewhere to type, not something to press. */
 :is(.setting-item-control, .search-input-container) input:not([type="checkbox"]):not([type="range"]),
 .setting-item-control textarea {
   border-color: var(--atelier-control-edge);
@@ -1422,15 +1300,7 @@ select.dropdown:not(:disabled):hover { background-color: var(--atelier-control-h
   box-shadow: none;
 }
 
-:is(.setting-item-control, .modal-button-container, .vertical-tab-content) button:focus-visible,
-select.dropdown:focus-visible, .checkbox-container:focus-visible,
-.clickable-icon:focus-visible, .vertical-tab-nav-item:focus-visible {
-  outline: 2px solid var(--text-accent);
-  outline-offset: 2px;
-
-  /* Focus appears immediately; outline is never part of a transition. */
-}
-
+/* Toggles */
 .checkbox-container {
   box-shadow: inset 0 0 0 1px var(--atelier-toggle-edge);
   transition: background-color var(--atelier-duration-control) var(--atelier-ease);
@@ -1442,21 +1312,20 @@ select.dropdown:focus-visible, .checkbox-container:focus-visible,
 }
 .checkbox-container:not(.is-disabled):active { filter: brightness(.94); }
 
-.clickable-icon {
-  border-radius: var(--atelier-control-radius);
-  transition: background-color var(--atelier-duration-control) var(--atelier-ease),
-              color var(--atelier-duration-control) var(--atelier-ease);
-}
-.clickable-icon:not([aria-disabled="true"]):not(.is-disabled):active { transition-duration: 0s; }
+/* Settings */
+.setting-item { padding-block: 18px; }
 
-.clickable-icon:is([aria-disabled="true"], .is-disabled) {
-  opacity: .4;
-  transition: none;
+.setting-item-name {
+  color: var(--text-normal);
+  font-weight: 550;
 }
 
-:is(.nav-header, .view-header, .workspace-ribbon, .workspace-sidedock-vault-profile, .vertical-tab-header, .setting-item-control) .svg-icon {
-  stroke-width: var(--icon-stroke);
+.setting-item-description {
+  color: var(--text-muted);
+  line-height: 1.5;
 }
+.setting-item-description .mod-warning { color: var(--atelier-warning-ink); }
+.setting-items { border: 1px solid var(--background-modifier-border); }
 
 .vertical-tab-nav-item-icon {
   --icon-size: 18px;
@@ -1466,7 +1335,7 @@ select.dropdown:focus-visible, .checkbox-container:focus-visible,
 body:not(.is-mobile) .vertical-tab-nav-item {
   min-height: 36px;
   padding: 8px 12px;
-  border-radius: 8px;
+  border-radius: var(--atelier-row-radius);
   gap: 8px;
   font-size: 14px;
   font-weight: 400;
@@ -1475,7 +1344,7 @@ body:not(.is-mobile) .vertical-tab-nav-item {
 
 body:not(.is-mobile) .vertical-tab-nav-item.is-active {
   color: var(--text-normal);
-  background: var(--atelier-selected-muted);
+  background: var(--atelier-fill-selected);
   font-weight: 600;
 }
 .vertical-tab-nav-item.is-active .vertical-tab-nav-item-icon { color: var(--text-accent); }
@@ -1484,52 +1353,22 @@ body:not(.is-mobile) .vertical-tab-nav-item.is-active {
   color: var(--text-muted);
   font-weight: 600;
 }
-.setting-item-name { color: var(--text-normal); }
-.setting-item-description { color: var(--text-muted); }
-.setting-item-description .mod-warning { color: var(--atelier-warning-ink); }
 
 body:not(.is-mobile) .vertical-tab-header {
   background: var(--background-secondary);
   border-inline-end: 1px solid var(--background-modifier-border);
 }
 .vertical-tab-content-container { background: var(--background-primary); }
-.setting-items { border: 1px solid var(--background-modifier-border); }
-.menu { border-radius: 10px; }
 
-.tooltip {
-  border: 1px solid var(--background-modifier-border-hover);
-  box-shadow: var(--atelier-surface-shadow);
-}
-.markdown-rendered button.copy-code-button { border-radius: var(--atelier-control-radius); }
-
-/* A brief reveal, not an input delay. No exit animation: host owns removal. */
-@keyframes atelier-surface-in {
-  from { opacity: 0; }
-  to { opacity: 1; }
-}
-.prompt { animation: atelier-surface-in var(--atelier-duration-control) var(--atelier-ease); }
-
-/* Same opaque option used by the comparison and optional standalone snippet. */
-body[data-atelier-material="opaque"] {
-  --atelier-material-fill: var(--atelier-material-opaque);
-  --atelier-material-filter: none;
-}
-
-@media (prefers-reduced-transparency: reduce), (prefers-contrast: more), (forced-colors: active) {
-  body.theme-light, body.theme-dark {
-  --atelier-material-fill: var(--atelier-material-opaque);
-  --atelier-material-filter: none;
-  --atelier-glass-edge: var(--background-modifier-border-hover);
-}
+@media (prefers-contrast: more) {
+  :is(.setting-item-control, .modal-button-container) > button:not(.mod-cta):not(.mod-warning),
+  .vertical-tab-content button:not(.clickable-icon):not(.mod-cta):not(.mod-warning),
+  select.dropdown {
+    border-color: var(--atelier-control-edge);
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  body {
-  --atelier-duration-control: 0s;
-  --atelier-duration-surface: 0s;
-}
-  .prompt { animation: none; }
-
   .clickable-icon, .checkbox-container, .checkbox-container::after,
   :is(.setting-item-control, .modal-button-container) > button,
   .vertical-tab-content button, select.dropdown {
@@ -1541,6 +1380,227 @@ body[data-atelier-material="opaque"] {
 
 /* stylelint-enable selector-not-notation */
 
+
+/* stylelint-disable no-descending-specificity -- Selected palette states follow the base item and hotkey styling. */
+
+/* Overlays: command palette, quick switcher, suggestion popovers, menus,
+   modals and tooltips share one material and one vocabulary.
+   This styles Obsidian's existing DOM; matching, ranking, shortcuts and commands stay native.
+   There is no transparency inside documents. */
+.prompt, .menu, .suggestion-container {
+  background: var(--atelier-material-fill);
+  backdrop-filter: var(--atelier-material-filter);
+  /* stylelint-disable-next-line property-no-vendor-prefix -- Keep the fallback for older embedded WebKit views. */
+  -webkit-backdrop-filter: var(--atelier-material-filter);
+  border: 1px solid var(--atelier-glass-edge);
+  box-shadow: 0 0 0 1px var(--atelier-surface-outline), var(--atelier-surface-shadow);
+}
+
+.modal {
+  border: 1px solid var(--background-modifier-border);
+  border-radius: var(--atelier-overlay-radius);
+}
+
+.tooltip {
+  border: 1px solid var(--background-modifier-border-hover);
+  box-shadow: var(--atelier-surface-shadow);
+}
+
+/* Command palette and quick switcher */
+.prompt {
+  border-radius: var(--atelier-overlay-radius);
+  overflow: hidden;
+  animation: atelier-surface-in var(--atelier-duration-control) var(--atelier-ease);
+}
+
+/* A brief reveal, not an input delay. No exit animation: host owns removal. */
+@keyframes atelier-surface-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* The input is the one field in the palette and always holds focus, so it
+   carries a caret and a hairline instead of a boxed field and a focus ring. */
+body:not(.is-mobile) .prompt .prompt-input-container {
+  padding: 0;
+  border: 0;
+  background: transparent;
+}
+
+body:not(.is-mobile) .prompt input.prompt-input {
+  width: 100%;
+  height: var(--prompt-input-height);
+  padding: 16px 48px 16px 20px;
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 1.4;
+  color: var(--text-normal);
+  caret-color: var(--text-accent);
+  border: 0;
+  border-bottom: 1px solid var(--background-modifier-border);
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+body:not(.is-mobile) .prompt input.prompt-input:is(:focus, :focus-visible) {
+  outline: none;
+  box-shadow: none;
+}
+
+.prompt-input::placeholder {
+  color: var(--text-muted);
+  opacity: 1;
+}
+
+body:not(.is-mobile) .prompt .search-input-clear-button {
+  width: 32px;
+  height: 32px;
+  top: 12px;
+  bottom: auto;
+  margin-block: 0;
+  inset-inline-end: 12px;
+}
+.prompt-results { padding: 8px; }
+
+.menu-item, .suggestion-item {
+  font-size: 14px;
+  min-height: 32px;
+}
+
+.prompt .suggestion-item {
+  min-height: 40px;
+  padding: 8px 12px;
+  border-radius: var(--radius-m);
+  font-size: 15px;
+  line-height: 1.4;
+  gap: 12px;
+}
+.prompt .suggestion-title { font-size: 15px; }
+.prompt .suggestion-content { min-width: 0; }
+.prompt .suggestion-prefix { color: var(--atelier-content-secondary); }
+
+.prompt .suggestion-note,
+.prompt .suggestion-description {
+  color: var(--text-muted);
+  font-size: 13px;
+  line-height: 1.45;
+  margin-top: 4px;
+}
+
+.prompt .suggestion-item.mod-complex .suggestion-aux {
+  gap: 12px;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  max-width: 45%;
+}
+
+/* Shortcuts read as quiet text at the trailing edge, not as keycaps. */
+.prompt .suggestion-item.mod-complex .suggestion-hotkey {
+  font-family: var(--font-interface);
+  font-size: 12px;
+  line-height: 1.5;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  color: var(--text-muted);
+  box-shadow: none;
+  white-space: nowrap;
+  transition: none;
+}
+.prompt .suggestion-item.mod-complex .suggestion-hotkey:not(:last-child) { margin-inline-start: 0; }
+
+/* The keyboard-selected row takes the accent: the list holds focus. */
+.suggestion-item.is-selected {
+  background: var(--atelier-fill-selected);
+  color: var(--atelier-on-selected);
+}
+
+.prompt .suggestion-item.is-selected,
+.suggestion-container .suggestion-item.is-selected {
+  --text-normal: var(--text-on-accent);
+  --text-muted: var(--text-on-accent);
+  --text-faint: var(--text-on-accent);
+  --atelier-content-secondary: var(--text-on-accent);
+
+  background: var(--interactive-accent);
+  color: var(--text-on-accent);
+}
+
+.prompt .suggestion-item.is-selected .suggestion-hotkey {
+  color: var(--text-on-accent);
+  opacity: .85;
+}
+
+.prompt .suggestion-item:not(.is-selected):hover,
+.suggestion-container .suggestion-item:not(.is-selected):hover {
+  background: var(--background-modifier-hover);
+}
+
+.prompt .suggestion-highlight {
+  color: inherit;
+  font-weight: 650;
+}
+
+.prompt-instructions {
+  background: transparent;
+  color: var(--text-muted);
+  border-top: 1px solid var(--background-modifier-border);
+  padding: 12px 16px;
+  line-height: 1.5;
+}
+.prompt-instruction-command { color: var(--atelier-content-secondary); }
+
+.prompt .suggestion-empty {
+  padding: 24px 16px;
+  color: var(--text-muted);
+  font-size: 15px;
+  line-height: 1.5;
+}
+
+/* Suggestion popovers and menus */
+.suggestion-container { border-radius: var(--radius-l); }
+.suggestion-container .suggestion-item { line-height: 1.5; }
+
+.menu {
+  padding: 6px;
+  border-radius: var(--radius-l);
+}
+
+.menu-item {
+  padding: 7px 10px;
+  border-radius: var(--radius-s);
+}
+
+@media (prefers-contrast: more) {
+  body:not(.is-mobile) .prompt input.prompt-input:is(:focus, :focus-visible) { box-shadow: inset 0 -2px var(--text-accent); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .prompt { animation: none; }
+}
+
+/* stylelint-enable no-descending-specificity */
+
+
+/* Search results, wherever Obsidian lists them. */
+.search-result-file-title {
+  color: var(--text-normal);
+  font-size: 15px;
+}
+
+.search-result-file-match {
+  color: var(--atelier-content-secondary);
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.search-result-file-matched-text {
+  color: var(--text-normal);
+  background: var(--text-highlight-bg);
+}
+.search-empty-state { line-height: 1.5; }
 
 /* Global Search: file heading → matching passage → highlighted term.
    Keep native grouping, collapse, sort and result navigation. */
@@ -1602,7 +1662,7 @@ body[data-atelier-material="opaque"] {
   font-weight: 600;
   line-height: 1.4;
   color: var(--text-normal);
-  border-radius: 7px;
+  border-radius: var(--atelier-row-radius);
 }
 
 .workspace-leaf-content[data-type="search"] .search-result-file-title .tree-item-inner {
@@ -1619,14 +1679,15 @@ body[data-atelier-material="opaque"] {
   min-width: 22px;
   line-height: 22px;
   padding: 0 6px;
-  border-radius: 5px;
+  border-radius: var(--radius-s);
   text-align: center;
 }
 
+/* Each file's matches are one small card on the content surface. */
 .workspace-leaf-content[data-type="search"] .search-result-file-matches {
   background: var(--background-primary);
   border: 1px solid var(--background-modifier-border);
-  border-radius: 8px;
+  border-radius: var(--radius-m);
   box-shadow: none;
   overflow: hidden;
 }
@@ -1660,7 +1721,7 @@ body[data-atelier-material="opaque"] {
   color: var(--text-normal);
   background: var(--text-highlight-bg);
   font-weight: 600;
-  border-radius: 2px;
+  border-radius: var(--atelier-radius-xs);
   box-decoration-break: clone;
   /* stylelint-disable-next-line property-no-vendor-prefix -- Keep the fallback for older embedded WebKit views. */
   -webkit-box-decoration-break: clone;
@@ -1679,13 +1740,13 @@ body[data-atelier-material="opaque"] {
 
 
 /* Mobile geometry follows Obsidian's drawer, sheet and keyboard layout.
-   File navigation inherits native row density, font scale and indentation. */
+   File navigation inherits native row density, font scale and indentation.
+   The view header is left to the host: Obsidian floats its header buttons over
+   the note on phones, so the theme adds neither a rule nor padding there. */
 /* stylelint-disable no-descending-specificity -- Mobile overrides intentionally follow shared desktop refinements. */
-body.is-mobile {
-  --input-height: max(44px, calc(var(--font-ui-medium) * 1.5 + 16px));
-  --icon-size: var(--icon-m);
-  --metadata-label-font-size: var(--font-ui-small);
-  --metadata-input-font-size: var(--font-ui-medium);
+.is-mobile .clickable-icon {
+  min-width: 44px;
+  min-height: 44px;
 }
 
 /* Row spacing never depends on whether the host has materialized children. */
@@ -1710,11 +1771,6 @@ body.is-mobile {
   vertical-align: -.15em;
 }
 
-body.is-mobile :is(.nav-header, .view-header, .workspace-ribbon, .workspace-sidedock-vault-profile, .setting-item-control) .clickable-icon {
-  min-width: 44px;
-  min-height: 44px;
-}
-
 .is-mobile .nav-header { padding: 8px 12px; }
 
 .is-mobile .workspace-sidedock-vault-profile {
@@ -1737,16 +1793,11 @@ body.is-mobile :is(.nav-header, .view-header, .workspace-ribbon, .workspace-side
 .is-mobile .markdown-rendered th, .is-mobile .markdown-rendered td { padding: 8px 12px; }
 
 /* On phones the host paints metadata-content as the grouped card, including
-   its native horizontal inset. Do not paint a second card behind its heading. */
-.is-mobile .metadata-container {
-  --metadata-background: transparent;
-  --metadata-border-width: 0;
-  --metadata-padding: 0;
-}
-
+   its native horizontal inset. The theme paints nothing behind its heading. */
 .is-mobile .metadata-properties-heading {
   display: inline-flex;
   align-items: center;
+  margin-inline-start: 0;
 }
 
 .is-mobile .metadata-properties-heading,
@@ -1790,15 +1841,15 @@ body.is-mobile .prompt .search-input-clear-button {
   inset-inline-end: 4px;
 }
 
-body.is-mobile .prompt .suggestion-item,
-body.is-mobile .prompt .suggestion-title {
+body.is-mobile .prompt .suggestion-item {
+  min-height: 44px;
   font-size: var(--font-ui-medium);
+  white-space: normal;
 }
+body.is-mobile .prompt .suggestion-title { font-size: var(--font-ui-medium); }
 
 .is-mobile .prompt .suggestion-note,
 .is-mobile .prompt .suggestion-description { font-size: var(--font-ui-small); }
-
-.is-mobile .prompt .suggestion-item { white-space: normal; }
 
 .is-mobile .workspace-leaf-content[data-type="search"] {
   --search-result-file-title-size: var(--font-ui-medium);
@@ -1819,55 +1870,5 @@ body.is-mobile .prompt .suggestion-title {
 .is-mobile .workspace-leaf-content[data-type="search"] .search-results-info .dropdown {
   font-size: var(--font-ui-small);
 }
-
-/* stylelint-enable no-descending-specificity */
-
-
-/* stylelint-disable no-descending-specificity -- Desktop panel variants precede the intentional narrow-window override. */
-
-/* B: Layered library. Same typography and content; subtle pane separation. */
-body {
-  --atelier-variant: layered;
-  --tab-container-background: var(--atelier-frame);
-  --titlebar-background: var(--atelier-frame);
-  --titlebar-background-focused: var(--atelier-frame);
-}
-body:not(.is-mobile) .workspace { background: var(--atelier-frame); }
-
-body:not(.is-mobile) .workspace-split.mod-root {
-  padding: 8px 16px 16px 10px;
-  gap: 8px;
-}
-
-body:not(.is-mobile) .workspace-split.mod-root > .workspace-tabs > .workspace-tab-container {
-  border: 1px solid var(--atelier-panel-border);
-  border-radius: 12px;
-  box-shadow: var(--atelier-shadow);
-}
-
-body:not(.is-mobile) .mod-left-split {
-  margin: 0 4px 10px 0;
-  border-right: 0;
-}
-
-body:not(.is-mobile) .mod-left-split > .workspace-tabs > .workspace-tab-container {
-  border: 1px solid var(--atelier-panel-border);
-  border-radius: 12px;
-  background: var(--background-secondary);
-}
-
-body:not(.is-mobile) .mod-right-split {
-  margin: 0 10px 10px 0;
-  border-left: 0;
-}
-
-body:not(.is-mobile) .mod-right-split > .workspace-tabs > .workspace-tab-container {
-  border: 1px solid var(--atelier-panel-border);
-  border-radius: 12px;
-  background: var(--background-secondary);
-}
-body:not(.is-mobile) .workspace-ribbon:is(.mod-left, .mod-primary) { background: var(--atelier-rail); }
-body:not(.is-mobile) .workspace-sidedock-vault-profile { background: var(--atelier-frame); }
-body:not(.is-mobile) .workspace-tabs > .workspace-tab-container { overflow: hidden; }
 
 /* stylelint-enable no-descending-specificity */

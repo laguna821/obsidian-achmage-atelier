@@ -1,0 +1,534 @@
+/*
+Achmage Atelier · 0.6.0
+A native Obsidian theme, without community plugin dependencies.
+
+Tokens: every decision is made once, here. Component files read these values
+and do not redefine them. HIG principles are adapted to Obsidian. Documented
+Apple colors are transferred to CSS roles; surface mapping, geometry, motion
+and material values are project choices [House], not platform constants.
+No fonts, images or scripts are loaded from the network.
+*/
+
+/* ── Desktop density ─────────────────────────────────────────────────────── */
+body:where(:not(.is-mobile)) {
+  --font-ui-smaller: 12px;
+  --font-ui-small: 14px;
+  --font-ui-medium: 15px;
+  --font-ui-large: 15px;
+  --line-height-tight: 1.4;
+  --nav-item-size: 15px;
+  --nav-item-padding: 5px 12px;
+  --nav-item-parent-padding: 5px 12px;
+  --nav-item-children-padding-start: 12px;
+  --nav-item-children-margin-start: 8px;
+  --prompt-width: 640px;
+  --prompt-max-width: calc(100vw - 48px);
+  --prompt-max-height: min(640px, calc(100vh - 96px));
+  --prompt-input-height: 56px;
+  --prompt-background: var(--background-primary);
+}
+
+/* ── Type, geometry and motion ───────────────────────────────────────────── */
+body {
+  --font-interface-theme: "Atelier Pretendard", -apple-system, blinkmacsystemfont, "Segoe UI", "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
+  --font-text-theme: "Atelier Pretendard", -apple-system, blinkmacsystemfont, "Segoe UI", "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
+  --font-monospace-theme: ui-monospace, "SFMono-Regular", consolas, monospace;
+  --line-height-normal: 1.7;
+  --file-line-width: 720px;
+  --file-margins: 40px;
+
+  /* Heading steps follow the ratios of the macOS text styles in the HIG
+     (Large Title 26 · Title 1 22 · Title 2 17 · Title 3 15 over Body 13). */
+  --inline-title-size: 2em;
+  --inline-title-weight: 700;
+  --inline-title-line-height: 1.3;
+  --inline-title-margin-bottom: 24px;
+  --h1-size: 1.69em;
+  --h2-size: 1.31em;
+  --h3-size: 1.15em;
+  --h4-size: 1em;
+  --h5-size: .94em;
+  --h6-size: .88em;
+  --h1-weight: 650;
+  --h2-weight: 650;
+  --h3-weight: 600;
+  --h4-weight: 600;
+  --bold-weight: 650;
+  --heading-spacing: 2em;
+  --p-spacing: 1.15rem;
+  --list-spacing: .35em;
+
+  /* One radius scale: 4 · 6 · 8 · 12 · 16. Nested shapes stay concentric:
+     inner radius = outer radius − padding (menu 12 − 6 = 6, palette 16 − 8 = 8). */
+  --atelier-radius-xs: 4px;
+  --radius-s: 6px;
+  --radius-m: 8px;
+  --radius-l: 12px;
+  --radius-xl: 16px;
+  --atelier-control-radius: var(--radius-m);
+  --atelier-field-radius: var(--radius-m);
+  --atelier-row-radius: var(--radius-m);
+  --atelier-card-radius: var(--radius-l);
+  --atelier-panel-radius: var(--radius-l);
+  --atelier-overlay-radius: var(--radius-xl);
+  --input-radius: var(--atelier-field-radius);
+  --button-radius: var(--atelier-control-radius);
+  --clickable-icon-radius: var(--atelier-control-radius);
+  --tab-radius: var(--radius-m);
+  --tag-radius: var(--radius-s);
+  --checkbox-radius: var(--atelier-radius-xs);
+  --code-radius: var(--atelier-card-radius);
+  --metadata-border-radius: var(--atelier-card-radius);
+  --hotkey-radius: var(--atelier-radius-xs);
+  --toggle-thumb-radius: 50%;
+
+  /* Motion 120/220 ms and easing are House values. */
+  --atelier-duration-control: 120ms;
+  --atelier-duration-surface: 220ms;
+  --atelier-ease: cubic-bezier(.2, .8, .2, 1);
+
+  /* Chrome geometry */
+  --icon-size: 18px;
+  --icon-stroke: 1.7px;
+  --icon-opacity: 1;
+  --icon-opacity-hover: 1;
+  --header-height: 48px;
+  --ribbon-width: 48px;
+  --input-height: 32px;
+  --divider-width: 1px;
+  --atelier-frame-gutter: 8px;
+
+  /* The status bar is fixed to the window corner. The content card and the
+     right sidebar stop above it instead of running underneath. */
+  --atelier-status-clearance: 30px;
+
+  /* Navigation */
+  --nav-item-weight: 400;
+  --nav-item-weight-hover: 400;
+  --nav-item-weight-active: 600;
+  --nav-indentation-guide-width: 1px;
+  --nav-item-white-space: nowrap;
+  --nav-heading-weight: 600;
+  --nav-heading-weight-hover: 600;
+  --atelier-folder-weight: 500;
+  --vault-profile-font-size: 15px;
+  --vault-profile-font-weight: 650;
+
+  /* Tabs: the active tab is a raised capsule on the frame, not a tab joined
+     to the card. Obsidian's own inner-tab variables draw it. */
+  --tab-font-size: 14px;
+  --tab-font-weight: 500;
+  --tab-width: 220px;
+  --tab-max-width: 240px;
+  --tab-min-width: 72px;
+  --tab-outline-width: 0;
+  --tab-background-active: transparent;
+  --tab-inner-background-active: var(--atelier-surface-content);
+
+  /* Status bar */
+  --status-bar-font-size: 12px;
+  --status-bar-border-width: 0;
+  --status-bar-radius: 0;
+
+  /* Properties: the grouped card is the list, the heading sits above it. */
+  --metadata-label-width: 120px;
+  --metadata-label-font-size: 14px;
+  --metadata-input-font-size: 15px;
+  --metadata-gap: 0;
+  --metadata-padding: 0;
+  --metadata-border-width: 0;
+  --atelier-separator-inset: 22px;
+
+  /* Markdown furniture */
+  --tag-size: .78em;
+  --tag-padding-x: .55em;
+  --tag-padding-y: .18em;
+  --blockquote-border-thickness: 2px;
+  --blockquote-font-style: normal;
+  --code-size: .85em;
+  --code-border-width: 1px;
+  --checkbox-size: 17px;
+  --table-header-weight: 600;
+  --table-border-width: 1px;
+  --table-cell-vertical-alignment: top;
+  --hr-thickness: 1px;
+  --link-decoration: underline;
+  --link-decoration-hover: underline;
+  --link-unresolved-opacity: 1;
+  --link-unresolved-decoration-style: dotted;
+
+  /* Command palette */
+  --hotkey-font: var(--font-interface);
+  --hotkey-font-size: 12px;
+
+  /* Materials. Overlays stay thick: the palette, menus and suggestions are
+     text-heavy, and a thinner tint let secondary text fall under 4.5:1 over
+     extreme backdrops. The opaque fallback works without backdrop-filter. */
+  --atelier-material-opaque: var(--background-primary);
+  --atelier-material-fill: var(--background-primary);
+  --atelier-material-filter: none;
+  --toggle-thumb-color: #fff;
+  --atelier-accent-hover-fill: color-mix(in srgb, var(--interactive-accent) 88%, #000);
+  --atelier-accent-pressed-fill: color-mix(in srgb, var(--interactive-accent) 76%, #000);
+  --atelier-danger-hover-fill: color-mix(in srgb, var(--text-error) 92%, #000);
+}
+
+@supports (backdrop-filter: blur(1px)) {
+  body {
+    --atelier-material-fill: var(--atelier-glass-tint);
+    --atelier-material-filter: blur(24px) saturate(180%);
+  }
+}
+
+/* ── Light ───────────────────────────────────────────────────────────────── */
+.theme-light {
+  color-scheme: light;
+
+  /* Accent. The default is the documented accessible blue #1e6ef4. Because
+     every accent role derives from these three numbers, the accent chosen in
+     Settings → Appearance replaces it everywhere. */
+  --accent-h: 217.6;
+  --accent-s: 90.7%;
+  --accent-l: 53.7%;
+  --color-accent-hsl: var(--accent-h), var(--accent-s), var(--accent-l);
+  --color-accent: hsl(var(--accent-h) var(--accent-s) var(--accent-l));
+  --interactive-accent: var(--color-accent);
+  --interactive-accent-hover: var(--color-accent);
+
+  /* Text in the accent is capped in lightness so a pale accent stays legible. */
+  --text-accent: hsl(var(--accent-h) var(--accent-s) min(var(--accent-l), 54%));
+  --text-accent-hover: var(--text-accent);
+  --text-on-accent: #fff;
+  --text-selection: hsl(var(--accent-h) var(--accent-s) var(--accent-l) / 20%);
+  --background-modifier-border-focus: var(--text-accent);
+
+  /* Neutral ramp */
+  --color-base-00: #fff;
+  --color-base-05: #fafafa;
+  --color-base-10: #f2f2f7;
+  --color-base-20: #e5e5ea;
+  --color-base-25: #d1d1d6;
+  --color-base-30: #c7c7cc;
+  --color-base-35: #aeaeb2;
+  --color-base-40: #8e8e93;
+  --color-base-50: #6c6c70;
+  --color-base-60: #636366;
+  --color-base-70: #48484a;
+  --color-base-100: #1c1c1e;
+
+  /* Surfaces, back to front: frame → content → grouped card → overlay. */
+  --atelier-surface-frame: #f2f2f7;
+  --atelier-surface-content: #fff;
+  --atelier-surface-card: #f2f2f7;
+  --atelier-card-edge: 0 0 0 1px rgb(0 0 0 / 6%), 0 1px 2px rgb(0 0 0 / 4%), 0 6px 20px rgb(0 0 0 / 5%);
+  --atelier-tab-edge: 0 0 0 1px rgb(0 0 0 / 6%), 0 1px 2px rgb(0 0 0 / 6%);
+  --background-primary: var(--atelier-surface-content);
+  --background-primary-alt: var(--atelier-surface-card);
+  --background-secondary: var(--atelier-surface-frame);
+  --background-secondary-alt: #e5e5ea;
+  --background-modifier-form-field: #fff;
+  --background-modifier-box-shadow: rgb(0 0 0 / 6%);
+
+  /* Separators and fills */
+  --background-modifier-border: #e5e5ea;
+  --background-modifier-border-hover: #c7c7cc;
+  --background-modifier-hover: rgb(0 0 0 / 4.5%);
+  --background-modifier-active-hover: rgb(0 0 0 / 8%);
+  --atelier-fill-selected: rgb(0 0 0 / 10%);
+  --atelier-on-selected: #1c1c1e;
+  --atelier-control-fill: rgb(118 118 128 / 12%);
+  --atelier-control-hover: rgb(118 118 128 / 18%);
+  --atelier-control-pressed: rgb(118 118 128 / 24%);
+  --atelier-control-edge: #d1d1d6;
+  --interactive-normal: #fff;
+  --interactive-hover: #e5e5ea;
+
+  /* Labels: primary, secondary, muted. Text never drops below 4.5:1.
+     The tertiary step is for glyphs only (disclosure chevrons) and holds 3:1. */
+  --text-normal: #1c1c1e;
+  --atelier-content-secondary: #3a3a3c;
+  --text-muted: #636366;
+  --text-faint: #6c6c70;
+  --atelier-glyph-tertiary: #86868b;
+  --atelier-quote-edge: #8e8e93;
+
+  /* Markdown and code */
+  --atelier-heading: #1c1c1e;
+  --atelier-syntax-marker: #636366;
+  --atelier-highlight: #fff0b3;
+  --atelier-code: #48484a;
+  --atelier-callout: 30,110,244;
+  --code-comment: #636366;
+  --code-keyword: #564ade;
+  --code-function: #005bc1;
+  --code-string: #006d28;
+  --code-value: #875900;
+  --code-operator: #48484a;
+  --code-punctuation: #636366;
+  --code-property: #005bc1;
+  --code-tag: #564ade;
+  --code-important: #c41228;
+  --atelier-warning: #875900;
+  --atelier-success: #006d28;
+  --atelier-danger: #c41228;
+  --atelier-warning-ink: #a64500;
+  --atelier-on-danger: #fff;
+
+  /* Overlay material */
+  --atelier-glass-tint: rgb(255 255 255 / 92%);
+  --atelier-glass-edge: rgb(255 255 255 / 80%);
+  --atelier-surface-shadow: 0 8px 28px rgb(0 0 0 / 12%), 0 1px 3px rgb(0 0 0 / 8%);
+  --atelier-surface-outline: rgb(0 0 0 / 12%);
+  --atelier-toggle-edge: rgb(0 0 0 / 16%);
+  --atelier-thumb-shadow: 0 1px 3px rgb(0 0 0 / 16%);
+}
+
+/* ── Dark ────────────────────────────────────────────────────────────────── */
+.theme-dark {
+  color-scheme: dark;
+
+  /* The same accent as light. Fills use it directly; text in the accent is
+     lifted, which yields the documented #5cb8ff for the default blue. */
+  --accent-h: 217.6;
+  --accent-s: 90.7%;
+  --accent-l: 53.7%;
+  --color-accent-hsl: var(--accent-h), var(--accent-s), var(--accent-l);
+  --color-accent: hsl(var(--accent-h) var(--accent-s) var(--accent-l));
+  --interactive-accent: var(--color-accent);
+  --interactive-accent-hover: var(--color-accent);
+  --text-accent: hsl(calc(var(--accent-h) - 11.5) min(calc(var(--accent-s) * 1.103), 100%) clamp(60%, calc(var(--accent-l) * 1.267), 88%));
+  --text-accent-hover: var(--text-accent);
+  --text-on-accent: #fff;
+  --text-selection: hsl(var(--accent-h) var(--accent-s) var(--accent-l) / 30%);
+  --background-modifier-border-focus: var(--text-accent);
+
+  /* Neutral ramp */
+  --color-base-00: #1c1c1e;
+  --color-base-05: #242426;
+  --color-base-10: #2c2c2e;
+  --color-base-20: #3a3a3c;
+  --color-base-25: #444446;
+  --color-base-30: #48484a;
+  --color-base-35: #545456;
+  --color-base-40: #636366;
+  --color-base-50: #8e8e93;
+  --color-base-60: #aeaeb2;
+  --color-base-70: #d1d1d6;
+  --color-base-100: #f2f2f7;
+
+  /* Surfaces, back to front. In dark, nearer surfaces are lighter: the frame
+     is the dimmest plane and each step toward the reader is brighter. */
+  --atelier-surface-frame: #111113;
+  --atelier-surface-content: #1c1c1e;
+  --atelier-surface-card: #2c2c2e;
+  --atelier-card-edge: 0 0 0 1px rgb(255 255 255 / 8%);
+  --atelier-tab-edge: 0 0 0 1px rgb(255 255 255 / 8%);
+  --background-primary: var(--atelier-surface-content);
+  --background-primary-alt: var(--atelier-surface-card);
+  --background-secondary: var(--atelier-surface-frame);
+  --background-secondary-alt: #1c1c1e;
+  --background-modifier-form-field: #2c2c2e;
+  --background-modifier-box-shadow: rgb(0 0 0 / 15%);
+
+  /* Separators and fills */
+  --background-modifier-border: #3a3a3c;
+  --background-modifier-border-hover: #636366;
+  --background-modifier-hover: rgb(255 255 255 / 5.5%);
+  --background-modifier-active-hover: rgb(255 255 255 / 9%);
+  --atelier-fill-selected: rgb(255 255 255 / 12%);
+  --atelier-on-selected: #f2f2f7;
+  --atelier-control-fill: rgb(118 118 128 / 24%);
+  --atelier-control-hover: rgb(118 118 128 / 32%);
+  --atelier-control-pressed: rgb(118 118 128 / 40%);
+  --atelier-control-edge: #545456;
+  --interactive-normal: #3a3a3c;
+  --interactive-hover: #48484a;
+
+  /* Labels */
+  --text-normal: #e5e5ea;
+  --atelier-content-secondary: #d1d1d6;
+  --text-muted: #aeaeb2;
+  --text-faint: #aeaeb2;
+  --atelier-glyph-tertiary: #7c7c80;
+  --atelier-quote-edge: #8e8e93;
+
+  /* Markdown and code */
+  --atelier-heading: #f2f2f7;
+  --atelier-syntax-marker: #aeaeb2;
+  --atelier-highlight: #4a400e;
+  --atelier-code: #d1d1d6;
+  --atelier-callout: 92,184,255;
+  --code-comment: #aeaeb2;
+  --code-keyword: #a7aaff;
+  --code-function: #5cb8ff;
+  --code-string: #4ad968;
+  --code-value: #fedf43;
+  --code-operator: #d1d1d6;
+  --code-punctuation: #aeaeb2;
+  --code-property: #5cb8ff;
+  --code-tag: #a7aaff;
+  --code-important: #ff6165;
+  --atelier-warning: #fedf43;
+  --atelier-success: #4ad968;
+  --atelier-danger: #ff6165;
+  --atelier-warning-ink: #ff9230;
+  --atelier-on-danger: #1c1c1e;
+
+  /* Overlay material */
+  --atelier-glass-tint: rgb(36 36 38 / 92%);
+  --atelier-glass-edge: rgb(255 255 255 / 13%);
+  --atelier-surface-shadow: 0 8px 28px rgb(0 0 0 / 50%), 0 1px 3px rgb(0 0 0 / 40%);
+  --atelier-surface-outline: rgb(0 0 0 / 40%);
+  --atelier-toggle-edge: rgb(255 255 255 / 18%);
+  --atelier-thumb-shadow: 0 1px 3px rgb(0 0 0 / 30%);
+}
+
+/* ── Roles: Obsidian variables mapped to the tokens above ────────────────── */
+body {
+  /* Text */
+  --text-error: var(--atelier-danger);
+  --h1-color: var(--atelier-heading);
+  --h2-color: var(--atelier-heading);
+  --h3-color: var(--atelier-heading);
+  --h4-color: var(--text-normal);
+  --h5-color: var(--text-muted);
+  --h6-color: var(--text-muted);
+  --bold-color: var(--atelier-heading);
+  --italic-color: var(--text-normal);
+  --link-color: var(--text-accent);
+  --link-color-hover: var(--text-accent-hover);
+  --link-external-color: var(--text-accent);
+  --link-external-color-hover: var(--text-accent-hover);
+  --link-unresolved-color: var(--text-muted);
+  --text-highlight-bg: var(--atelier-highlight);
+  --list-marker-color: var(--text-muted);
+  --list-marker-color-hover: var(--text-accent);
+  --hr-color: var(--background-modifier-border);
+  --blockquote-border-color: var(--atelier-quote-edge);
+  --blockquote-color: var(--text-normal);
+  --code-background: var(--background-primary-alt);
+  --code-normal: var(--text-normal);
+  --code-border-color: var(--background-modifier-border);
+  --table-header-background: var(--background-primary-alt);
+  --table-border-color: var(--background-modifier-border);
+  --table-row-alt-background: transparent;
+  --embed-border-start: 2px solid var(--background-modifier-border);
+  --checkbox-color: var(--interactive-accent);
+  --checkbox-marker-color: var(--text-on-accent);
+  --checklist-done-color: var(--text-muted);
+  --tag-color: var(--text-normal);
+  --tag-color-hover: var(--text-accent-hover);
+  --tag-background: var(--atelier-fill-selected);
+  --tag-background-hover: var(--background-modifier-hover);
+
+  /* Properties */
+  --metadata-label-text-color: var(--atelier-content-secondary);
+  --metadata-input-text-color: var(--text-normal);
+  --metadata-background: transparent;
+  --metadata-border-color: transparent;
+
+  /* Chrome */
+  --divider-color: var(--background-modifier-border);
+  --divider-color-hover: var(--interactive-accent);
+  --titlebar-background: var(--atelier-surface-frame);
+  --titlebar-background-focused: var(--atelier-surface-frame);
+  --titlebar-text-color-focused: var(--text-muted);
+  --tab-container-background: var(--atelier-surface-frame);
+  --tab-text-color: var(--atelier-content-secondary);
+  --tab-text-color-active: var(--text-normal);
+  --tab-text-color-focused: var(--atelier-content-secondary);
+  --tab-text-color-focused-active: var(--text-normal);
+  --tab-text-color-focused-active-current: var(--text-normal);
+  --status-bar-background: transparent;
+  --status-bar-text-color: var(--text-muted);
+  --vault-profile-color: var(--text-normal);
+  --vault-profile-color-hover: var(--text-normal);
+  --icon-color: var(--text-muted);
+  --icon-color-hover: var(--text-normal);
+  --icon-color-active: var(--atelier-on-selected);
+  --icon-color-focused: var(--text-accent);
+
+  /* Navigation. Selection has two strengths, as in the HIG's selected and
+     unemphasized-selected content colors: a quiet fill marks where you are,
+     the accent fill marks the row that holds keyboard focus. */
+  --nav-item-color: var(--atelier-content-secondary);
+  --nav-item-color-hover: var(--text-normal);
+  --nav-item-color-active: var(--atelier-on-selected);
+  --nav-item-color-selected: var(--atelier-on-selected);
+  --nav-item-color-highlighted: var(--text-normal);
+  --nav-item-background-hover: var(--background-modifier-hover);
+  --nav-item-background-active: var(--atelier-fill-selected);
+  --nav-item-background-selected: var(--atelier-fill-selected);
+  --nav-heading-color: var(--text-normal);
+  --nav-heading-color-hover: var(--text-normal);
+  --nav-heading-color-collapsed: var(--atelier-content-secondary);
+  --nav-collapse-icon-color: var(--atelier-glyph-tertiary);
+  --nav-collapse-icon-color-collapsed: var(--atelier-glyph-tertiary);
+  --nav-indentation-guide-color: transparent;
+}
+
+/* ── System preferences ──────────────────────────────────────────────────── */
+@media (prefers-contrast: more) {
+  .theme-light {
+    --background-modifier-border: #8e8e93;
+    --text-muted: #48484a;
+    --text-faint: #48484a;
+    --atelier-glyph-tertiary: #48484a;
+    --atelier-card-edge: 0 0 0 1px #8e8e93;
+    --atelier-tab-edge: 0 0 0 1px #8e8e93;
+  }
+
+  .theme-dark {
+    --background-modifier-border: #8e8e93;
+    --text-muted: #d1d1d6;
+    --text-faint: #d1d1d6;
+    --atelier-glyph-tertiary: #d1d1d6;
+    --atelier-card-edge: 0 0 0 1px #8e8e93;
+    --atelier-tab-edge: 0 0 0 1px #8e8e93;
+  }
+}
+
+@media (prefers-reduced-transparency: reduce), (prefers-contrast: more), (forced-colors: active) {
+  body.theme-light, body.theme-dark {
+    --atelier-material-fill: var(--atelier-material-opaque);
+    --atelier-material-filter: none;
+    --atelier-glass-edge: var(--background-modifier-border-hover);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  body {
+    --atelier-duration-control: 0s;
+    --atelier-duration-surface: 0s;
+  }
+}
+
+/* Same opaque option used by the optional standalone snippet. */
+body[data-atelier-material="opaque"] {
+  --atelier-material-fill: var(--atelier-material-opaque);
+  --atelier-material-filter: none;
+}
+
+@media (width <= 900px) {
+  body { --file-margins: 24px; }
+}
+
+/* Pop-out windows have no status bar, so their card keeps the plain gutter. */
+.is-popout-window { --atelier-status-clearance: 16px; }
+
+/* A phone has no frame. The drawer and sheets slide over the note, so in dark
+   the secondary surface stays above the content surface, not beneath it. */
+.is-mobile.theme-dark {
+  --atelier-surface-frame: #242426;
+  --background-secondary-alt: #2c2c2e;
+}
+
+body.is-mobile {
+  --file-margins: 20px;
+  --inline-title-size: 1.7em;
+  --input-height: max(44px, calc(var(--font-ui-medium) * 1.5 + 16px));
+  --icon-size: var(--icon-m);
+  --metadata-label-font-size: var(--font-ui-small);
+  --metadata-input-font-size: var(--font-ui-medium);
+  --atelier-separator-inset: 24px;
+}

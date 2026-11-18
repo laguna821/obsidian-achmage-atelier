@@ -1,0 +1,114 @@
+/* Workspace: one raised surface. The content card floats on the frame;
+   sidebars, ribbon, tab strip and status bar lie flat on it. */
+body:not(.is-mobile) .workspace { background: var(--atelier-surface-frame); }
+
+body:not(.is-mobile) .workspace-split.mod-root {
+  background-color: var(--atelier-surface-frame);
+  padding: var(--atelier-frame-gutter) 16px var(--atelier-status-clearance) 10px;
+  gap: var(--atelier-frame-gutter);
+}
+body:not(.is-mobile) .workspace-split.mod-root .workspace-split { gap: var(--atelier-frame-gutter); }
+body:not(.is-mobile) .workspace-tabs > .workspace-tab-container { overflow: hidden; }
+
+/* Sidebars carry no box of their own. */
+body:not(.is-mobile) .mod-left-split {
+  margin: 0 4px 10px 0;
+  border-right: 0;
+}
+
+body:not(.is-mobile) .mod-right-split {
+  margin: 0 10px var(--atelier-status-clearance) 0;
+  border-left: 0;
+}
+
+/* The radius is invisible on the frame; it rounds panes that bring their own
+   surface, such as a plugin's list column. */
+body:not(.is-mobile) :is(.mod-left-split, .mod-right-split) > .workspace-tabs > .workspace-tab-container {
+  background: var(--atelier-surface-frame);
+  border-radius: var(--atelier-panel-radius);
+}
+
+/* The content card. Split panes are each a card of their own. */
+body:not(.is-mobile) .workspace-split.mod-root .workspace-tabs > .workspace-tab-container {
+  background-color: var(--background-primary);
+  border-radius: var(--atelier-panel-radius);
+  box-shadow: var(--atelier-card-edge);
+}
+
+/* The card edge already separates content from the sidebars and from other
+   panes, so column dividers stay clear until the resize handle is hovered. */
+body:not(.is-mobile) :is(.mod-left-split, .mod-right-split) > .workspace-leaf-resize-handle,
+body:not(.is-mobile) .workspace-split.mod-root .workspace-leaf-resize-handle {
+  --divider-color: transparent;
+}
+
+/* Ribbon */
+.workspace-ribbon:is(.mod-left, .mod-primary) { border-right: 0; }
+.side-dock-ribbon-action { margin-block: 3px; }
+
+body:not(.is-mobile) .workspace-ribbon:is(.mod-left, .mod-primary) {
+  --icon-color: var(--text-muted);
+  --icon-color-hover: var(--text-normal);
+  --icon-color-active: var(--text-accent);
+  --icon-color-focused: var(--text-accent);
+
+  background: var(--atelier-surface-frame);
+  padding-top: 12px;
+}
+
+body:not(.is-mobile) .workspace-ribbon:is(.mod-left, .mod-primary) .sidebar-toggle-button {
+  color: var(--text-muted);
+  background: var(--atelier-surface-frame);
+}
+body:not(.is-mobile) .workspace-ribbon:is(.mod-left, .mod-primary) .side-dock-ribbon-action { margin-block: 6px; }
+
+/* Tab strip. The active tab is a capsule drawn by Obsidian's inner tab. */
+.workspace-tab-header-container { padding-inline: 8px; }
+.mod-left-split .workspace-tab-header-container, .mod-right-split .workspace-tab-header-container { padding-inline: 12px; }
+
+.workspace-tab-header-inner {
+  padding-inline: 14px;
+  gap: 8px;
+}
+.workspace-tab-header.is-active .workspace-tab-header-inner-title { font-weight: 650; }
+.workspace-tab-header.is-active .workspace-tab-header-inner-icon { color: var(--text-accent); }
+.workspace-tab-header:not(.is-active):hover .workspace-tab-header-inner-title { color: var(--text-normal); }
+
+body:not(.is-mobile) .mod-root .workspace-tab-header { padding-block: 6px 7px; }
+
+body:not(.is-mobile) .mod-root .workspace-tab-header.is-active .workspace-tab-header-inner {
+  box-shadow: var(--atelier-tab-edge);
+}
+
+/* View header. No rule under the header: on phones Obsidian floats its
+   header buttons over the note, and on desktop the card needs no inner bar.
+   Scrolled text fades out beneath the header instead. */
+body:not(.is-mobile) .view-header { padding-inline: 24px; }
+
+.view-header-title {
+  font-size: 13px;
+  font-weight: 500;
+}
+.view-actions, .view-header-nav-buttons { gap: 4px; }
+
+body:not(.is-mobile) .workspace-leaf-content[data-type="markdown"] .view-header::before {
+  content: "";
+  position: absolute;
+  inset-inline: 0 12px;
+  top: 100%;
+  height: 12px;
+  background: linear-gradient(var(--background-primary), transparent);
+  pointer-events: none;
+}
+
+/* Vault profile */
+.workspace-sidedock-vault-profile {
+  min-height: 66px;
+  padding: 16px 18px;
+  border-top: 1px solid var(--background-modifier-border);
+}
+body:not(.is-mobile) .workspace-sidedock-vault-profile { background: var(--atelier-surface-frame); }
+
+@media (prefers-reduced-motion: reduce) {
+  .workspace-tab-header { transition: none; }
+}

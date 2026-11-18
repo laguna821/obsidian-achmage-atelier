@@ -1,0 +1,201 @@
+/* stylelint-disable no-descending-specificity -- Selected palette states follow the base item and hotkey styling. */
+
+/* Overlays: command palette, quick switcher, suggestion popovers, menus,
+   modals and tooltips share one material and one vocabulary.
+   This styles Obsidian's existing DOM; matching, ranking, shortcuts and commands stay native.
+   There is no transparency inside documents. */
+.prompt, .menu, .suggestion-container {
+  background: var(--atelier-material-fill);
+  backdrop-filter: var(--atelier-material-filter);
+  /* stylelint-disable-next-line property-no-vendor-prefix -- Keep the fallback for older embedded WebKit views. */
+  -webkit-backdrop-filter: var(--atelier-material-filter);
+  border: 1px solid var(--atelier-glass-edge);
+  box-shadow: 0 0 0 1px var(--atelier-surface-outline), var(--atelier-surface-shadow);
+}
+
+.modal {
+  border: 1px solid var(--background-modifier-border);
+  border-radius: var(--atelier-overlay-radius);
+}
+
+.tooltip {
+  border: 1px solid var(--background-modifier-border-hover);
+  box-shadow: var(--atelier-surface-shadow);
+}
+
+/* Command palette and quick switcher */
+.prompt {
+  border-radius: var(--atelier-overlay-radius);
+  overflow: hidden;
+  animation: atelier-surface-in var(--atelier-duration-control) var(--atelier-ease);
+}
+
+/* A brief reveal, not an input delay. No exit animation: host owns removal. */
+@keyframes atelier-surface-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* The input is the one field in the palette and always holds focus, so it
+   carries a caret and a hairline instead of a boxed field and a focus ring. */
+body:not(.is-mobile) .prompt .prompt-input-container {
+  padding: 0;
+  border: 0;
+  background: transparent;
+}
+
+body:not(.is-mobile) .prompt input.prompt-input {
+  width: 100%;
+  height: var(--prompt-input-height);
+  padding: 16px 48px 16px 20px;
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 1.4;
+  color: var(--text-normal);
+  caret-color: var(--text-accent);
+  border: 0;
+  border-bottom: 1px solid var(--background-modifier-border);
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+body:not(.is-mobile) .prompt input.prompt-input:is(:focus, :focus-visible) {
+  outline: none;
+  box-shadow: none;
+}
+
+.prompt-input::placeholder {
+  color: var(--text-muted);
+  opacity: 1;
+}
+
+body:not(.is-mobile) .prompt .search-input-clear-button {
+  width: 32px;
+  height: 32px;
+  top: 12px;
+  bottom: auto;
+  margin-block: 0;
+  inset-inline-end: 12px;
+}
+.prompt-results { padding: 8px; }
+
+.menu-item, .suggestion-item {
+  font-size: 14px;
+  min-height: 32px;
+}
+
+.prompt .suggestion-item {
+  min-height: 40px;
+  padding: 8px 12px;
+  border-radius: var(--radius-m);
+  font-size: 15px;
+  line-height: 1.4;
+  gap: 12px;
+}
+.prompt .suggestion-title { font-size: 15px; }
+.prompt .suggestion-content { min-width: 0; }
+.prompt .suggestion-prefix { color: var(--atelier-content-secondary); }
+
+.prompt .suggestion-note,
+.prompt .suggestion-description {
+  color: var(--text-muted);
+  font-size: 13px;
+  line-height: 1.45;
+  margin-top: 4px;
+}
+
+.prompt .suggestion-item.mod-complex .suggestion-aux {
+  gap: 12px;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  max-width: 45%;
+}
+
+/* Shortcuts read as quiet text at the trailing edge, not as keycaps. */
+.prompt .suggestion-item.mod-complex .suggestion-hotkey {
+  font-family: var(--font-interface);
+  font-size: 12px;
+  line-height: 1.5;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  color: var(--text-muted);
+  box-shadow: none;
+  white-space: nowrap;
+  transition: none;
+}
+.prompt .suggestion-item.mod-complex .suggestion-hotkey:not(:last-child) { margin-inline-start: 0; }
+
+/* The keyboard-selected row takes the accent: the list holds focus. */
+.suggestion-item.is-selected {
+  background: var(--atelier-fill-selected);
+  color: var(--atelier-on-selected);
+}
+
+.prompt .suggestion-item.is-selected,
+.suggestion-container .suggestion-item.is-selected {
+  --text-normal: var(--text-on-accent);
+  --text-muted: var(--text-on-accent);
+  --text-faint: var(--text-on-accent);
+  --atelier-content-secondary: var(--text-on-accent);
+
+  background: var(--interactive-accent);
+  color: var(--text-on-accent);
+}
+
+.prompt .suggestion-item.is-selected .suggestion-hotkey {
+  color: var(--text-on-accent);
+  opacity: .85;
+}
+
+.prompt .suggestion-item:not(.is-selected):hover,
+.suggestion-container .suggestion-item:not(.is-selected):hover {
+  background: var(--background-modifier-hover);
+}
+
+.prompt .suggestion-highlight {
+  color: inherit;
+  font-weight: 650;
+}
+
+.prompt-instructions {
+  background: transparent;
+  color: var(--text-muted);
+  border-top: 1px solid var(--background-modifier-border);
+  padding: 12px 16px;
+  line-height: 1.5;
+}
+.prompt-instruction-command { color: var(--atelier-content-secondary); }
+
+.prompt .suggestion-empty {
+  padding: 24px 16px;
+  color: var(--text-muted);
+  font-size: 15px;
+  line-height: 1.5;
+}
+
+/* Suggestion popovers and menus */
+.suggestion-container { border-radius: var(--radius-l); }
+.suggestion-container .suggestion-item { line-height: 1.5; }
+
+.menu {
+  padding: 6px;
+  border-radius: var(--radius-l);
+}
+
+.menu-item {
+  padding: 7px 10px;
+  border-radius: var(--radius-s);
+}
+
+@media (prefers-contrast: more) {
+  body:not(.is-mobile) .prompt input.prompt-input:is(:focus, :focus-visible) { box-shadow: inset 0 -2px var(--text-accent); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .prompt { animation: none; }
+}
+
+/* stylelint-enable no-descending-specificity */

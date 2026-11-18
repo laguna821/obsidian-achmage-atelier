@@ -8,10 +8,13 @@ A minimal Obsidian theme inspired by Apple’s Human Interface Guidelines, with 
 
 ## A quieter place to read
 
-- Neutral light and dark surfaces with blue accents and gently separated panels.
+- One raised surface: the note is a card on a quiet frame, and sidebars, tabs and the status bar lie flat on it.
+- Light and dark share one depth order. In dark mode, nearer surfaces are lighter.
+- A blue accent by default that follows the accent you choose in Obsidian's settings.
 - Embedded **Pretendard Variable** for Korean and Latin text. No font installation or network connection required.
 - Considered typography for headings, quotes, properties, links, code, tables and tasks.
 - Consistent search results, command palettes, menus, settings and keyboard focus.
+- Two strengths of selection: a quiet fill for where you are, the accent for the row that holds keyboard focus.
 - Compact mobile navigation, scalable UI text and focus-aware current-line highlighting.
 - Restrained translucent palettes and menus, with an optional opaque-surface snippet.
 - Optional **Notebook Navigator** styling. Minimal, Minimal Theme Settings and Style Settings are not required.
@@ -55,7 +58,7 @@ All screenshots show actual Obsidian windows with synthetic sample notes.
 </details>
 
 <details>
-<summary>Mobile layout preview (Windows emulation, 0.5.0)</summary>
+<summary>Mobile layout preview (Windows emulation, 0.6.0)</summary>
 
 These are Obsidian's mobile emulation on Windows, not screenshots from an iPhone.
 
@@ -68,15 +71,15 @@ These are Obsidian's mobile emulation on Windows, not screenshots from an iPhone
 
 ## Compatibility
 
-Mobile Properties in 0.5.1 (Obsidian Windows mobile emulation):
+Mobile Properties in 0.6.0 (Obsidian Windows mobile emulation):
 
 | Light | Dark |
 | --- | --- |
 | ![Mobile Properties in light mode](screenshots/mobile-properties-light.png) | ![Mobile Properties in dark mode](screenshots/mobile-properties-dark.png) |
 
 - Minimum app version declared: **Obsidian 1.14.5**.
-- Visually and interactively tested on **Windows, Obsidian 1.15.0**.
-- Notebook Navigator styling checked with **3.5.0**.
+- Visually and interactively tested on **Windows, Obsidian 1.15.1**.
+- Notebook Navigator styling checked with **3.5.1**.
 - Mobile layouts additionally checked using Obsidian's Windows mobile emulation; this is not an iOS or Android device test.
 - macOS, Linux and real mobile device validation is still pending.
 
@@ -96,7 +99,7 @@ npm run build
 npm run check
 ```
 
-Edit `src/`, then rebuild `theme.css`. The build embeds the bundled font and does not download assets. `npm run check` runs Obsidian's official Stylelint configuration and verifies the distributable, licenses and local asset references.
+Edit `src/`, then rebuild `theme.css`. Every variable lives in `src/tokens.css`; the other files read from it and do not redefine it. The build embeds the bundled font and does not download assets. `npm run check` runs Obsidian's official Stylelint configuration and verifies the distributable, licenses and local asset references.
 
 ## Credits and license
 

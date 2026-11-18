@@ -1,11 +1,11 @@
 /* Mobile geometry follows Obsidian's drawer, sheet and keyboard layout.
-   File navigation inherits native row density, font scale and indentation. */
+   File navigation inherits native row density, font scale and indentation.
+   The view header is left to the host: Obsidian floats its header buttons over
+   the note on phones, so the theme adds neither a rule nor padding there. */
 /* stylelint-disable no-descending-specificity -- Mobile overrides intentionally follow shared desktop refinements. */
-body.is-mobile {
-  --input-height: max(44px, calc(var(--font-ui-medium) * 1.5 + 16px));
-  --icon-size: var(--icon-m);
-  --metadata-label-font-size: var(--font-ui-small);
-  --metadata-input-font-size: var(--font-ui-medium);
+.is-mobile .clickable-icon {
+  min-width: 44px;
+  min-height: 44px;
 }
 
 /* Row spacing never depends on whether the host has materialized children. */
@@ -30,11 +30,6 @@ body.is-mobile {
   vertical-align: -.15em;
 }
 
-body.is-mobile :is(.nav-header, .view-header, .workspace-ribbon, .workspace-sidedock-vault-profile, .setting-item-control) .clickable-icon {
-  min-width: 44px;
-  min-height: 44px;
-}
-
 .is-mobile .nav-header { padding: 8px 12px; }
 
 .is-mobile .workspace-sidedock-vault-profile {
@@ -57,16 +52,11 @@ body.is-mobile :is(.nav-header, .view-header, .workspace-ribbon, .workspace-side
 .is-mobile .markdown-rendered th, .is-mobile .markdown-rendered td { padding: 8px 12px; }
 
 /* On phones the host paints metadata-content as the grouped card, including
-   its native horizontal inset. Do not paint a second card behind its heading. */
-.is-mobile .metadata-container {
-  --metadata-background: transparent;
-  --metadata-border-width: 0;
-  --metadata-padding: 0;
-}
-
+   its native horizontal inset. The theme paints nothing behind its heading. */
 .is-mobile .metadata-properties-heading {
   display: inline-flex;
   align-items: center;
+  margin-inline-start: 0;
 }
 
 .is-mobile .metadata-properties-heading,
@@ -110,15 +100,15 @@ body.is-mobile .prompt .search-input-clear-button {
   inset-inline-end: 4px;
 }
 
-body.is-mobile .prompt .suggestion-item,
-body.is-mobile .prompt .suggestion-title {
+body.is-mobile .prompt .suggestion-item {
+  min-height: 44px;
   font-size: var(--font-ui-medium);
+  white-space: normal;
 }
+body.is-mobile .prompt .suggestion-title { font-size: var(--font-ui-medium); }
 
 .is-mobile .prompt .suggestion-note,
 .is-mobile .prompt .suggestion-description { font-size: var(--font-ui-small); }
-
-.is-mobile .prompt .suggestion-item { white-space: normal; }
 
 .is-mobile .workspace-leaf-content[data-type="search"] {
   --search-result-file-title-size: var(--font-ui-medium);
