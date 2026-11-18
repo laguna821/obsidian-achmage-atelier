@@ -63,6 +63,10 @@ During this check, the same theme produced two different folder indentations in 
 - Right-to-left layouts. The Properties separator has an RTL rule that was not exercised.
 - Pop-out windows, apart from the Settings window.
 
+## 0.6.1 selection fill
+
+A synthetic mouse click did not reproduce the blue flash: in that sequence Obsidian removed focus from the explorer before marking the opened file. The flash depends on how long the note takes to open, so the check was made on the state itself instead. With the file explorer holding focus and a file marked as open, 0.6.0 filled the row with the accent and 0.6.1 fills it with gray, in light and dark. The 0.6.0 desktop check states were recorded again; the other differences came from app state, such as navigation history and which folders were expanded.
+
 ## Not yet verified
 
 - macOS, Linux, iOS and Android on real devices.

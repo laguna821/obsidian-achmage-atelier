@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.6.1 — 2026-11-18
+
+- The open file in the file explorer is always marked with the gray fill. In 0.6.0 the fill turned to the accent while the explorer held focus. Clicking a file gives the explorer focus for a moment before the note takes it, so every click flashed blue and then settled on gray.
+- Keyboard focus in the explorer is still shown, as a ring around the row.
+- The command palette and suggestion lists keep the accent on the selected row; they hold focus for as long as they are open.
+
+Checked in Windows Obsidian 1.15.1, light and dark, with the file explorer holding focus and the open file marked: the row is gray, where 0.6.0 drew it in the accent. Keyboard navigation still draws the focus ring. The 0.6.0 desktop check states were recorded again; the other differences came from app state, such as navigation history and which folders were expanded.
+
 ## 0.6.0 — 2026-11-18
 
 Surfaces, selection and hierarchy, reviewed against Apple's Human Interface Guidelines. One raised surface replaces three outlined boxes, and the source is rebuilt around a single token layer.

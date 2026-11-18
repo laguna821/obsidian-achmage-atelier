@@ -14,7 +14,7 @@ A minimal Obsidian theme inspired by Apple’s Human Interface Guidelines, with 
 - Embedded **Pretendard Variable** for Korean and Latin text. No font installation or network connection required.
 - Considered typography for headings, quotes, properties, links, code, tables and tasks.
 - Consistent search results, command palettes, menus, settings and keyboard focus.
-- Two strengths of selection: a quiet fill for where you are, the accent for the row that holds keyboard focus.
+- A quiet gray fill marks the open file in every pane, with a ring for keyboard focus.
 - Compact mobile navigation, scalable UI text and focus-aware current-line highlighting.
 - Restrained translucent palettes and menus, with an optional opaque-surface snippet.
 - Optional **Notebook Navigator** styling. Minimal, Minimal Theme Settings and Style Settings are not required.

@@ -48,16 +48,11 @@ body:not(.is-mobile) :is(.nav-folder-title, .nav-file-title) { min-height: 32px;
 }
 .nav-folder-title-content[contenteditable="true"]::before { display: none; }
 
-/* Selection. The open file and the current heading carry the quiet fill set
-   in tokens. The accent fill appears only on the row inside the pane that
-   holds keyboard focus, and only while the window itself is focused. */
-.is-focused .workspace-leaf.mod-active .tree-item-self.is-active {
-  --nav-item-background-active: var(--interactive-accent);
-  --nav-item-color-active: var(--text-on-accent);
-  --nav-collapse-icon-color: var(--text-on-accent);
-  --nav-collapse-icon-color-collapsed: var(--text-on-accent);
-}
-
+/* Selection. The open file and the current heading always carry the quiet
+   fill set in tokens, whichever pane holds focus. Clicking a file gives the
+   explorer focus for a moment before the note takes it, so a fill that
+   depended on pane focus flashed the accent on every click. Keyboard focus
+   is shown by the ring below instead. */
 .nav-file-title.is-selected {
   outline: 1px solid var(--background-modifier-border-focus);
   outline-offset: -1px;
@@ -76,11 +71,6 @@ body:not(.is-phone) .workspace-leaf.mod-active .tree-item-self.has-focus:focus-w
   box-shadow: none;
 }
 
-/* On the accent fill the ring turns to the on-accent color and moves inside. */
-body.is-focused:not(.is-phone) .workspace-leaf.mod-active .tree-item-self.is-active.has-focus {
-  outline-color: var(--text-on-accent);
-  outline-offset: -4px;
-}
 
 .nav-file-title-content[contenteditable="true"], .nav-folder-title-content[contenteditable="true"] {
   min-width: 0;

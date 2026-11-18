@@ -1,5 +1,5 @@
 /*
-Achmage Atelier · 0.6.0
+Achmage Atelier · 0.6.1
 A native Obsidian theme, without community plugin dependencies.
 
 Tokens: every decision is made once, here. Component files read these values
@@ -448,9 +448,8 @@ body {
   --icon-color-active: var(--atelier-on-selected);
   --icon-color-focused: var(--text-accent);
 
-  /* Navigation. Selection has two strengths, as in the HIG's selected and
-     unemphasized-selected content colors: a quiet fill marks where you are,
-     the accent fill marks the row that holds keyboard focus. */
+  /* Navigation. The open file is always marked with a quiet fill, like the
+     HIG's unemphasized selected content color. Keyboard focus is a ring. */
   --nav-item-color: var(--atelier-content-secondary);
   --nav-item-color-hover: var(--text-normal);
   --nav-item-color-active: var(--atelier-on-selected);
